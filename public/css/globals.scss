@@ -8,6 +8,10 @@
   --color-text: #000;
   --color-title: #fff;
   --color-gray: rgb(159, 206, 213);
+  --color-panel-main__btnListItem: linear-gradient(#ecf9ff, #e7ebff);
+  --color-button: #ecf9ff;
+  --color-button-hover: #ceefff;
+  --opac-img: 100%;
 }
 
 // ダークモードの動作
@@ -21,6 +25,11 @@
     --color-theme: #17465a;
     --color-text: #ddd;
     --color-title: #ddd;
+    --color-gray: rgb(43, 76, 81);
+    --color-panel-main__btnListItem: linear-gradient(#29343c, #292c3c);
+    --color-button: #2e4f62;
+    --color-button-hover: #33383c;
+    --opac-img: 80%;
   }
 }
 
@@ -29,6 +38,10 @@
   margin: 0;
   box-sizing: border-box;
   text-decoration: none;
+}
+
+img {
+  opacity: var(--opac-img);
 }
 
 body {
@@ -54,7 +67,7 @@ body {
     line-height: 60px;
     padding-left: 10px;
     border-left: 10px solid rgb(124, 124, 255);
-    background: #ecf9ff;
+    background: var(--color-button);
   }
   &__image {
     text-align: center;
@@ -94,7 +107,7 @@ body {
       & > div {
         padding: 10px;
         border-radius: 20px;
-        background: linear-gradient(#ecf9ff, #e7ebff);
+        background: var(--color-panel-main__btnListItem);
         & h2 {
           font-size: 34px;
           text-align: center;
@@ -114,7 +127,7 @@ body {
         font-size: 18px;
         font-weight: bold;
         line-height: 56px;
-        background: #ecf9ff;
+        background: var(--color-button);
 
         position: relative;
         z-index: 1;
@@ -124,7 +137,7 @@ body {
           position: absolute;
           width: 100%;
           height: 600%;
-          background: #ceefff;
+          background: var(--color-button-hover);
           transform: scale(0);
           transition: 0.3s;
           border-radius: 50%;
