@@ -7,6 +7,7 @@
   --color-theme: #45c7ff;
   --color-text: #000;
   --color-title: #fff;
+  --color-gray: rgb(159, 206, 213);
 }
 
 // ダークモードの動作
@@ -16,7 +17,7 @@
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
     --color-back0: #111;
-    --color-back0: #222;
+    --color-back1: #222;
     --color-theme: #17465a;
     --color-text: #ddd;
     --color-title: #ddd;
@@ -36,18 +37,106 @@ body {
 }
 
 .main {
-  text-align: center;
+  background: var(--color-back1);
   max-width: 800px;
   margin: 20px auto;
-  & > p {
-    font-size: 18px;
+  padding: 30px;
+  font-size: 18px;
+  & section {
+    padding: 20px 0;
+    & > * {
+      padding-bottom: 8px;
+    }
+  }
+
+  & > h2 {
+    font-size: 34px;
+    line-height: 60px;
+    padding-left: 10px;
+    border-left: 10px solid rgb(124, 124, 255);
+    background: #ecf9ff;
+  }
+  &__image {
+    text-align: center;
+    & img {
+      width: 300px;
+      height: 200px;
+      object-fit: cover;
+    }
+  }
+
+  & ul {
+    padding-left: 40px;
+  }
+  &__title {
+    padding: 40px 0;
+    text-align: center;
+    & h1 {
+      font-size: 46px;
+      line-height: 60px;
+    }
+    &__date {
+      font-size: 14px;
+      color: gray;
+    }
+  }
+
+  &__error {
+    color: red;
   }
   &__btnList {
     display: flex;
+    flex-wrap: wrap;
     & > div {
+      min-width: 215px;
       flex: 1;
       margin: 10px;
-      background: var(--color-back1);
+      & > div {
+        padding: 10px;
+        border-radius: 20px;
+        background: linear-gradient(#ecf9ff, #e7ebff);
+        & h2 {
+          font-size: 34px;
+          text-align: center;
+        }
+        & > p {
+          height: 96px;
+        }
+      }
+
+      & > a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 10px;
+        width: calc(100% - 20px);
+        color: var(--color-text);
+        font-size: 18px;
+        font-weight: bold;
+        line-height: 56px;
+        background: #ecf9ff;
+
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
+        &::after {
+          content: "";
+          position: absolute;
+          width: 100%;
+          height: 600%;
+          background: #ceefff;
+          transform: scale(0);
+          transition: 0.3s;
+          border-radius: 50%;
+          z-index: -1;
+        }
+        &:hover {
+          &::after {
+            transform: scale(1.5);
+          }
+          // filter: invert(1);
+        }
+      }
     }
   }
 }
