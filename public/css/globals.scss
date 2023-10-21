@@ -1,0 +1,53 @@
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+  --color-back0: #eee;
+  --color-back1: #fff;
+  --color-theme: #45c7ff;
+  --color-text: #000;
+  --color-title: #fff;
+}
+
+// ダークモードの動作
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+    --color-back0: #111;
+    --color-back0: #222;
+    --color-theme: #17465a;
+    --color-text: #ddd;
+    --color-title: #ddd;
+  }
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+body {
+  color: var(--color-text);
+  background: var(--color-back0);
+}
+
+.main {
+  text-align: center;
+  max-width: 800px;
+  margin: 20px auto;
+  & > p {
+    font-size: 18px;
+  }
+  &__btnList {
+    display: flex;
+    & > div {
+      flex: 1;
+      margin: 10px;
+      background: var(--color-back1);
+    }
+  }
+}
