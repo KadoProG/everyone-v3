@@ -1,0 +1,78 @@
+.dialog {
+  &__disabled {
+    display: none !important;
+  }
+  &__overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 60px);
+    background: rgba(var(--foreground-rgb), 0.1);
+    display: flex;
+    align-items: center;
+    z-index: 1;
+  }
+  &__content {
+    background: var(--color-back0);
+    padding: 20px;
+    border-radius: 5px;
+    &__panel {
+      border: none;
+      height: 100%;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      background: var(--color-back1);
+      margin: 0 3px;
+    }
+
+    & section {
+      padding: 3px;
+      &.flex {
+        display: flex;
+      }
+    }
+
+    & img {
+      filter: var(--opac-invert);
+    }
+
+    &-year {
+      width: 200px;
+      display: flex;
+      height: 32px;
+      & button {
+        width: 40px;
+        &:last-child {
+          transform: rotate(180deg);
+        }
+      }
+      & span {
+        flex: 1;
+      }
+    }
+    &-num {
+      width: 200px;
+      display: flex;
+      height: 50px;
+      & button {
+        width: 50px;
+
+        &:last-child {
+          transform: rotate(180deg);
+        }
+      }
+      & input {
+        text-align: center;
+        color: var(--color-text);
+        width: calc(100% - 100px - 6px);
+        font-size: 24px;
+      }
+    }
+    &__no {
+      display: flex;
+    }
+  }
+}
+// ダークモードの動作

@@ -12,6 +12,7 @@
   --color-button: #ecf9ff;
   --color-button-hover: #ceefff;
   --opac-img: 100%;
+  --opac-invert: none;
 }
 
 // ダークモードの動作
@@ -30,6 +31,7 @@
     --color-button: #2e4f62;
     --color-button-hover: #33383c;
     --opac-img: 80%;
+    --opac-invert: invert(1);
   }
 }
 
