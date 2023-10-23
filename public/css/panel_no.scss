@@ -9,11 +9,12 @@
     width: 100%;
     height: calc(100% - 60px);
     background: rgba(var(--foreground-rgb), 0.1);
-    display: flex;
-    align-items: center;
+    // display: flex;
     z-index: 1;
   }
   &__content {
+    position: absolute;
+    bottom: 10px;
     background: var(--color-back0);
     padding: 20px;
     border-radius: 5px;
@@ -31,6 +32,27 @@
       padding: 3px;
       &.flex {
         display: flex;
+      }
+      & textarea {
+        width: 100%;
+      }
+    }
+
+    &__site {
+      &__buttons {
+        display: flex;
+        justify-content: center;
+        & button {
+          background: var(--color-back1);
+          border: none;
+          width: 50px;
+          height: 40px;
+          font-size: 10px;
+          margin: 0 3px;
+          & span {
+            display: inline-block;
+          }
+        }
       }
     }
 
@@ -75,4 +97,3 @@
     }
   }
 }
-// ダークモードの動作
