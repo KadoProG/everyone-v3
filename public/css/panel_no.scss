@@ -9,7 +9,6 @@
     width: 100%;
     height: calc(100% - 60px);
     background: rgba(var(--foreground-rgb), 0.1);
-    // display: flex;
     z-index: 1;
   }
   &__content {
@@ -35,6 +34,12 @@
       }
       & textarea {
         width: 100%;
+        color: var(--color-text);
+        background: var(--color-back1);
+      }
+      & button {
+        color: var(--color-text);
+        background: var(--color-back1);
       }
     }
 

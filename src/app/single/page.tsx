@@ -10,22 +10,18 @@ type IframeStatus = {
   height: number;
 };
 
-type SelectButton = {
-  index: number;
-  element: JSX.Element;
-};
-
 const Home = () => {
   const BASE_URL = "https://www.cse.ce.nihon-u.ac.jp/webcon/";
+
   const [url, setUrl] = useState<string>(BASE_URL);
 
+  // 現在の情報ステータス
   const [no, setNo] = useState<number>(50);
   const [year, setYear] = useState<number>(2021);
   const [studentNo, setStudentNo] = useState<number>(20216050);
 
   // 学生番号関係が更新されたらURLを更新
   const updateUrl = () => {
-    const numYear = year < 2020 ? ("00" + (year - 1988)).slice(-2) : year;
     const strYear =
       year < 2020
         ? "h" + ("00" + (year - 1988)).slice(-2)
@@ -33,9 +29,9 @@ const Home = () => {
 
     const strNo = no < 0 ? ("000" + 1).slice(-3) : ("000" + no).slice(-3);
 
+    const numYear = year < 2020 ? ("00" + (year - 1988)).slice(-2) : year;
     const newUrl = BASE_URL + strYear + "/u" + numYear + "6" + strNo + "/";
 
-    // console.log(newUrl);
     setUrl(newUrl);
     setStudentNo(parseInt(numYear + "6" + strNo));
   };
@@ -43,22 +39,23 @@ const Home = () => {
   // 学生番号が更新されたら処理を実行
   useEffect(updateUrl, [no, year]);
 
-  const [selectButton, setSelectButton] = useState<SelectButton>({
-    index: -1,
-    element: <></>,
-  });
+  // ダイアログのINDEX
+  const [selectDialog, setSelectDialog] = useState<number>(-1);
+
   const [iframeStatus, setIframeStaus] = useState<IframeStatus>();
 
+  // ダイアログを閉じる
   const buttonClose = () => {
-    const newSelectButton: SelectButton = {
-      index: -1,
-      element: <></>,
-    };
-    setSelectButton(newSelectButton);
+    setSelectDialog(-1);
   };
 
+  // ダイアログを表示
   const handleSelect = (num: number) => {
-    setSelectButton({ index: num, element: <></> });
+    if (selectDialog === num) {
+      buttonClose();
+      return;
+    }
+    setSelectDialog(num);
   };
 
   // 起動時に実行
@@ -78,7 +75,7 @@ const Home = () => {
       ></iframe>
 
       <DialogNo
-        isVisible={selectButton.index === 0}
+        isVisible={selectDialog === 0}
         onClose={buttonClose}
         onPrevNo={() => setNo(no - 1)}
         onNextNo={() => setNo(no + 1)}
@@ -89,7 +86,7 @@ const Home = () => {
         year={year}
       />
       <DialogSite
-        isVisible={selectButton.index === 2}
+        isVisible={selectDialog === 2}
         onClose={buttonClose}
         onChangeUrl={(url) => setUrl(url)}
         url={url}
