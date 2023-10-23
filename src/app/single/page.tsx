@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import "../../../public/css/single.scss";
 import DialogNo from "../../../components/dialog_no";
+import DialogSite from "../../../components/dialog_site";
 
 type IframeStatus = {
   width: number;
@@ -15,14 +16,32 @@ type SelectButton = {
 };
 
 const Home = () => {
-  // const BASE_URL = "https://www.cse.ce.nihon-u.ac.jp/webcon/";
+  const BASE_URL = "https://www.cse.ce.nihon-u.ac.jp/webcon/";
+  const [url, setUrl] = useState<string>(BASE_URL);
 
   const [no, setNo] = useState<number>(50);
   const [year, setYear] = useState<number>(2021);
+  const [studentNo, setStudentNo] = useState<number>(20216050);
 
-  useEffect(() => {
-    console.log(no);
-  }, [no]);
+  // 学生番号関係が更新されたらURLを更新
+  const updateUrl = () => {
+    const numYear = year < 2020 ? ("00" + (year - 1988)).slice(-2) : year;
+    const strYear =
+      year < 2020
+        ? "h" + ("00" + (year - 1988)).slice(-2)
+        : "r" + ("00" + (year - 2018)).slice(-2);
+
+    const strNo = no < 0 ? ("000" + 1).slice(-3) : ("000" + no).slice(-3);
+
+    const newUrl = BASE_URL + strYear + "/u" + numYear + "6" + strNo + "/";
+
+    // console.log(newUrl);
+    setUrl(newUrl);
+    setStudentNo(parseInt(numYear + "6" + strNo));
+  };
+
+  // 学生番号が更新されたら処理を実行
+  useEffect(updateUrl, [no, year]);
 
   const [selectButton, setSelectButton] = useState<SelectButton>({
     index: -1,
@@ -53,7 +72,7 @@ const Home = () => {
   return (
     <div>
       <iframe
-        src="./../"
+        src={url}
         width={iframeStatus?.width}
         height={iframeStatus?.height}
       ></iframe>
@@ -69,7 +88,12 @@ const Home = () => {
         no={no}
         year={year}
       />
-      {/* {selectButton.element} */}
+      <DialogSite
+        isVisible={selectButton.index === 2}
+        onClose={buttonClose}
+        onChangeUrl={(url) => setUrl(url)}
+        url={url}
+      />
       <div className="single__footer">
         <button className="single__footer__left">
           <span></span>
@@ -78,8 +102,7 @@ const Home = () => {
           <div className="single__footer__right__buttonContainer">
             <div className="single__footer__right__button">
               <button onClick={() => handleSelect(0)}>
-                <span>2021</span>
-                <span>6050</span>
+                <span>{studentNo}</span>
               </button>
               <span>学年・学生番号</span>
             </div>
@@ -91,7 +114,7 @@ const Home = () => {
               <span>講義・課題</span>
             </div>
             <div className="single__footer__right__button">
-              <button>OK</button>
+              <button onClick={() => handleSelect(2)}>OK</button>
               <span>サイト</span>
             </div>
             <div className="single__footer__right__button">
