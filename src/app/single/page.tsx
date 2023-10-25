@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import "../../../public/css/single.scss";
 import DialogNo from "../../../components/dialog_no";
 import DialogSite from "../../../components/dialog_site";
+import DialogMessage from "../../../components/dialog_message";
 
 type IframeStatus = {
   width: number;
@@ -42,7 +43,11 @@ const Home = () => {
   // ダイアログのINDEX
   const [selectDialog, setSelectDialog] = useState<number>(-1);
 
+  // iframeのステータス
   const [iframeStatus, setIframeStaus] = useState<IframeStatus>();
+
+  // メッセージ軍を格納
+  const [arrMessage, setArrMessage] = useState<string[]>([]);
 
   // ダイアログを閉じる
   const buttonClose = () => {
@@ -56,6 +61,12 @@ const Home = () => {
       return;
     }
     setSelectDialog(num);
+  };
+
+  // メッセージを追加
+  const setMessage = (message: string) => {
+    const newArrMessage = [...arrMessage, message];
+    setArrMessage(newArrMessage);
   };
 
   // 起動時に実行
@@ -90,6 +101,7 @@ const Home = () => {
         onClose={buttonClose}
         onChangeUrl={(url) => setUrl(url)}
         url={url}
+        onAddMessage={(message) => setMessage(message)}
       />
       <div className="single__footer">
         <button className="single__footer__left">
@@ -121,6 +133,7 @@ const Home = () => {
           </div>
         </div>
       </div>
+      <DialogMessage arrMessage={arrMessage} />
     </div>
   );
 };
