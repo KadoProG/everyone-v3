@@ -5,6 +5,7 @@ type Props = {
   onChangeUrl(url: string): void;
   url: string;
   isVisible: boolean;
+  onAddMessage(message: string): void;
 };
 
 const DialogSite = (props: Props) => {
@@ -12,6 +13,36 @@ const DialogSite = (props: Props) => {
 
   const className = "dialog__overlay" + visibleClassName;
 
+  // 再読み込み
+  const handleReload = () => {
+    const url = props.url;
+    props.onChangeUrl("");
+    setTimeout(() => {
+      props.onChangeUrl(url);
+    }, 20);
+    // メッセージを送信
+    props.onAddMessage("Success: iframeを更新しました");
+  };
+
+  // クリップボードへコピー（コピーの処理）
+  const copyToClipboard = () => {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(props.url).then(function () {});
+    } else {
+      const textarea = document.getElementById("textarea");
+      if (textarea === null) return;
+      textarea.focus();
+      document.execCommand("copy");
+      textarea.blur();
+    }
+    // メッセージを送信
+    props.onAddMessage("Success: グリップボードにコピーしました");
+  };
+
+  // 新しいタブで開く
+  const handleExternalClick = () => {
+    window.open(props.url);
+  };
   return (
     <div className={className} onClick={props.onClose}>
       <div className="dialog__content" onClick={(e) => e.stopPropagation()}>
@@ -20,6 +51,7 @@ const DialogSite = (props: Props) => {
         </p>
         <section>
           <textarea
+            id="textarea"
             cols={100}
             rows={4}
             value={props.url}
@@ -34,10 +66,10 @@ const DialogSite = (props: Props) => {
             <span>URL</span>
             <span>リセット</span>
           </button>
-          <button>
+          <button onClick={handleReload}>
             <Image src="/images/reload.svg" width={20} height={20} alt="更新" />
           </button>
-          <button>
+          <button onClick={copyToClipboard}>
             <Image
               src="/images/copy_icon.svg"
               width={20}
@@ -45,7 +77,7 @@ const DialogSite = (props: Props) => {
               alt="コピー"
             />
           </button>
-          <button>
+          <button onClick={handleExternalClick}>
             <Image
               src="/images/externalLink_icon.svg"
               width={20}
@@ -54,79 +86,6 @@ const DialogSite = (props: Props) => {
             />
           </button>
         </section>
-        <div className="dialog__content__no">
-          {/* <div>
-            <section className="dialog__content-year">
-              <button
-                className="dialog__content__panel"
-                onClick={props.onPrevYear}
-              >
-                <Image
-                  src="/images/mark_left.svg"
-                  width={20}
-                  height={20}
-                  alt="左矢印"
-                />
-              </button>
-              <span className="dialog__content__panel">{props.year}年度</span>
-              <button
-                className="dialog__content__panel"
-                onClick={props.onNextYear}
-              >
-                <Image
-                  src="/images/mark_left.svg"
-                  width={20}
-                  height={20}
-                  alt="左矢印"
-                />
-              </button>
-            </section>
-            <section className="dialog__content-num">
-              <button
-                className="dialog__content__panel"
-                onClick={props.onPrevNo}
-              >
-                <Image
-                  src="/images/mark_left.svg"
-                  width={20}
-                  height={20}
-                  alt="左矢印"
-                />
-              </button>
-              <input
-                type="text"
-                className="dialog__content__panel"
-                value={props.no}
-                onChange={(e) => handleNoChange(e.target.value)}
-              />
-              <button
-                className="dialog__content__panel"
-                onClick={props.onNextNo}
-              >
-                <Image
-                  src="/images/mark_left.svg"
-                  width={20}
-                  height={20}
-                  alt="左矢印"
-                />
-              </button>
-            </section>
-          </div> */}
-          {/* <div className="dialog__content__no__right">
-            <section>
-              <Image
-                src="/images/star_icon.svg"
-                width={24}
-                height={24}
-                alt="星"
-              />
-            </section>
-            <section className="flex" onClick={handleNextClick}>
-              <input type="checkbox" name="" id="" />
-              <label htmlFor="">次回最初に表示する</label>
-            </section>
-          </div> */}
-        </div>
       </div>
     </div>
   );
