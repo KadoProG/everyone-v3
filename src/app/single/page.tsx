@@ -5,6 +5,7 @@ import "../../../public/css/single.scss";
 import DialogNo from "../../../components/dialog_no";
 import DialogSite from "../../../components/dialog_site";
 import DialogMessage from "../../../components/dialog_message";
+import DialogMenu from "../../../components/dialog_footer";
 
 type IframeStatus = {
   width: number;
@@ -104,9 +105,10 @@ const Home = () => {
         onAddMessage={(message) => setMessage(message)}
       />
       <div className="single__footer">
-        <button className="single__footer__left">
+        <DialogMenu />
+        {/* <button className="single__footer__left">
           <span></span>
-        </button>
+        </button> */}
         <div className="single__footer__right">
           <div className="single__footer__right__buttonContainer">
             <div className="single__footer__right__button">
