@@ -6,6 +6,7 @@ import DialogNo from "../../../components/dialog_no";
 import DialogSite from "../../../components/dialog_site";
 import DialogMessage from "../../../components/dialog_message";
 import DialogMenu from "../../../components/dialog_footer";
+import DialogPrac from "../../../components/dialog_prac";
 
 type IframeStatus = {
   width: number;
@@ -106,9 +107,6 @@ const Home = () => {
       />
       <div className="single__footer">
         <DialogMenu />
-        {/* <button className="single__footer__left">
-          <span></span>
-        </button> */}
         <div className="single__footer__right">
           <div className="single__footer__right__buttonContainer">
             <div className="single__footer__right__button">
@@ -117,13 +115,13 @@ const Home = () => {
               </button>
               <span>学年・学生番号</span>
             </div>
-            <div className="single__footer__right__button">
-              <button>
-                <span>Webｺﾝﾃﾝﾂ</span>
-                <span>INDEX</span>
-              </button>
-              <span>講義・課題</span>
-            </div>
+
+            <DialogPrac
+              onClose={buttonClose}
+              onSelect={() => handleSelect(1)}
+              isVisible={selectDialog === 1}
+            />
+
             <div className="single__footer__right__button">
               <button onClick={() => handleSelect(2)}>OK</button>
               <span>サイト</span>

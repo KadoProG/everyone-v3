@@ -1,4 +1,72 @@
 .dialog {
+  position: absolute;
+  bottom: 60px;
+  left: 0;
+  width: 100%;
+  height: calc(100svh - 60px);
+  background: rgba(var(--foreground-rgb), 0.1);
+  z-index: 1;
+  &.disabled {
+    display: none !important;
+  }
+
+  & label {
+    background: var(--color-back1);
+    padding: 20px;
+    margin: 3px;
+    display: inline-block;
+    text-align: center;
+  }
+  & input[type="radio"] {
+    /* 透明度0 */
+    filter: alpha(opacity=0);
+    -moz-opacity: 0;
+    opacity: 0;
+    /* ブラウザのデフォルトのスタイルを削除 */
+    -webkit-appearance: none;
+    appearance: none;
+    /* レイアウトから無視 */
+    position: fixed;
+    &:focus-visible {
+      & + label {
+        background: var(--color-button);
+      }
+    }
+    &:checked {
+      & + label {
+        background: var(--color-button);
+      }
+    }
+  }
+
+  & .prac {
+    width: 100%;
+    max-height: 200px;
+    overflow: scroll;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    @media screen and (max-width: 660px) {
+      & label {
+        padding: 10px;
+        width: 100%;
+      }
+      & span {
+        display: inline-block;
+        width: 100%;
+      }
+    }
+    &.detail {
+      & label {
+        width: 100px;
+        padding: 10px;
+      }
+      & span {
+        width: auto;
+      }
+    }
+  }
+
   &__message {
     position: fixed;
     bottom: 60px;
