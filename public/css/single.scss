@@ -12,40 +12,6 @@ iframe {
     align-items: center;
     padding: 3px;
 
-    &__left {
-      min-width: 54px;
-      height: 54px;
-      background: var(--color-back1);
-      border: none;
-
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      & span {
-        position: relative;
-        width: 70%;
-        height: 2px;
-        background: var(--color-text);
-        &::before,
-        &::after {
-          content: "";
-          position: absolute;
-          left: 0;
-          width: 100%;
-          height: 2px;
-          background: var(--color-text);
-        }
-        &::before {
-          top: -10px;
-        }
-        &::after {
-          top: 10px;
-        }
-        // single__footer__left span
-      }
-      // single__footer__left
-    }
     &__right {
       overflow-x: scroll;
       overflow-y: hidden;
@@ -67,6 +33,8 @@ iframe {
           border: none;
           font-size: 16px;
           height: 42px;
+          border-radius: 10px;
+          padding: 0 5px;
           color: var(--color-text);
           & span {
             display: inline-block;
