@@ -1,8 +1,13 @@
 import Link from "next/link";
 import "../public/css/dialog_menu.scss";
-import { useState } from "react";
 
-const DialogMenu = () => {
+type Props = {
+  onClose(): void;
+  onSelect(): void;
+  isVisible: boolean;
+};
+
+const DialogMenu = (props: Props) => {
   const menuItems = [
     { link: "/", title: "HOMEに戻る", ex: false },
     {
@@ -26,19 +31,12 @@ const DialogMenu = () => {
       ex: true,
     },
   ];
-  const [hasOpen, setHasOpen] = useState<boolean>(false);
-  const handleClick = () => {
-    setHasOpen(!hasOpen);
-  };
 
-  const handleClose = () => {
-    setHasOpen(false);
-  };
   return (
     <>
       <div
-        className={`dialog__menu${hasOpen ? "" : " disabled"}`}
-        onClick={handleClose}
+        className={`dialog__menu${props.isVisible ? "" : " disabled"}`}
+        onClick={props.onClose}
       >
         <div
           className="dialog__menu__content"
@@ -55,8 +53,8 @@ const DialogMenu = () => {
           <p className="copyright">&copy; KadoBloG 2023</p>
         </div>
       </div>
-      <button className="single__footer__left" onClick={handleClick}>
-        <span className={hasOpen ? "checked" : ""}></span>
+      <button className="single__footer__left" onClick={props.onSelect}>
+        <span className={props.isVisible ? "checked" : ""}></span>
       </button>
     </>
   );

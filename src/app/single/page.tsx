@@ -81,20 +81,24 @@ const Home = () => {
       ></iframe>
 
       <DialogSite
-        isVisible={selectDialog === 2}
+        isVisible={selectDialog === 3}
         onClose={buttonClose}
         onChangeUrl={(url) => setUrl(url)}
         url={url}
         onAddMessage={(message) => setMessage(message)}
       />
       <div className="single__footer">
-        <DialogMenu />
+        <DialogMenu
+          onClose={buttonClose}
+          onSelect={() => handleSelect(0)}
+          isVisible={selectDialog === 0}
+        />
         <div className="single__footer__right">
           <div className="single__footer__right__buttonContainer">
             <DialogNo
               onClose={buttonClose}
-              onSelect={() => handleSelect(0)}
-              isVisible={selectDialog === 0}
+              onSelect={() => handleSelect(1)}
+              isVisible={selectDialog === 1}
               onChangeYear={(num) => setYear(num)}
               onChangeNo={(num) => setNo(num)}
               no={no}
@@ -103,8 +107,8 @@ const Home = () => {
 
             <DialogPrac
               onClose={buttonClose}
-              onSelect={() => handleSelect(1)}
-              isVisible={selectDialog === 1}
+              onSelect={() => handleSelect(2)}
+              isVisible={selectDialog === 2}
               onPracIndex={(num) => setPracIndex(num)}
               onPracDetail={(num) => setPracDetail(num)}
               pracIndex={pracIndex}
@@ -112,7 +116,7 @@ const Home = () => {
             />
 
             <div className="single__footer__right__button">
-              <button onClick={() => handleSelect(2)}>OK</button>
+              <button onClick={() => handleSelect(3)}>OK</button>
               <span>サイト</span>
             </div>
             <div className="single__footer__right__button">

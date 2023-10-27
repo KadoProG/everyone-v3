@@ -12,21 +12,15 @@ type Props = {
 
 const DialogPrac = (props: Props) => {
   const isVisible = props.isVisible;
-  // const [selectPrac, setSelectPrac] = useState<number>(0);
-  // const [selectDetail, setSelectDetail] = useState<number>(0);
 
   const handlePracChange = (bool: boolean, index: number) => {
     if (!bool) return;
     props.onPracIndex(index);
     props.onPracDetail(0);
-    // setSelectPrac(index);
-    // setSelectDetail(0);
   };
   const handleDetailChange = (bool: boolean, index: number) => {
     if (!bool) return;
-
     props.onPracDetail(index);
-    // setSelectDetail(index);
   };
 
   return (
@@ -82,8 +76,8 @@ const DialogPrac = (props: Props) => {
       </div>
       <div className="single__footer__right__button">
         <button onClick={props.onSelect}>
-          <span>Webｺﾝﾃﾝﾂ</span>
-          <span>INDEX</span>
+          <span>{pracData[props.pracIndex].mini}</span>
+          <span>{pracData[props.pracIndex].pracs[props.pracDetail].name}</span>
         </button>
         <span>講義・課題</span>
       </div>
