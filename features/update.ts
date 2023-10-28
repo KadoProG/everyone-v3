@@ -114,3 +114,43 @@ export const pracData: PracData[] = [
     },
   },
 ];
+
+type LocalStrage = {
+  favorites: number[];
+  first: number | null;
+};
+
+export const localStrage = {
+  $KEY: "everyone_v3_favorite_data",
+  $get: function (): LocalStrage {
+    if (typeof window === "undefined") {
+      return { favorites: [], first: null };
+    }
+    const res = localStorage.getItem(this.$KEY);
+    if (!res) return { favorites: [], first: null };
+    const result = JSON.parse(res);
+    return result;
+  },
+
+  getFavorites: function (): number[] {
+    const res = this.$get();
+    return res.favorites;
+  },
+
+  getFirst: function (): number | null {
+    const res = this.$get();
+    return res.first;
+  },
+
+  setFavorites: function (favorites: number[]): void {
+    const data = this.$get();
+    data.favorites = favorites;
+    localStorage.setItem(this.$KEY, JSON.stringify(data));
+  },
+
+  setFirst: function (first: number | null): void {
+    const data = this.$get();
+    data.first = first;
+    localStorage.setItem(this.$KEY, JSON.stringify(data));
+  },
+};

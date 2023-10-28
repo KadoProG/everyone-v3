@@ -1,4 +1,11 @@
 .dialog__content {
+  & > .favoriteFlex {
+    display: flex;
+    align-items: center;
+    & > button {
+      height: 24px;
+    }
+  }
   & > .no {
     display: flex;
 

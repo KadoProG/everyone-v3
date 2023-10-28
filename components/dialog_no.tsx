@@ -2,7 +2,7 @@
 import Image from "next/image";
 import "../public/css/dialog_no.scss";
 import { useEffect, useState } from "react";
-import { changeStudentNo, changeYearNo } from "../features/update";
+import { changeStudentNo, changeYearNo, localStrage } from "../features/update";
 
 type Props = {
   onClose(): void;
@@ -24,6 +24,9 @@ const DialogNo = (props: Props) => {
   // 現在選択中がお気に入りか否か
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
 
+  // 現在選択中が「最初に表示」か否か
+  const [isFirst, setIsFirst] = useState<boolean>(false);
+
   // お気に入りボタン押下時の処理
   const handleFavoriteChange = (bool: boolean) => {
     // お気に入りリストに登録・削除
@@ -33,12 +36,23 @@ const DialogNo = (props: Props) => {
 
     setIsFavorite(bool);
     setFavorites(newFavorites);
-    console.log(newFavorites);
+
+    // ローカルストレージに書き込み
+    localStrage.setFavorites(newFavorites);
+  };
+
+  // 最初に表示 押下時の処理
+  const handleFirstChagne = (bool: boolean) => {
+    // 最初に表示を反映
+    setIsFirst(bool);
+    const newData = bool ? studentNo : null;
+    localStrage.setFirst(newData);
   };
   // ロード時に実行
   useEffect(() => {
-    const res = window.localStorage.getItem("everyone_v3_favorite_data");
-    if (!res) return;
+    // ローカルストレージを取得
+    const res = localStrage.getFavorites();
+    setFavorites(res);
   }, []);
 
   // 学生番号を取得
@@ -50,7 +64,9 @@ const DialogNo = (props: Props) => {
   // お気に入りの状態を反映
   useEffect(() => {
     const newIsFavorite = favorites.findIndex((v) => v === studentNo) !== -1;
+    const newIsFirst = studentNo === localStrage.getFirst();
     setIsFavorite(newIsFavorite);
+    setIsFirst(newIsFirst);
   }, [studentNo, favorites]);
 
   // クラス名を反映
@@ -75,8 +91,11 @@ const DialogNo = (props: Props) => {
     <>
       <div className={className} onClick={props.onClose}>
         <div className="dialog__content" onClick={(e) => e.stopPropagation()}>
-          <p>
+          <p className="favoriteFlex">
             <b>お気に入り</b>
+            <button>インポート</button>
+            <button>エクスポート</button>
+            <button>削除</button>
           </p>
           <section className="prac">
             {favorites.length === 0 && <p>お気に入りが表示されます</p>}
@@ -132,7 +151,12 @@ const DialogNo = (props: Props) => {
                 />
                 <span>お気に入り</span>
               </label>
-              <input type="checkbox" id="dialog__no__checkbox" />
+              <input
+                type="checkbox"
+                id="dialog__no__checkbox"
+                checked={isFirst}
+                onChange={(e) => handleFirstChagne(e.target.checked)}
+              />
               <label htmlFor="dialog__no__checkbox">次回最初に表示</label>
             </div>
           </div>

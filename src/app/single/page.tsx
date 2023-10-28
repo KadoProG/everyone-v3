@@ -8,7 +8,7 @@ import DialogSite from "../../../components/dialog_site";
 import DialogMessage from "../../../components/dialog_message";
 import DialogMenu from "../../../components/dialog_footer";
 import DialogPrac from "../../../components/dialog_prac";
-import { pracData } from "../../../features/update";
+import { changeYearNo, localStrage, pracData } from "../../../features/update";
 
 type IframeStatus = {
   width: number;
@@ -16,13 +16,15 @@ type IframeStatus = {
 };
 
 const Home = () => {
-  const BASE_URL = "https://www.cse.ce.nihon-u.ac.jp/webcon/";
+  const initData = localStrage.getFirst();
+  const init =
+    initData === null ? { year: 2021, no: 50 } : changeYearNo(initData);
 
-  const [url, setUrl] = useState<string>(BASE_URL);
+  const [url, setUrl] = useState<string>("");
 
   // 現在の情報ステータス
-  const [year, setYear] = useState<number>(2021);
-  const [no, setNo] = useState<number>(50);
+  const [year, setYear] = useState<number>(init.year);
+  const [no, setNo] = useState<number>(init.no);
   const [pracIndex, setPracIndex] = useState<number>(0);
   const [pracDetail, setPracDetail] = useState<number>(0);
 
@@ -71,6 +73,8 @@ const Home = () => {
     window.addEventListener("resize", () => {
       setIframeStaus({ width: innerWidth, height: innerHeight - 60 });
     });
+    updateUrl();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -79,6 +83,7 @@ const Home = () => {
         src={url}
         width={iframeStatus?.width}
         height={iframeStatus?.height}
+        id="iframe__single"
       ></iframe>
 
       <div className="single__footer">
