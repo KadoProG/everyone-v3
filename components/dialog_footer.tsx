@@ -35,11 +35,11 @@ const DialogMenu = (props: Props) => {
   return (
     <>
       <div
-        className={`dialog__menu${props.isVisible ? "" : " disabled"}`}
+        className={`dialog${props.isVisible ? "" : " disabled"}`}
         onClick={props.onClose}
       >
         <div
-          className="dialog__menu__content"
+          className="dialog__content dialog__content-menu"
           onClick={(e) => e.stopPropagation()}
         >
           {menuItems.map((v, index) => {

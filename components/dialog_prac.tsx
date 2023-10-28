@@ -1,4 +1,5 @@
 import { pracData } from "../features/update";
+import "../public/css/dialog_prac.scss";
 
 type Props = {
   onClose(): void;

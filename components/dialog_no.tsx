@@ -1,8 +1,9 @@
 "use client";
 import Image from "next/image";
-import "../public/css/panel_no.scss";
+import "../public/css/dialog_no.scss";
 import { useEffect, useState } from "react";
 import { changeStudentNo } from "../features/update";
+
 type Props = {
   onClose(): void;
   onSelect(): void;
@@ -16,6 +17,19 @@ type Props = {
 const DialogNo = (props: Props) => {
   // 学生番号を格納
   const [studentNo, setStudentNo] = useState<number>(20216050);
+
+  // // お気に入りリスト
+  // const [favorites, setFavorites] = useState<number[]>([]);
+
+  // 現在選択中がお気に入りか否か
+  const [isFavorite, setIsFavorite] = useState<boolean>(false);
+
+  // useEffect(() => {
+  //   const res = window.localStorage.getItem("everyone_v3_favorite_data");
+
+  //   console.log(res);
+  //   if (!res) return;
+  // });
 
   // 学生番号を取得
   useEffect(() => {
@@ -45,77 +59,51 @@ const DialogNo = (props: Props) => {
           <p>
             <b>学生番号</b>
           </p>
-          <div className="dialog__content__no">
-            <div>
-              <section className="dialog__content-year">
-                <button
-                  className="dialog__content__panel"
+          <div className="no">
+            <div className="left">
+              <section className="year">
+                <ButtonArrow
                   onClick={() => props.onChangeYear(props.year - 1)}
-                >
-                  <Image
-                    src="/images/mark_left.svg"
-                    width={20}
-                    height={20}
-                    alt="左矢印"
-                  />
-                </button>
-                <span className="dialog__content__panel">{props.year}年度</span>
-                <button
-                  className="dialog__content__panel"
+                />
+                <span>{props.year}年度</span>
+                <ButtonArrow
                   onClick={() => props.onChangeYear(props.year + 1)}
-                >
-                  <Image
-                    src="/images/mark_left.svg"
-                    width={20}
-                    height={20}
-                    alt="左矢印"
-                  />
-                </button>
+                />
               </section>
-              <section className="dialog__content-num">
-                <button
-                  className="dialog__content__panel"
-                  onClick={() => props.onChangeNo(props.no - 1)}
-                >
-                  <Image
-                    src="/images/mark_left.svg"
-                    width={20}
-                    height={20}
-                    alt="左矢印"
-                  />
-                </button>
+
+              <section className="num">
+                <ButtonArrow onClick={() => props.onChangeNo(props.no - 1)} />
                 <input
                   type="text"
-                  className="dialog__content__panel"
                   value={props.no}
                   onChange={(e) => handleNoChange(e.target.value)}
                 />
-                <button
-                  className="dialog__content__panel"
-                  onClick={() => props.onChangeNo(props.no + 1)}
-                >
-                  <Image
-                    src="/images/mark_left.svg"
-                    width={20}
-                    height={20}
-                    alt="左矢印"
-                  />
-                </button>
+                <ButtonArrow onClick={() => props.onChangeNo(props.no + 1)} />
               </section>
             </div>
-            <div className="dialog__content__no__right">
-              <section>
+
+            <div className="right">
+              <input
+                type="checkbox"
+                id="dialog__content__no__favorite"
+                checked={isFavorite}
+                onChange={(e) => setIsFavorite(e.target.checked)}
+              />
+              <label htmlFor="dialog__content__no__favorite">
                 <Image
-                  src="/images/star_icon.svg"
+                  src={
+                    isFavorite
+                      ? "/images/star_blue_icon.svg"
+                      : "/images/star_icon.svg"
+                  }
                   width={24}
                   height={24}
                   alt="星"
                 />
-              </section>
-              <section className="flex">
-                <input type="checkbox" name="" id="dialog__no__checkbox" />
-                <label htmlFor="dialog__no__checkbox">次回最初に表示する</label>
-              </section>
+                <span>お気に入り</span>
+              </label>
+              <input type="checkbox" id="dialog__no__checkbox" />
+              <label htmlFor="dialog__no__checkbox">次回最初に表示</label>
             </div>
           </div>
         </div>
@@ -130,3 +118,16 @@ const DialogNo = (props: Props) => {
   );
 };
 export default DialogNo;
+
+type ButtonArrowProps = {
+  onClick(): void;
+};
+
+// 矢印ボタンのみコンポーネント化
+const ButtonArrow = (props: ButtonArrowProps) => {
+  return (
+    <button onClick={props.onClick}>
+      <Image src="/images/mark_left.svg" width={20} height={20} alt="左矢印" />
+    </button>
+  );
+};

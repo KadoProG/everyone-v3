@@ -1,19 +1,5 @@
-.dialog__menu {
-  position: absolute;
-  bottom: 60px;
-  left: 0;
-  width: 100%;
-  height: calc(100svh - 60px);
-  background: rgba(var(--foreground-rgb), 0.1);
-
-  display: flex;
-  align-items: last baseline;
-
-  &.disabled {
-    display: none;
-  }
-
-  &__content {
+.dialog__content {
+  &-menu {
     width: 300px;
     background: var(--color-back1);
     animation: dialog__menu 0.3s;

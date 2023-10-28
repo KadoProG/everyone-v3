@@ -1,3 +1,4 @@
+// 背景
 .dialog {
   position: absolute;
   bottom: 60px;
@@ -6,17 +7,36 @@
   height: calc(100svh - 60px);
   background: rgba(var(--foreground-rgb), 0.1);
   z-index: 1;
+
+  // 非表示
   &.disabled {
     display: none !important;
   }
 
+  // 中身
+  &__content {
+    position: absolute;
+    bottom: 10px;
+    background: var(--color-back0);
+    padding: 20px;
+    border-radius: 5px;
+  }
+
+  // 画像は反転
+  & img {
+    filter: var(--opac-invert);
+  }
+
+  // 共通で入るLabelに対するCSS paddingは後づけ
   & label {
     background: var(--color-back1);
-    padding: 20px;
     margin: 3px;
-    display: inline-block;
-    text-align: center;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
   }
+
+  // こっちも今のところ共通 非表示だけどアクセシビリティは考慮する的な
   & input[type="radio"],
   & input[type="checkbox"] {
     /* 透明度0 */
@@ -40,88 +60,14 @@
     }
   }
 
-  & .prac {
+  & textarea {
     width: 100%;
-    max-height: 200px;
-    overflow: scroll;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    @media screen and (max-width: 660px) {
-      & label {
-        padding: 10px;
-        width: 100%;
-      }
-      & span {
-        display: inline-block;
-        width: 100%;
-      }
-    }
-    &.detail {
-      & label {
-        width: 100px;
-        padding: 10px;
-      }
-      & span {
-        width: auto;
-      }
-    }
+    color: var(--color-text);
+    background: var(--color-back1);
   }
 
-  &__message {
-    position: fixed;
-    bottom: 60px;
-    right: 0;
-    width: 300px;
-    overflow: hidden;
-    z-index: 1;
-    & > div {
-      display: flex;
-      justify-content: space-between;
-      overflow: hidden;
-      padding: 20px 10px;
-      border-radius: 10px;
-      margin: 10px;
-      background: var(--color-button);
-      transform: translateY(120%);
-      animation: dialog__message_p 7s forwards;
-      position: relative;
-      &.disabled {
-        display: none;
-      }
-      @keyframes dialog__message_p {
-        0% {
-          transform: translateY(120%);
-        }
-        5% {
-          transform: translateY(0);
-        }
-        95% {
-          transform: translateY(0);
-          position: initial;
-        }
-
-        100% {
-          transform: translateY(120%);
-          position: absolute;
-          bottom: 0;
-        }
-      }
-      & p {
-        flex: 1;
-      }
-      & span {
-        position: absolute;
-        top: 0;
-        right: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 30px;
-        height: 20px;
-        background: var(--color-button-hover);
-        cursor: pointer;
-      }
-    }
+  // セクションにはPaddingが入ります
+  & section {
+    padding: 3px;
   }
 }

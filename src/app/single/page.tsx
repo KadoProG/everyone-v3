@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import "../../../public/css/single.scss";
+import "../../../public/css/dialog.scss";
 import DialogNo from "../../../components/dialog_no";
 import DialogSite from "../../../components/dialog_site";
 import DialogMessage from "../../../components/dialog_message";
@@ -80,13 +81,6 @@ const Home = () => {
         height={iframeStatus?.height}
       ></iframe>
 
-      <DialogSite
-        isVisible={selectDialog === 3}
-        onClose={buttonClose}
-        onChangeUrl={(url) => setUrl(url)}
-        url={url}
-        onAddMessage={(message) => setMessage(message)}
-      />
       <div className="single__footer">
         <DialogMenu
           onClose={buttonClose}
@@ -115,10 +109,15 @@ const Home = () => {
               pracDetail={pracDetail}
             />
 
-            <div className="single__footer__right__button">
-              <button onClick={() => handleSelect(3)}>OK</button>
-              <span>サイト</span>
-            </div>
+            <DialogSite
+              isVisible={selectDialog === 3}
+              onClose={buttonClose}
+              onSelect={() => handleSelect(3)}
+              onChangeUrl={(url) => setUrl(url)}
+              url={url}
+              onAddMessage={(message) => setMessage(message)}
+            />
+
             <div className="single__footer__right__button">
               <button>あ</button>
               <span>ﾚｽﾎﾟﾝｼﾌﾞ</span>
