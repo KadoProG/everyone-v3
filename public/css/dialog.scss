@@ -59,6 +59,14 @@
       }
     }
   }
+  & button {
+    text-align: center;
+    border: none;
+    height: 100%;
+    margin: 3px 3px;
+    background: var(--color-back1);
+    color: var(--color-text);
+  }
 
   & textarea {
     width: 100%;

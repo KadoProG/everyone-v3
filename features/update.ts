@@ -1,20 +1,24 @@
-export const updateURL = (year: number, no: number): string => {
-  const strYear =
-    year < 2020
-      ? "h" + ("00" + (year - 1988)).slice(-2)
-      : "r" + ("00" + (year - 2018)).slice(-2);
-
-  const newUrl = strYear + "/u" + changeStudentNo(year, no) + "/";
-
-  return newUrl;
-};
-
 // 学生番号を返す
 export const changeStudentNo = (year: number, no: number): number => {
   const strNo = no < 0 ? ("000" + 1).slice(-3) : ("000" + no).slice(-3);
   const numYear = year < 2020 ? ("00" + (year - 1988)).slice(-2) : year;
 
   return parseInt(numYear + "6" + strNo);
+};
+
+// 年度と番号を返す
+export const changeYearNo = (
+  studentNo: number
+): { year: number; no: number } => {
+  const strNo = String(studentNo).slice(-3); // 下3桁
+  const no = isNaN(parseInt(strNo)) ? 0 : parseInt(strNo);
+
+  const strYear = String(studentNo).slice(0, -4); // 上2~4桁(下4桁を除く数)
+
+  const numYear = isNaN(parseInt(strYear)) ? 0 : parseInt(strYear);
+  const year = strYear.length <= 2 ? numYear + 1988 : numYear;
+
+  return { year: year, no: no };
 };
 
 type PracData = {

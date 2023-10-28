@@ -9,6 +9,12 @@
     & label {
       padding: 20px;
     }
+
+    // dialog_no で使用
+    & button {
+      padding: 10px;
+    }
+
     @media screen and (max-width: 660px) {
       & label {
         padding: 10px;
