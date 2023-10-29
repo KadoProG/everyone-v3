@@ -112,11 +112,19 @@ const DialogNo = (props: Props) => {
     // 1: ファイルのデータのみ
     if (result.type === 1) {
       setFavorites(result.data); // 上書き
+
+      // ローカルストレージに書き込み
+      localStrage.setFavorites(result.data);
+
       props.onAddMessage("Success: お気に入りを更新しました");
     } else if (result.type === 0) {
       // 差分を追加
       const addFavorites = result.data.filter((v) => !favorites.includes(v));
       setFavorites(addFavorites);
+
+      // ローカルストレージに書き込み
+      localStrage.setFavorites(addFavorites);
+
       props.onAddMessage("Success: お気に入りを更新しました");
     }
   };
@@ -128,6 +136,10 @@ const DialogNo = (props: Props) => {
     if (result === 0) {
       // 削除を実行
       setFavorites([]);
+
+      // ローカルストレージに書き込み
+      localStrage.setFavorites([]);
+
       props.onAddMessage("Success: お気に入りを削除しました");
     }
   };
