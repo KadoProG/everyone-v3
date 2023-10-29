@@ -144,7 +144,9 @@ export const localStrage = {
 
   setFavorites: function (favorites: number[]): void {
     const data = this.$get();
-    data.favorites = favorites;
+    const newFavorites = favorites.sort((a, b) => a - b);
+    data.favorites = newFavorites;
+
     localStorage.setItem(this.$KEY, JSON.stringify(data));
   },
 

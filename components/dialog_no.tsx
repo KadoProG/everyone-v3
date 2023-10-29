@@ -3,8 +3,9 @@ import Image from "next/image";
 import "../public/css/dialog_no.scss";
 import { useEffect, useState } from "react";
 import { changeStudentNo, changeYearNo, localStrage } from "../features/update";
-import DialogFileUpload from "./dialog_file_upload";
-import DialogConfirm from "./dialog_confirm";
+// import DialogFileUpload from "./dialog_file_upload";
+// import DialogConfirm from "./dialog_confirm";
+import DialogNoFavorite from "./dialog_no_favorite";
 
 type Props = {
   onClose(): void;
@@ -31,20 +32,15 @@ const DialogNo = (props: Props) => {
   // 現在選択中が「最初に表示」か否か
   const [isFirst, setIsFirst] = useState<boolean>(false);
 
-  // ファイルアップロードか否か
-  const [isFileUpload, setIsFileUpload] = useState<boolean>(false);
-
-  // 削除ダイアログ
-  const [isVisibleDelete, setIsVisibleDelete] = useState<boolean>(false);
-
   // お気に入りボタン押下時の処理
   const handleFavoriteChange = (bool: boolean) => {
+    setIsFavorite(bool);
+
     // お気に入りリストに登録・削除
     const newFavorites = bool
       ? [...favorites, studentNo]
       : favorites.filter((v) => v !== studentNo);
 
-    setIsFavorite(bool);
     setFavorites(newFavorites);
 
     // ローカルストレージに書き込み
@@ -55,29 +51,22 @@ const DialogNo = (props: Props) => {
   const handleFirstChagne = (bool: boolean) => {
     // 最初に表示を反映
     setIsFirst(bool);
+    // ローカルストレージに反映
     const newData = bool ? studentNo : null;
     localStrage.setFirst(newData);
   };
-  // ロード時に実行
-  useEffect(() => {
-    // ローカルストレージを取得
-    const res = localStrage.getFavorites();
-    setFavorites(res);
-  }, []);
 
   // 学生番号を取得
   useEffect(() => {
     const newStudentNo = changeStudentNo(props.year, props.no);
     setStudentNo(newStudentNo);
-  }, [props.no, props.year]);
-
-  // お気に入りの状態を反映
-  useEffect(() => {
-    const newIsFavorite = favorites.findIndex((v) => v === studentNo) !== -1;
-    const newIsFirst = studentNo === localStrage.getFirst();
-    setIsFavorite(newIsFavorite);
+    // 最初に表示を反映
+    const newIsFirst = localStrage.getFirst() === newStudentNo;
     setIsFirst(newIsFirst);
-  }, [studentNo, favorites]);
+    // お気に入りの状態を反映
+    const newIsFavorite = localStrage.getFavorites().includes(newStudentNo);
+    setIsFavorite(newIsFavorite);
+  }, [props.no, props.year]);
 
   // クラス名を反映
   const visibleClassName = !props.isVisible ? " disabled" : "";
@@ -97,82 +86,24 @@ const DialogNo = (props: Props) => {
     props.onChangeNo(result.no);
   };
 
+  // 起動時実行（DOM操作あり）
   useEffect(() => {
-    props.iframeVisible(isFileUpload);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isFileUpload]);
-
-  // インポートの処理
-  const handleImport = (
-    result: { data: number[]; type: number } | undefined
-  ) => {
-    setIsFileUpload(false);
-    if (result === undefined) return;
-    // 0: 現在のデータに追加
-    // 1: ファイルのデータのみ
-    if (result.type === 1) {
-      setFavorites(result.data); // 上書き
-
-      // ローカルストレージに書き込み
-      localStrage.setFavorites(result.data);
-
-      props.onAddMessage("Success: お気に入りを更新しました");
-    } else if (result.type === 0) {
-      // 差分を追加
-      const addFavorites = result.data.filter((v) => !favorites.includes(v));
-      setFavorites(addFavorites);
-
-      // ローカルストレージに書き込み
-      localStrage.setFavorites(addFavorites);
-
-      props.onAddMessage("Success: お気に入りを更新しました");
-    }
-  };
-
-  // 削除の処理
-  const handleFavoriteDelete = (result: number | undefined) => {
-    setIsVisibleDelete(false);
-    if (result === undefined) return;
-    if (result === 0) {
-      // 削除を実行
-      setFavorites([]);
-
-      // ローカルストレージに書き込み
-      localStrage.setFavorites([]);
-
-      props.onAddMessage("Success: お気に入りを削除しました");
-    }
-  };
+    const newFavorites = localStrage.getFavorites();
+    setFavorites(newFavorites);
+  }, []);
 
   return (
     <>
       <div className={className} onClick={props.onClose}>
-        <DialogConfirm
-          question="本当に削除してもよろしいですか？"
-          isVisible={isVisibleDelete}
-          answers={["削除する"]}
-          onClose={handleFavoriteDelete}
-        />
-
-        <DialogFileUpload isVisible={isFileUpload} onClose={handleImport} />
-
         <div className="dialog__content" onClick={(e) => e.stopPropagation()}>
-          <p className="favoriteFlex">
-            <b>お気に入り</b>
-            <button onClick={() => setIsFileUpload(true)}>インポート</button>
-            <button>エクスポート</button>
-            {favorites.length !== 0 && (
-              <button onClick={() => setIsVisibleDelete(true)}>削除</button>
-            )}
-          </p>
-          <section className="prac">
-            {favorites.length === 0 && <p>お気に入りが表示されます</p>}
-            {favorites.map((v, index) => (
-              <button key={index} onClick={() => handleStudentNoClick(v)}>
-                {v}
-              </button>
-            ))}
-          </section>
+          <DialogNoFavorite
+            onStudentNo={handleStudentNoClick}
+            onIframeVisible={(bool) => props.iframeVisible(bool)}
+            onAddMessage={props.onAddMessage}
+            favorites={favorites}
+            setFavorites={setFavorites}
+          />
+
           <p>
             <b>学生番号</b>
           </p>
