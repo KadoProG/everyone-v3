@@ -3,6 +3,8 @@ import Image from "next/image";
 import "../public/css/dialog_no.scss";
 import { useEffect, useState } from "react";
 import { changeStudentNo, changeYearNo, localStrage } from "../features/update";
+import DialogFileUpload from "./dialog_file_upload";
+import DialogConfirm from "./dialog_confirm";
 
 type Props = {
   onClose(): void;
@@ -10,8 +12,10 @@ type Props = {
   onChangeYear(num: number): void;
   onChangeNo(num: number): void;
   isVisible: boolean;
+  onAddMessage(message: string): void;
   no: number;
   year: number;
+  iframeVisible(bool: boolean): void;
 };
 
 const DialogNo = (props: Props) => {
@@ -26,6 +30,12 @@ const DialogNo = (props: Props) => {
 
   // 現在選択中が「最初に表示」か否か
   const [isFirst, setIsFirst] = useState<boolean>(false);
+
+  // ファイルアップロードか否か
+  const [isFileUpload, setIsFileUpload] = useState<boolean>(false);
+
+  // 削除ダイアログ
+  const [isVisibleDelete, setIsVisibleDelete] = useState<boolean>(false);
 
   // お気に入りボタン押下時の処理
   const handleFavoriteChange = (bool: boolean) => {
@@ -87,15 +97,61 @@ const DialogNo = (props: Props) => {
     props.onChangeNo(result.no);
   };
 
+  useEffect(() => {
+    props.iframeVisible(isFileUpload);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isFileUpload]);
+
+  // インポートの処理
+  const handleImport = (
+    result: { data: number[]; type: number } | undefined
+  ) => {
+    setIsFileUpload(false);
+    if (result === undefined) return;
+    // 0: 現在のデータに追加
+    // 1: ファイルのデータのみ
+    if (result.type === 1) {
+      setFavorites(result.data); // 上書き
+      props.onAddMessage("Success: お気に入りを更新しました");
+    } else if (result.type === 0) {
+      // 差分を追加
+      const addFavorites = result.data.filter((v) => !favorites.includes(v));
+      setFavorites(addFavorites);
+      props.onAddMessage("Success: お気に入りを更新しました");
+    }
+  };
+
+  // 削除の処理
+  const handleFavoriteDelete = (result: number | undefined) => {
+    setIsVisibleDelete(false);
+    if (result === undefined) return;
+    if (result === 0) {
+      // 削除を実行
+      setFavorites([]);
+      props.onAddMessage("Success: お気に入りを削除しました");
+    }
+  };
+
   return (
     <>
       <div className={className} onClick={props.onClose}>
+        <DialogConfirm
+          question="本当に削除してもよろしいですか？"
+          isVisible={isVisibleDelete}
+          answers={["削除する"]}
+          onClose={handleFavoriteDelete}
+        />
+
+        <DialogFileUpload isVisible={isFileUpload} onClose={handleImport} />
+
         <div className="dialog__content" onClick={(e) => e.stopPropagation()}>
           <p className="favoriteFlex">
             <b>お気に入り</b>
-            <button>インポート</button>
+            <button onClick={() => setIsFileUpload(true)}>インポート</button>
             <button>エクスポート</button>
-            <button>削除</button>
+            {favorites.length !== 0 && (
+              <button onClick={() => setIsVisibleDelete(true)}>削除</button>
+            )}
           </p>
           <section className="prac">
             {favorites.length === 0 && <p>お気に入りが表示されます</p>}

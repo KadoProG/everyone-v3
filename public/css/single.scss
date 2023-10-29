@@ -1,7 +1,11 @@
 iframe {
   border: none;
   background: white;
+  &.obstacle {
+    transform: translateX(-100%);
+  }
 }
+
 .single {
   &__footer {
     position: fixed;

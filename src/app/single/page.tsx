@@ -13,6 +13,7 @@ import { changeYearNo, localStrage, pracData } from "../../../features/update";
 type IframeStatus = {
   width: number;
   height: number;
+  isObstacle: boolean; // 背面に隠れる
 };
 
 const Home = () => {
@@ -42,7 +43,11 @@ const Home = () => {
   const [selectDialog, setSelectDialog] = useState<number>(-1);
 
   // iframeのステータス
-  const [iframeStatus, setIframeStaus] = useState<IframeStatus>();
+  const [iframeStatus, setIframeStaus] = useState<IframeStatus>({
+    width: 0,
+    height: 0,
+    isObstacle: false,
+  });
 
   // メッセージ軍を格納
   const [arrMessage, setArrMessage] = useState<string[]>([]);
@@ -69,13 +74,27 @@ const Home = () => {
 
   // 起動時に実行
   useEffect(() => {
-    setIframeStaus({ width: innerWidth, height: innerHeight - 60 });
+    setIframeStaus({
+      width: innerWidth,
+      height: innerHeight - 60,
+      isObstacle: false,
+    });
     window.addEventListener("resize", () => {
-      setIframeStaus({ width: innerWidth, height: innerHeight - 60 });
+      setIframeStaus({
+        width: innerWidth,
+        height: innerHeight - 60,
+        isObstacle: false,
+      });
     });
     updateUrl();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // iframeの表示、非表示
+  const iframeVisible = (bool: boolean) => {
+    const newIframeStatus: IframeStatus = { ...iframeStatus, isObstacle: bool };
+    setIframeStaus(newIframeStatus);
+  };
 
   return (
     <div>
@@ -84,6 +103,7 @@ const Home = () => {
         width={iframeStatus?.width}
         height={iframeStatus?.height}
         id="iframe__single"
+        className={iframeStatus?.isObstacle ? "obstacle" : ""}
       ></iframe>
 
       <div className="single__footer">
@@ -102,6 +122,8 @@ const Home = () => {
               onChangeNo={(num) => setNo(num)}
               no={no}
               year={year}
+              onAddMessage={(message) => setMessage(message)}
+              iframeVisible={iframeVisible}
             />
 
             <DialogPrac
