@@ -41,7 +41,7 @@ const DialogFileUpload = (props: Props) => {
 
       // 既存の要素が0個の場合ダイアログなし
       if (itemIncludes.length === 0) {
-        onClose({ data: fileText, type: 0 });
+        onClose({ data: items2, type: 0 });
         return;
       }
 

@@ -17,15 +17,11 @@ type IframeStatus = {
 };
 
 const Home = () => {
-  const initData = localStrage.getFirst();
-  const init =
-    initData === null ? { year: 2021, no: 50 } : changeYearNo(initData);
-
   const [url, setUrl] = useState<string>("");
 
   // 現在の情報ステータス
-  const [year, setYear] = useState<number>(init.year);
-  const [no, setNo] = useState<number>(init.no);
+  const [year, setYear] = useState<number>(2021);
+  const [no, setNo] = useState<number>(50);
   const [pracIndex, setPracIndex] = useState<number>(0);
   const [pracDetail, setPracDetail] = useState<number>(0);
 
@@ -86,6 +82,14 @@ const Home = () => {
         isObstacle: false,
       });
     });
+
+    const initData = localStrage.getFirst();
+    if (initData !== null) {
+      const res = changeYearNo(initData);
+      setYear(res.year);
+      setNo(res.no);
+    }
+
     updateUrl();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
