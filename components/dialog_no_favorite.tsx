@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { localStrage } from "../features/update";
+import { changeStudentNo, changeYearNo, localStrage } from "../features/update";
 import DialogFileUpload from "./dialog_file_upload";
 import DialogConfirm from "./dialog_confirm";
 
@@ -18,6 +18,37 @@ const DialogNoFavorite = (props: Props) => {
 
   // 削除ダイアログ
   const [isVisibleDelete, setIsVisibleDelete] = useState<boolean>(false);
+
+  // 学年順に格納
+  const [favorites, setFavorites] = useState<{ year: number; no: number[] }[]>(
+    []
+  );
+
+  // お気に入りを学年順に表示されるように変更
+  useEffect(() => {
+    const newFavorites: { year: number; no: number[] }[] = [];
+    const groupData: { [key: number]: { year: number; no: number[] } } = {};
+
+    if (props.favorites.length === 0) {
+      setFavorites([]);
+      return;
+    }
+    props.favorites.forEach((v) => {
+      const res = changeYearNo(v);
+
+      if (!groupData[res.year]) {
+        groupData[res.year] = { year: res.year, no: [] };
+      }
+
+      groupData[res.year].no.push(res.no);
+    });
+
+    for (const year in groupData) {
+      newFavorites.push(groupData[year]);
+    }
+
+    setFavorites(newFavorites);
+  }, [props.favorites]);
 
   // インポートの処理
   const handleImport = (
@@ -40,9 +71,7 @@ const DialogNoFavorite = (props: Props) => {
         (v) => !props.favorites.includes(v)
       );
 
-      const newFavorites = props.favorites;
-
-      newFavorites.push(...addFavorites);
+      const newFavorites = [...props.favorites, ...addFavorites];
 
       props.setFavorites(newFavorites);
 
@@ -88,7 +117,7 @@ const DialogNoFavorite = (props: Props) => {
         onClose={handleImport}
       />
 
-      <p className="favoriteFlex">
+      <p className="favoriteP">
         <b>お気に入り</b>
         <button onClick={() => setIsVisibleFileUpload(true)}>インポート</button>
         <button>エクスポート</button>
@@ -96,13 +125,25 @@ const DialogNoFavorite = (props: Props) => {
           <button onClick={() => setIsVisibleDelete(true)}>削除</button>
         )}
       </p>
-      <section className="prac">
-        {props.favorites.length === 0 && <p>お気に入りが表示されます</p>}
-        {props.favorites.map((v, index) => {
+      <section className="favorite">
+        {favorites.length === 0 && <p>お気に入りが表示されます</p>}
+        {favorites.map((v, index) => {
           return (
-            <button key={index} onClick={() => props.onStudentNo(v)}>
-              {v}
-            </button>
+            <div key={index}>
+              <p>{v.year}年度</p>
+              {v.no.map((w, index) => {
+                return (
+                  <button
+                    key={index}
+                    onClick={() =>
+                      props.onStudentNo(changeStudentNo(v.year, w))
+                    }
+                  >
+                    {w}
+                  </button>
+                );
+              })}
+            </div>
           );
         })}
       </section>
