@@ -8,6 +8,14 @@
     & > button {
       height: 24px;
     }
+    // レスポンシブMENUで使用
+    & input[type="number"] {
+      text-align: center;
+      border: none;
+      background: var(--color-back1);
+      color: var(--color-text);
+      width: 50px;
+    }
 
     & span {
       font-size: 12px;

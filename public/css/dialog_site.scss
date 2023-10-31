@@ -16,5 +16,9 @@
         display: inline-block;
       }
     }
+
+    & input[type="range"] {
+      width: 100%;
+    }
   }
 }

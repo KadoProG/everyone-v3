@@ -9,11 +9,13 @@ import DialogMessage from "../../../components/dialog_message";
 import DialogMenu from "../../../components/dialog_footer";
 import DialogPrac from "../../../components/dialog_prac";
 import { changeYearNo, localStrage, pracData } from "../../../features/update";
+import DialogResponsive from "../../../components/dialog_responsive";
 
-type IframeStatus = {
+export type IframeStatus = {
   width: number;
   height: number;
   isObstacle: boolean; // 背面に隠れる
+  scale?: number;
 };
 
 const Home = () => {
@@ -70,19 +72,6 @@ const Home = () => {
 
   // 起動時に実行
   useEffect(() => {
-    setIframeStaus({
-      width: innerWidth,
-      height: innerHeight - 60,
-      isObstacle: false,
-    });
-    window.addEventListener("resize", () => {
-      setIframeStaus({
-        width: innerWidth,
-        height: innerHeight - 60,
-        isObstacle: false,
-      });
-    });
-
     const initData = localStrage.getFirst();
     if (initData !== null) {
       const res = changeYearNo(initData);
@@ -102,13 +91,16 @@ const Home = () => {
 
   return (
     <div>
-      <iframe
-        src={url}
-        width={iframeStatus?.width}
-        height={iframeStatus?.height}
-        id="iframe__single"
-        className={iframeStatus?.isObstacle ? "obstacle" : ""}
-      ></iframe>
+      <div className="iframe">
+        <iframe
+          src={url}
+          width={iframeStatus?.width}
+          height={iframeStatus?.height}
+          id="iframe__single"
+          style={{ scale: iframeStatus.scale ? iframeStatus.scale : 1 }}
+          className={iframeStatus?.isObstacle ? "obstacle" : ""}
+        ></iframe>
+      </div>
 
       <div className="single__footer">
         <DialogMenu
@@ -149,10 +141,14 @@ const Home = () => {
               onAddMessage={(message) => setMessage(message)}
             />
 
-            <div className="single__footer__right__button">
-              <button>あ</button>
-              <span>ﾚｽﾎﾟﾝｼﾌﾞ</span>
-            </div>
+            <DialogResponsive
+              onClose={buttonClose}
+              onSelect={() => handleSelect(4)}
+              isVisible={selectDialog === 4}
+              onAddMessage={(message) => setMessage(message)}
+              iframeStatus={iframeStatus}
+              setIframeStatus={setIframeStaus}
+            />
           </div>
         </div>
       </div>

@@ -1,6 +1,15 @@
+.iframe {
+  position: fixed;
+  width: 100%;
+  height: calc(100% - 60px);
+  top: 0;
+  left: 0;
+  text-align: center;
+}
 iframe {
   border: none;
   background: white;
+  transform-origin: top left;
   &.obstacle {
     transform: translateX(-100%);
   }
@@ -43,6 +52,9 @@ iframe {
           color: var(--color-text);
           & span {
             display: inline-block;
+          }
+          & img {
+            filter: var(--opac-invert);
           }
         }
         & > span {

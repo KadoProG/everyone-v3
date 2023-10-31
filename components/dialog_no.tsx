@@ -3,8 +3,6 @@ import Image from "next/image";
 import "../public/css/dialog_no.scss";
 import { useEffect, useState } from "react";
 import { changeStudentNo, changeYearNo, localStrage } from "../features/update";
-// import DialogFileUpload from "./dialog_file_upload";
-// import DialogConfirm from "./dialog_confirm";
 import DialogNoFavorite from "./dialog_no_favorite";
 
 type Props = {
