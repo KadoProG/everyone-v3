@@ -1,0 +1,54 @@
+.panel_no {
+  display: flex;
+  width: 200px;
+  padding: 3px;
+
+  // インプット・ボタンの統一CSS
+  & > * {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: none;
+    height: 100%;
+    margin: 0 3px;
+    background: var(--color-back1);
+    color: var(--color-text);
+  }
+
+  & button {
+    flex: 1;
+    &:last-child {
+      transform: rotate(180deg);
+    }
+  }
+
+  // -------------ここから、各自のCSS
+
+  &.year {
+    height: 35px;
+    & span {
+      width: calc(100% - 100px - 6px);
+      font-size: 16px;
+    }
+  }
+
+  &.num {
+    height: 54px;
+    & input {
+      border: none;
+      width: calc(100% - 120px - 6px);
+      font-size: 24px;
+    }
+  }
+  // マルチのやつ
+  &.no {
+    height: 30px;
+    width: 100px;
+    & input {
+      border: none;
+      width: calc(100% - 50px - 6px);
+      font-size: 14px;
+    }
+  }
+}

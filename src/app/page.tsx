@@ -40,7 +40,7 @@ const Home = () => {
               </div>
               <p>一度にたくさんのコンテンツを閲覧できます。</p>
             </div>
-            <Link href={"/"}>閲覧する！</Link>
+            <Link href={"/multi"}>閲覧する！</Link>
           </div>
         </div>
         <section>
