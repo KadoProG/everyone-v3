@@ -16,6 +16,9 @@ const DialogNoFavorite = (props: Props) => {
   const [isVisibleFileUpload, setIsVisibleFileUpload] =
     useState<boolean>(false);
 
+  // エクスポートダイアログ
+  const [isVisibleExport, setIsVisibleExport] = useState<boolean>(false);
+
   // 削除ダイアログ
   const [isVisibleDelete, setIsVisibleDelete] = useState<boolean>(false);
 
@@ -97,6 +100,25 @@ const DialogNoFavorite = (props: Props) => {
     }
   };
 
+  // エクスポートの処理
+  const handleExport = (result: number | undefined) => {
+    setIsVisibleExport(false);
+    if (result === undefined) return;
+    if (result === 0) {
+      // txtデータをエクスポートします
+      const data = localStrage.getFavorites();
+      const text = data.join("\n");
+      const blob = new Blob([text], { type: "text/plain" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "my_favorite_data.txt";
+      a.click();
+      URL.revokeObjectURL(url);
+      props.onAddMessage("Success: エクスポートが完了しました");
+    }
+  };
+
   // iframeの表示・非表示
   useEffect(() => {
     props.onIframeVisible(isVisibleFileUpload || isVisibleDelete);
@@ -112,6 +134,13 @@ const DialogNoFavorite = (props: Props) => {
         onClose={handleFavoriteDelete}
       />
 
+      <DialogConfirm
+        question="お気に入りデータをエクスポートします。よろしいですか？"
+        isVisible={isVisibleExport}
+        answers={["はい"]}
+        onClose={handleExport}
+      />
+
       <DialogFileUpload
         isVisible={isVisibleFileUpload}
         onClose={handleImport}
@@ -120,7 +149,7 @@ const DialogNoFavorite = (props: Props) => {
       <p className="favoriteP">
         <b>お気に入り</b>
         <button onClick={() => setIsVisibleFileUpload(true)}>インポート</button>
-        <button>エクスポート</button>
+        <button onClick={() => setIsVisibleExport(true)}>エクスポート</button>
         {props.favorites.length !== 0 && (
           <button onClick={() => setIsVisibleDelete(true)}>削除</button>
         )}
