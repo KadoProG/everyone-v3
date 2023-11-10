@@ -167,16 +167,3 @@ const DialogNo = (props: Props) => {
   );
 };
 export default DialogNo;
-
-type ButtonArrowProps = {
-  onClick(): void;
-};
-
-// 矢印ボタンのみコンポーネント化
-const ButtonArrow = (props: ButtonArrowProps) => {
-  return (
-    <button onClick={props.onClick}>
-      <Image src="/images/mark_left.svg" width={20} height={20} alt="左矢印" />
-    </button>
-  );
-};
