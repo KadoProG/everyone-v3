@@ -4,6 +4,7 @@ import "../public/css/dialog_no.scss";
 import { useEffect, useState } from "react";
 import { changeStudentNo, changeYearNo, localStrage } from "../features/update";
 import DialogNoFavorite from "./dialog_no_favorite";
+import PanelNo from "./panel_no";
 
 type Props = {
   onClose(): void;
@@ -108,23 +109,20 @@ const DialogNo = (props: Props) => {
           <div className="no">
             <div className="left">
               <section className="year">
-                <ButtonArrow
-                  onClick={() => props.onChangeYear(props.year - 1)}
-                />
-                <span>{props.year}年度</span>
-                <ButtonArrow
-                  onClick={() => props.onChangeYear(props.year + 1)}
+                <PanelNo
+                  no={props.year}
+                  onChangeNo={props.onChangeYear}
+                  className="year"
+                  displayEnText="年度"
                 />
               </section>
 
               <section className="num">
-                <ButtonArrow onClick={() => props.onChangeNo(props.no - 1)} />
-                <input
-                  type="text"
-                  value={props.no}
-                  onChange={(e) => handleNoChange(e.target.value)}
+                <PanelNo
+                  no={props.no}
+                  onChangeNo={props.onChangeNo}
+                  className="num"
                 />
-                <ButtonArrow onClick={() => props.onChangeNo(props.no + 1)} />
               </section>
             </div>
 
