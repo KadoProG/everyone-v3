@@ -71,13 +71,6 @@ const DialogNo = (props: Props) => {
   const visibleClassName = !props.isVisible ? " disabled" : "";
   const className = "dialog" + visibleClassName;
 
-  // 手書きでチェンジしたときの動作
-  const handleNoChange = (value: string) => {
-    const num = parseInt(value);
-    if (isNaN(num)) return;
-    props.onChangeNo(num);
-  };
-
   // お気に入りの中の学生番号が押されたときの処理
   const handleStudentNoClick = (num: number) => {
     const result = changeYearNo(num);
