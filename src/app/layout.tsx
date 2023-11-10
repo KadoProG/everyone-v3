@@ -4,10 +4,26 @@ import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
 
+const baseURL = process.env.BASE_URL;
 export const metadata: Metadata = {
-  title: "みんなの記事v3 学内の記事が簡単に見られます",
+  title: "みんなの記事v3 - 学内の記事が簡単に見られます",
   description:
     "進化した「みんなの記事v3」は、学内メンバーの課題を簡単に見ることができます。",
+  keywords: "日本大学工学部 Webサイト,HTML CSS JavaScript",
+  openGraph: {
+    type: "website",
+    images: [{ url: baseURL + "/images/v3.png" }],
+    title: "みんなの記事v3 - 学内の記事が簡単に見られます",
+    description:
+      "進化した「みんなの記事v3」は、学内メンバーの課題を簡単に見ることができます。",
+    siteName: "みんなの記事v3",
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "@KadoUniversity",
+    title: "みんなの記事v3 - 学内の記事が簡単に見られます",
+    images: baseURL + "/images/v3.png",
+  },
 };
 
 export default function RootLayout({
