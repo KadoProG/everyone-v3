@@ -1,5 +1,6 @@
 .panel_no {
   display: flex;
+  align-items: center;
   width: 200px;
   padding: 3px;
 
@@ -28,14 +29,16 @@
 
   // -------------ここから、各自のCSS
 
+  // シングル - year
   &.year {
     height: 35px;
-    & span {
+    & input {
       width: calc(100% - 100px - 6px);
       font-size: 16px;
     }
   }
 
+  // シングル - num
   &.num {
     height: 54px;
     & input {
@@ -44,7 +47,8 @@
       font-size: 24px;
     }
   }
-  // マルチのやつ
+
+  // マルチ - 共通
   &.no {
     height: 30px;
     width: 100px;

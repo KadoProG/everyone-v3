@@ -4,21 +4,30 @@ import "../public/css/panel_no.scss";
 type Props = {
   no: number;
   onChangeNo(no: number): void;
+  className?: string;
+  displayEnText?: string;
 };
 const PanelNo = (props: Props) => {
+  const className = props.className ? props.className : "no";
+  const displayEnText = props.displayEnText ? props.displayEnText : "";
+
   // 手書きでチェンジしたときの動作
   const handleNoChange = (value: string) => {
-    const num = parseInt(value);
+    if (value === displayEnText) {
+      props.onChangeNo(0);
+      return;
+    }
+    const num = parseInt(value.replace(displayEnText, ""));
     if (isNaN(num)) return;
     props.onChangeNo(num);
   };
 
   return (
-    <section className="panel_no no">
+    <section className={`panel_no ${className}`}>
       <ButtonArrow onClick={() => props.onChangeNo(props.no - 1)} />
       <input
         type="text"
-        value={props.no}
+        value={props.no + displayEnText}
         onChange={(e) => handleNoChange(e.target.value)}
       />
       <ButtonArrow onClick={() => props.onChangeNo(props.no + 1)} />
