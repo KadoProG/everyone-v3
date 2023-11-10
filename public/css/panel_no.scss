@@ -21,6 +21,9 @@
     &:last-child {
       transform: rotate(180deg);
     }
+    & img {
+      filter: var(--opac-invert);
+    }
   }
 
   // -------------ここから、各自のCSS
