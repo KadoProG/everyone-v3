@@ -9,8 +9,8 @@ import {
   pracData,
 } from "../../features/update";
 
-import "../../../public/css/multi.scss";
-import "../../../public/css/dialog.scss";
+import "../../public/css/multi.scss";
+import "../../public/css/dialog.scss";
 import Image from "next/image";
 import PanelNo from "../../components/panel_no";
 

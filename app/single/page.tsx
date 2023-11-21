@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import "../../../public/css/single.scss";
-import "../../../public/css/dialog.scss";
+import "../../public/css/single.scss";
+import "../../public/css/dialog.scss";
 import DialogNo from "../../components/dialog_no";
 import DialogSite from "../../components/dialog_site";
 import DialogMessage from "../../components/dialog_message";
