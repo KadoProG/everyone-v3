@@ -1,4 +1,4 @@
-import "../../public/css/globals.scss";
+import "../public/css/globals.scss";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
@@ -6,6 +6,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 const baseURL = process.env.BASE_URL;
 export const metadata: Metadata = {
+  metadataBase: new URL(baseURL || "http://localhost:3000"),
   title: "みんなの記事v3 - 学内の記事が簡単に見られます",
   description:
     "進化した「みんなの記事v3」は、学内メンバーの課題を簡単に見ることができます。",
@@ -22,7 +23,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@KadoUniversity",
     title: "みんなの記事v3 - 学内の記事が簡単に見られます",
-    images: baseURL + "/images/v3.png",
+    images: [baseURL + "/images/v3.png"],
   },
 };
 
