@@ -1,6 +1,6 @@
 import Link from "next/link";
-import SingleWindow from "../../components/single_window";
-import "../../public/css/window.scss";
+import SingleWindow from "../components/single_window";
+import "../public/css/window.scss";
 import Image from "next/image";
 const Home = () => {
   const menuItems = [

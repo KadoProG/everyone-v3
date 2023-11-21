@@ -1,18 +1,18 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import DialogMenu from "../../../components/dialog_footer";
+import DialogMenu from "../../components/dialog_footer";
 import {
   changeStudentNo,
   changeYearNo,
   localStrage,
   pracData,
-} from "../../../features/update";
+} from "../../features/update";
 
-import "../../../public/css/multi.scss";
-import "../../../public/css/dialog.scss";
+import "../../public/css/multi.scss";
+import "../../public/css/dialog.scss";
 import Image from "next/image";
-import PanelNo from "../../../components/panel_no";
+import PanelNo from "../../components/panel_no";
 
 const Home = () => {
   const [range, setRange] = useState<{ year: number; st: number; en: number }>({

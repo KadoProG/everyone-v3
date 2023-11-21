@@ -1,15 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import "../../../public/css/single.scss";
-import "../../../public/css/dialog.scss";
-import DialogNo from "../../../components/dialog_no";
-import DialogSite from "../../../components/dialog_site";
-import DialogMessage from "../../../components/dialog_message";
-import DialogMenu from "../../../components/dialog_footer";
-import DialogPrac from "../../../components/dialog_prac";
-import { changeYearNo, localStrage, pracData } from "../../../features/update";
-import DialogResponsive from "../../../components/dialog_responsive";
+import "../../public/css/single.scss";
+import "../../public/css/dialog.scss";
+import DialogNo from "../../components/dialog_no";
+import DialogSite from "../../components/dialog_site";
+import DialogMessage from "../../components/dialog_message";
+import DialogMenu from "../../components/dialog_footer";
+import DialogPrac from "../../components/dialog_prac";
+import { changeYearNo, localStrage, pracData } from "../../features/update";
+import DialogResponsive from "../../components/dialog_responsive";
 
 export type IframeStatus = {
   width: number;

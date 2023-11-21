@@ -2,7 +2,7 @@
 import Image from "next/image";
 import "../public/css/dialog_no.scss";
 import { useEffect, useState } from "react";
-import { IframeStatus } from "@/app/single/page";
+import { IframeStatus } from "../app/single/page";
 
 type Props = {
   onClose(): void;
