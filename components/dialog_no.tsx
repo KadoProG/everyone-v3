@@ -2,34 +2,68 @@
 import Image from "next/image";
 import "../public/css/dialog_no.scss";
 import { useEffect, useState } from "react";
-import { changeStudentNo, changeYearNo, localStrage } from "../features/update";
+import { changeStudentNo, changeYearNo } from "../features/update";
 import DialogNoFavorite from "./dialog_no_favorite";
 import PanelNo from "./panel_no";
+import { useSession } from "next-auth/react";
 
 type Props = {
+  initData: { first: number; favorites: number[] };
   onClose(): void;
   onSelect(): void;
-  onChangeYear(num: number): void;
-  onChangeNo(num: number): void;
   isVisible: boolean;
+  onStudentNo(studentNo: number): void;
   onAddMessage(message: string): void;
-  no: number;
-  year: number;
+  studentNo: number;
   iframeVisible(bool: boolean): void;
 };
 
-const DialogNo = (props: Props) => {
-  // 学生番号を格納
-  const [studentNo, setStudentNo] = useState<number>(20216050);
+const fetchPOST = async (
+  id: string,
+  first: number,
+  favorites: number[]
+): Promise<{
+  success: boolean;
+  data: { first: number; favorites: number[] };
+}> => {
+  const json = { favorites, first };
 
+  const res = await fetch(`/api/users/${id}`, {
+    method: "POST",
+    body: JSON.stringify(json),
+  });
+  return await res.json();
+};
+
+const DialogNo = (props: Props) => {
+  // 初期データを取得
+  const initData = props.initData;
+  const studentNo = props.studentNo; // 学生番号
+
+  // ステータス情報を取得
+  const { data: session } = useSession();
+
+  // -------- ここからステートの変数宣言
   // お気に入りリスト
-  const [favorites, setFavorites] = useState<number[]>([]);
+  const [favorites, setFavorites] = useState<number[]>(initData.favorites);
 
   // 現在選択中がお気に入りか否か
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
 
   // 現在選択中が「最初に表示」か否か
   const [isFirst, setIsFirst] = useState<boolean>(false);
+
+  const [first, setFirst] = useState<number>(initData.first);
+
+  // データを更新する
+  useEffect(() => {
+    if (session?.user?.name) {
+      fetchPOST(session?.user.name, first, favorites);
+    } else {
+      // // ローカルストレージに書き込み
+      // localStrage.setFavorites(newFavorites);
+    }
+  }, [favorites, first]);
 
   // お気に入りボタン押下時の処理
   const handleFavoriteChange = (bool: boolean) => {
@@ -39,33 +73,31 @@ const DialogNo = (props: Props) => {
     const newFavorites = bool
       ? [...favorites, studentNo]
       : favorites.filter((v) => v !== studentNo);
+    const newFavorites2 = newFavorites.sort((a, b) => a - b);
 
-    setFavorites(newFavorites);
-
-    // ローカルストレージに書き込み
-    localStrage.setFavorites(newFavorites);
+    setFavorites(newFavorites2);
   };
 
   // 最初に表示 押下時の処理
   const handleFirstChagne = (bool: boolean) => {
     // 最初に表示を反映
     setIsFirst(bool);
+
     // ローカルストレージに反映
-    const newData = bool ? studentNo : null;
-    localStrage.setFirst(newData);
+    const newData = bool ? studentNo : 20216050;
+
+    setFirst(newData);
   };
 
   // 学生番号を取得
   useEffect(() => {
-    const newStudentNo = changeStudentNo(props.year, props.no);
-    setStudentNo(newStudentNo);
     // 最初に表示を反映
-    const newIsFirst = localStrage.getFirst() === newStudentNo;
+    const newIsFirst = first === studentNo;
     setIsFirst(newIsFirst);
     // お気に入りの状態を反映
-    const newIsFavorite = localStrage.getFavorites().includes(newStudentNo);
+    const newIsFavorite = favorites.includes(studentNo);
     setIsFavorite(newIsFavorite);
-  }, [props.no, props.year]);
+  }, [studentNo]);
 
   // クラス名を反映
   const visibleClassName = !props.isVisible ? " disabled" : "";
@@ -73,16 +105,19 @@ const DialogNo = (props: Props) => {
 
   // お気に入りの中の学生番号が押されたときの処理
   const handleStudentNoClick = (num: number) => {
-    const result = changeYearNo(num);
-    props.onChangeYear(result.year);
-    props.onChangeNo(result.no);
+    props.onStudentNo(num);
   };
 
-  // 起動時実行（DOM操作あり）
-  useEffect(() => {
-    const newFavorites = localStrage.getFavorites();
-    setFavorites(newFavorites);
-  }, []);
+  // 学生番号が変更されたときの処理「年度」
+  const onYear = (year: number) => {
+    const newYearNo = changeYearNo(studentNo);
+    props.onStudentNo(changeStudentNo(year, newYearNo.no));
+  };
+  // 学生番号が変更されたときの処理「番号」
+  const onNo = (no: number) => {
+    const newYearNo = changeYearNo(studentNo);
+    props.onStudentNo(changeStudentNo(newYearNo.year, no));
+  };
 
   return (
     <>
@@ -103,8 +138,8 @@ const DialogNo = (props: Props) => {
             <div className="left">
               <section className="year">
                 <PanelNo
-                  no={props.year}
-                  onChangeNo={props.onChangeYear}
+                  no={changeYearNo(props.studentNo).year}
+                  onChangeNo={onYear}
                   className="year"
                   displayEnText="年度"
                 />
@@ -112,8 +147,8 @@ const DialogNo = (props: Props) => {
 
               <section className="num">
                 <PanelNo
-                  no={props.no}
-                  onChangeNo={props.onChangeNo}
+                  no={changeYearNo(props.studentNo).no}
+                  onChangeNo={onNo}
                   className="num"
                 />
               </section>

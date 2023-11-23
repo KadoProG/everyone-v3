@@ -1,8 +1,12 @@
+"use client";
+
 import Link from "next/link";
 import SingleWindow from "../components/single_window";
 import "../public/css/window.scss";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
 const Home = () => {
+  const { data: session } = useSession();
   const menuItems = [
     { link: "/", title: "HOMEに戻る", ex: false },
     {
@@ -28,7 +32,11 @@ const Home = () => {
   ];
   return (
     <>
-      <header>ここがﾍｯﾀﾞ</header>
+      <header>
+        ここがﾍｯﾀﾞ
+        {JSON.stringify(session)}
+        <span>{session?.user?.name ?? "guest"}</span>
+      </header>
       <main className="main">
         <div className="main__title">
           <h1>みんなの記事v3</h1>
