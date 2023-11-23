@@ -19,7 +19,7 @@ export async function GET(
     return new Response(
       JSON.stringify({
         success: true,
-        data: { first: null, favorites: [] },
+        data: { first: 20216050, favorites: [] },
       })
     );
   }

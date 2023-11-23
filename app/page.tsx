@@ -5,9 +5,9 @@ import SingleWindow from "../components/single_window";
 import "../public/css/window.scss";
 import "../public/css/home.scss";
 import Image from "next/image";
-import { useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 const Home = () => {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const menuItems = [
     { link: "/", title: "HOMEに戻る", ex: false },
     {
@@ -31,12 +31,40 @@ const Home = () => {
       ex: true,
     },
   ];
+
   return (
     <>
-      <header>
-        ここがﾍｯﾀﾞ
-        {JSON.stringify(session)}
-        <span>{session?.user?.name ?? "guest"}</span>
+      <header className="header">
+        <p>ここがﾍｯﾀﾞ</p>
+        <div className="account">
+          {/* {JSON.stringify(session)} */}
+
+          {status === "loading" ? (
+            "お待ちを"
+          ) : (
+            <>
+              <div className="top">
+                <span>{session?.user?.name ?? "ゲスト"}</span>
+                {session?.user?.image ? (
+                  <Image
+                    src={session.user.image}
+                    width={30}
+                    height={30}
+                    alt={"GitHubのアイコン"}
+                  />
+                ) : (
+                  ""
+                )}
+              </div>
+              <button
+                onClick={() => (session?.user?.name ? signOut() : signIn())}
+                className="button"
+              >
+                {session?.user?.name ? "ログアウト" : "ログイン"}
+              </button>
+            </>
+          )}
+        </div>
       </header>
       <main className="main">
         <div className="main__title">

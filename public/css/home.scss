@@ -1,3 +1,36 @@
+.header {
+  background: var(--color-back1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  & > .account {
+    height: 60px;
+    & > .top {
+      display: flex;
+      height: 30px;
+      align-items: center;
+      & span {
+        font-size: 14px;
+        width: 100px;
+        text-align: center;
+      }
+    }
+    & > .button {
+      display: inline-block;
+      width: 100%;
+      height: 30px;
+      border: none;
+      background: var(--color-button);
+      color: var(--color-text);
+      cursor: pointer;
+      &:hover {
+        background: var(--color-button-hover);
+      }
+    }
+  }
+}
+
 .main {
   background: var(--color-back1);
   max-width: 800px;

@@ -1,4 +1,5 @@
 "use client";
+
 import Image from "next/image";
 import "../public/css/dialog_no.scss";
 import { useEffect, useState } from "react";
@@ -18,21 +19,13 @@ type Props = {
   iframeVisible(bool: boolean): void;
 };
 
-const fetchPOST = async (
-  id: string,
-  first: number,
-  favorites: number[]
-): Promise<{
-  success: boolean;
-  data: { first: number; favorites: number[] };
-}> => {
+const fetchPOST = async (id: string, first: number, favorites: number[]) => {
   const json = { favorites, first };
 
   const res = await fetch(`/api/users/${id}`, {
     method: "POST",
     body: JSON.stringify(json),
   });
-  return await res.json();
 };
 
 const DialogNo = (props: Props) => {
