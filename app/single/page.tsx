@@ -2,7 +2,7 @@ import "../../public/css/single.scss";
 import "../../public/css/dialog.scss";
 import Single from "../../components/single";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../api/auth/[...nextauth]/route";
+import { authOptions } from "../api/auth/[...nextauth]";
 
 export type IframeStatus = {
   width: number;

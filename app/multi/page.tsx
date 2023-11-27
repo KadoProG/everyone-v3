@@ -2,7 +2,7 @@ import "../../public/css/multi.scss";
 import "../../public/css/dialog.scss";
 import Multi from "../../components/multi";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../api/auth/[...nextauth]/route";
+import { authOptions } from "../api/auth/[...nextauth]";
 
 // GETメソッド
 const fetchOriginData = async (
