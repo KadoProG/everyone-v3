@@ -1,11 +1,11 @@
 import { useState } from "react";
 import "../public/css/dialog_file_upload.scss";
 import DialogConfirm from "./dialog_confirm";
-import { localStrage } from "../features/update";
 
 type Props = {
   isVisible: boolean;
   onClose(result: { data: number[]; type: number } | undefined): void;
+  favorites: number[];
 };
 const DialogFileUpload = (props: Props) => {
   // 確認画面の表示・非表示
@@ -37,7 +37,7 @@ const DialogFileUpload = (props: Props) => {
       // 一度格納
       setFileText(items2);
 
-      const itemIncludes = localStrage.getFavorites();
+      const itemIncludes = props.favorites;
 
       // 既存の要素が0個の場合ダイアログなし
       if (itemIncludes.length === 0) {

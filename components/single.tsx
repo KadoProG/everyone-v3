@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { changeYearNo, pracData } from "../features/update";
+import { changeYearNo, localStrage, pracData } from "../features/update";
 import { IframeStatus } from "../app/single/page";
 import DialogMenu from "./dialog_footer";
 import DialogNo from "./dialog_no";
@@ -11,11 +11,9 @@ import DialogResponsive from "./dialog_responsive";
 import DialogMessage from "./dialog_message";
 
 type Props = {
-  initData: { first: number; favorites: number[] };
+  initData: { first: number; favorites: number[]; isLocalStorage: boolean };
 };
-const Single = (props: Props) => {
-  const initData = props.initData; // 初期値を取得
-
+const Single: React.FC<Props> = ({ initData }) => {
   // 学生番号関係が更新されたらURLを更新する関数
   const updateUrl = () => {
     // URLを更新
@@ -78,7 +76,16 @@ const Single = (props: Props) => {
 
   // 起動時に実行
   useEffect(() => {
+    if (initData.isLocalStorage) {
+      if (typeof window === "undefined") return;
+
+      const currentFirst = localStrage.getFirst() || 20216050;
+      // 初期の学生番号をここで更新
+      setStudentNo(currentFirst);
+    }
+
     updateUrl();
+    // eslint-disable-next-line
   }, []);
 
   // iframeの表示、非表示

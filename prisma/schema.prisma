@@ -13,8 +13,9 @@ datasource db {
 
 // ここから、データベースの作成
 model User {
-  id               Int      @id @default(autoincrement())
-  githubAccountId String   @unique
-  firstStudentNo  Int      // 8桁の数字
+  id               Int     @id @default(autoincrement())
+  githubAccountId  String  @unique
+  firstStudentNo   Int      // 8桁の数字
   studentFavorites Int[]    // Intの配列
+  isLocalStorage   Boolean  @default(false) // ローカルストレージとして管理するか否か
 }

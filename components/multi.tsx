@@ -1,14 +1,19 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { changeStudentNo, changeYearNo, pracData } from "../features/update";
+import {
+  changeStudentNo,
+  changeYearNo,
+  localStrage,
+  pracData,
+} from "../features/update";
 import DialogMenu from "./dialog_footer";
 import PanelNo from "./panel_no";
 import MultiIframe from "./multi_iframe";
 import { useSession } from "next-auth/react";
 
 type Props = {
-  initData: { first: number; favorites: number[] };
+  initData: { first: number; favorites: number[]; isLocalStorage: boolean };
 };
 
 const fetchPOST = async (
@@ -40,12 +45,13 @@ const Multi = (props: Props) => {
 
   // データを更新する
   useEffect(() => {
-    if (session?.user?.name) {
-      fetchPOST(session?.user.name, initData.first, favorites);
+    if (!initData.isLocalStorage && session?.user?.email) {
+      fetchPOST(session.user.email, initData.first, favorites);
     } else {
-      // // ローカルストレージに書き込み
-      // localStrage.setFavorites(newFavorites);
+      // ローカルストレージに書き込み
+      localStrage.setFavorites(favorites);
     }
+    // eslint-disable-next-line
   }, [favorites]);
 
   // ダイアログのINDEX

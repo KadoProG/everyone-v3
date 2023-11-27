@@ -19,7 +19,7 @@ export async function GET(
     return new Response(
       JSON.stringify({
         success: true,
-        data: { first: 20216050, favorites: [] },
+        data: { first: 20216050, favorites: [], isLocalStorage: true },
       })
     );
   }
@@ -27,6 +27,7 @@ export async function GET(
   const result = {
     first: data.firstStudentNo,
     favorites: data.studentFavorites,
+    isLocalStorage: data.isLocalStorage,
   };
 
   return new Response(JSON.stringify({ success: true, data: result }));
@@ -44,6 +45,7 @@ export async function POST(
 
   const firstStudentNo: number = body.first;
   const studentFavorites: number[] = body.favorites;
+  const isLocalStorage: boolean = body.isLocalStorage;
 
   // パラメータ空白判定
   if (
@@ -75,6 +77,7 @@ export async function POST(
           data: {
             firstStudentNo,
             studentFavorites,
+            isLocalStorage,
           },
         })
       : // 新規作成の処理をする
@@ -83,12 +86,14 @@ export async function POST(
             githubAccountId,
             firstStudentNo,
             studentFavorites,
+            isLocalStorage,
           },
         });
 
   const result = {
     first: data.firstStudentNo,
     favorites: data.studentFavorites,
+    isLocalStorage: data.isLocalStorage,
   };
 
   return new Response(JSON.stringify({ success: true, data: result }));
