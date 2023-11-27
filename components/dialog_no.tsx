@@ -64,7 +64,8 @@ const DialogNo: React.FC<Props> = ({
   // データを更新する
   useEffect(() => {
     // 起動時実行を防止
-    const breakPoint = initData.isLocalStorage ? 3 : 2;
+    // const breakPoint = initData.isLocalStorage ? 3 : 2;
+    const breakPoint = 2; // dev時は上記を使う
     if (ref.current < breakPoint) {
       ref.current += 1;
       console.log("飛ばし");
