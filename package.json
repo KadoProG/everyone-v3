@@ -4,13 +4,16 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "npx prisma generate && next build",
     "start": "next start",
     "lint": "next lint --no-cache",
     "format": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,json,css}' && next lint --fix"
   },
   "dependencies": {
+    "@prisma/client": "5.6.0",
     "next": "^14.0.3",
+    "next-auth": "^4.24.5",
+    "prisma": "^5.6.0",
     "react": "^18",
     "react-dom": "^18"
   },

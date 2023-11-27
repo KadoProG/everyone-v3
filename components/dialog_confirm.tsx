@@ -2,7 +2,7 @@ import "../public/css/dialog_confirm.scss";
 
 type Props = {
   isVisible: boolean;
-  question: string;
+  question: string | string[];
   onClose(num: number | undefined): void;
   answers: string[];
 };
@@ -15,8 +15,12 @@ const DialogConfirm = (props: Props) => {
         props.onClose(undefined);
       }}
     >
-      <div>
-        <p>{props.question}</p>
+      <div onClick={(e) => e.stopPropagation()}>
+        {typeof props.question === "string" ? (
+          <p>{props.question}</p>
+        ) : (
+          props.question.map((v, index) => <p key={index}>{v}</p>)
+        )}
         <div>
           {props.answers.map((v, index) => {
             return (

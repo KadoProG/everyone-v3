@@ -1,35 +1,99 @@
 "use client";
-import Image from "next/image";
+
 import "../public/css/dialog_no.scss";
-import { useEffect, useState } from "react";
-import { changeStudentNo, changeYearNo, localStrage } from "../features/update";
+import { useEffect, useRef, useState } from "react";
+import { localStrage } from "../features/update";
 import DialogNoFavorite from "./dialog_no_favorite";
-import PanelNo from "./panel_no";
+import { useSession } from "next-auth/react";
+import DialogNoDetail from "./dialog_no_detail";
+import DialogNoRight from "./dialog_no_right";
 
 type Props = {
-  onClose(): void;
-  onSelect(): void;
-  onChangeYear(num: number): void;
-  onChangeNo(num: number): void;
-  isVisible: boolean;
-  onAddMessage(message: string): void;
-  no: number;
-  year: number;
-  iframeVisible(bool: boolean): void;
+  initData: { first: number; favorites: number[]; isLocalStorage: boolean }; // 初期データ
+  onClose(): void; // ウィンドウを閉じる
+  onSelect(): void; // ウィンドウを選択
+  isVisible: boolean; // 表示するか否か
+  onStudentNo(studentNo: number): void; // 現在の学生番号を更新
+  onAddMessage(message: string): void; // メッセージを格納
+  studentNo: number; // 現在の学生番号
+  iframeVisible(bool: boolean): void; // iframeの表示・非表示を変更
 };
 
-const DialogNo = (props: Props) => {
-  // 学生番号を格納
-  const [studentNo, setStudentNo] = useState<number>(20216050);
+// POSTの処理
+const fetchPOST = async (
+  id: string,
+  first: number,
+  favorites: number[],
+  isLocalStorage: boolean
+) => {
+  const json = { favorites, first, isLocalStorage };
 
-  // お気に入りリスト
-  const [favorites, setFavorites] = useState<number[]>([]);
+  await fetch(`/api/users/${id}`, {
+    method: "POST",
+    body: JSON.stringify(json),
+  });
+};
 
-  // 現在選択中がお気に入りか否か
+const DialogNo: React.FC<Props> = ({
+  initData,
+  studentNo,
+  isVisible,
+  onClose,
+  onSelect,
+  onAddMessage,
+  onStudentNo,
+  iframeVisible,
+}) => {
+  // ステータス情報を取得
+  const { data: session } = useSession();
+
+  // -------- ここからステートの変数宣言
+  const ref = useRef(0); // 起動時実行を防止
+
+  // お気に入りリスト・最初に表示ステート
+  const [first, setFirst] = useState<number>(initData.first);
+  const [favorites, setFavorites] = useState<number[]>(initData.favorites);
+  const [isLocalStorage, setIsLocalStorage] = useState<boolean>(
+    initData.isLocalStorage
+  );
+
+  // 現在学生番号の「お気に入り」「最初に表示」の状態
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
-
-  // 現在選択中が「最初に表示」か否か
   const [isFirst, setIsFirst] = useState<boolean>(false);
+
+  // データを更新する
+  useEffect(() => {
+    // 起動時実行を防止
+    const breakPoint = initData.isLocalStorage ? 3 : 2;
+    if (ref.current < breakPoint) {
+      ref.current += 1;
+      console.log("飛ばし");
+      return;
+    }
+
+    if (!isLocalStorage && session?.user?.email) {
+      // Git上で書き込み
+      console.log("Git更新");
+      fetchPOST(session.user.email, first, favorites, isLocalStorage);
+    } else {
+      // ローカルストレージに書き込み
+      console.log("Local更新");
+      localStrage.setFavorites(favorites);
+      localStrage.setFirst(first);
+    }
+    // eslint-disable-next-line
+  }, [favorites, first, isLocalStorage]);
+
+  // 学生番号・お気に入り更新時の処理
+  useEffect(() => {
+    // 最初に表示を反映
+    const newIsFirst = first === studentNo;
+    setIsFirst(newIsFirst);
+    // お気に入りの状態を反映
+    const newIsFavorite = favorites.includes(studentNo);
+    setIsFavorite(newIsFavorite);
+    // eslint-disable-next-line
+  }, [studentNo, favorites]);
 
   // お気に入りボタン押下時の処理
   const handleFavoriteChange = (bool: boolean) => {
@@ -39,119 +103,68 @@ const DialogNo = (props: Props) => {
     const newFavorites = bool
       ? [...favorites, studentNo]
       : favorites.filter((v) => v !== studentNo);
+    const newFavorites2 = newFavorites.sort((a, b) => a - b);
 
-    setFavorites(newFavorites);
-
-    // ローカルストレージに書き込み
-    localStrage.setFavorites(newFavorites);
+    setFavorites(newFavorites2);
   };
 
   // 最初に表示 押下時の処理
-  const handleFirstChagne = (bool: boolean) => {
+  const handleFirstChange = (bool: boolean) => {
     // 最初に表示を反映
     setIsFirst(bool);
-    // ローカルストレージに反映
-    const newData = bool ? studentNo : null;
-    localStrage.setFirst(newData);
-  };
 
-  // 学生番号を取得
-  useEffect(() => {
-    const newStudentNo = changeStudentNo(props.year, props.no);
-    setStudentNo(newStudentNo);
-    // 最初に表示を反映
-    const newIsFirst = localStrage.getFirst() === newStudentNo;
-    setIsFirst(newIsFirst);
-    // お気に入りの状態を反映
-    const newIsFavorite = localStrage.getFavorites().includes(newStudentNo);
-    setIsFavorite(newIsFavorite);
-  }, [props.no, props.year]);
+    // ローカルストレージに反映
+    const newData = bool ? studentNo : 20216050;
+
+    setFirst(newData);
+  };
 
   // クラス名を反映
-  const visibleClassName = !props.isVisible ? " disabled" : "";
+  const visibleClassName = !isVisible ? " disabled" : "";
   const className = "dialog" + visibleClassName;
-
-  // お気に入りの中の学生番号が押されたときの処理
-  const handleStudentNoClick = (num: number) => {
-    const result = changeYearNo(num);
-    props.onChangeYear(result.year);
-    props.onChangeNo(result.no);
-  };
 
   // 起動時実行（DOM操作あり）
   useEffect(() => {
-    const newFavorites = localStrage.getFavorites();
-    setFavorites(newFavorites);
+    if (isLocalStorage) {
+      const newFavorites = localStrage.getFavorites();
+      setFavorites(newFavorites);
+      const newFirst = localStrage.getFirst() || 20216050;
+      setFirst(newFirst);
+    }
+    // eslint-disable-next-line
   }, []);
 
   return (
     <>
-      <div className={className} onClick={props.onClose}>
+      <div className={className} onClick={onClose}>
         <div className="dialog__content" onClick={(e) => e.stopPropagation()}>
           <DialogNoFavorite
-            onStudentNo={handleStudentNoClick}
-            onIframeVisible={(bool) => props.iframeVisible(bool)}
-            onAddMessage={props.onAddMessage}
+            onStudentNo={onStudentNo}
+            onIframeVisible={(bool) => iframeVisible(bool)}
+            onAddMessage={onAddMessage}
             favorites={favorites}
             setFavorites={setFavorites}
+            setFirst={setFirst}
+            isLocalStorage={isLocalStorage}
+            setIsLocalStorage={setIsLocalStorage}
           />
 
           <p>
             <b>学生番号</b>
           </p>
           <div className="no">
-            <div className="left">
-              <section className="year">
-                <PanelNo
-                  no={props.year}
-                  onChangeNo={props.onChangeYear}
-                  className="year"
-                  displayEnText="年度"
-                />
-              </section>
-
-              <section className="num">
-                <PanelNo
-                  no={props.no}
-                  onChangeNo={props.onChangeNo}
-                  className="num"
-                />
-              </section>
-            </div>
-
-            <div className="right">
-              <input
-                type="checkbox"
-                id="dialog__content__no__favorite"
-                checked={isFavorite}
-                onChange={(e) => handleFavoriteChange(e.target.checked)}
-              />
-              <label htmlFor="dialog__content__no__favorite">
-                <Image
-                  src={
-                    isFavorite
-                      ? "/images/star_blue_icon.svg"
-                      : "/images/star_icon.svg"
-                  }
-                  width={24}
-                  height={24}
-                  alt="星"
-                />
-                <span>お気に入り</span>
-              </label>
-              <input
-                type="checkbox"
-                id="dialog__no__checkbox"
-                checked={isFirst}
-                onChange={(e) => handleFirstChagne(e.target.checked)}
-              />
-              <label htmlFor="dialog__no__checkbox">次回最初に表示</label>
-            </div>
+            <DialogNoDetail studentNo={studentNo} onStudentNo={onStudentNo} />
+            <DialogNoRight
+              isFavorite={isFavorite}
+              isFirst={isFirst}
+              onIsFavorite={handleFavoriteChange}
+              onIsFirst={handleFirstChange}
+            />
           </div>
         </div>
       </div>
       <div className="single__footer__right__button">
-        <button onClick={props.onSelect}>
+        <button onClick={onSelect}>
           <span>{studentNo}</span>
         </button>
         <span>学年・学生番号</span>
