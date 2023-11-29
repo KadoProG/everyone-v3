@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { changeYearNo, localStrage, pracData } from "../features/update";
-import { IframeStatus } from "../app/single/page";
-import DialogMenu from "./dialog_footer";
-import DialogNo from "./dialog_no";
-import DialogPrac from "./dialog_prac";
-import DialogSite from "./dialog_site";
-import DialogResponsive from "./dialog_responsive";
-import DialogMessage from "./dialog_message";
+import { useEffect, useState } from 'react';
+import { changeYearNo, localStrage, pracData } from '../features/update';
+import { IframeStatus } from '../app/single/page';
+import DialogMenu from './dialog_footer';
+import DialogNo from './dialog_no';
+import DialogPrac from './dialog_prac';
+import DialogSite from './dialog_site';
+import DialogResponsive from './dialog_responsive';
+import DialogMessage from './dialog_message';
 
 type Props = {
   initData: { first: number; favorites: number[]; isLocalStorage: boolean };
@@ -27,7 +27,7 @@ const Single: React.FC<Props> = ({ initData }) => {
   };
 
   // -------- ここからステートの変数宣言
-  const [url, setUrl] = useState<string>(""); // URLを格納
+  const [url, setUrl] = useState<string>(''); // URLを格納
 
   // 現在の情報ステータス
   const [studentNo, setStudentNo] = useState<number>(initData.first);
@@ -77,7 +77,7 @@ const Single: React.FC<Props> = ({ initData }) => {
   // 起動時に実行
   useEffect(() => {
     if (initData.isLocalStorage) {
-      if (typeof window === "undefined") return;
+      if (typeof window === 'undefined') return;
 
       const currentFirst = localStrage.getFirst() || 20216050;
       // 初期の学生番号をここで更新
@@ -103,7 +103,7 @@ const Single: React.FC<Props> = ({ initData }) => {
           height={iframeStatus?.height}
           id="iframe__single"
           style={{ scale: iframeStatus.scale ? iframeStatus.scale : 1 }}
-          className={iframeStatus?.isObstacle ? "obstacle" : ""}
+          className={iframeStatus?.isObstacle ? 'obstacle' : ''}
         ></iframe>
       </div>
 

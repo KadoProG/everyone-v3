@@ -1,5 +1,5 @@
-import { PrismaClient } from "@prisma/client";
-import { NextRequest } from "next/server";
+import { PrismaClient } from '@prisma/client';
+import { NextRequest } from 'next/server';
 
 const prisma = new PrismaClient();
 
@@ -15,31 +15,15 @@ export async function POST(
 
   const isLocalStorage: boolean = body.isLocalStorage;
 
-  // // データの有無を調べる
-  // const existData = await prisma.user.findUnique({
-  //   where: { githubAccountId },
-  // });
-
-  const data =
-    // existData !== null
-    // ? // 更新の処理をする
-    await prisma.user.update({
-      where: {
-        githubAccountId,
-      },
-      data: {
-        isLocalStorage,
-      },
-    });
-  // : // 新規作成の処理をする
-  //   await prisma.user.create({
-  //     data: {
-  //       githubAccountId,
-  //       // firstStudentNo,
-  //       // studentFavorites,
-  //       isLocalStorage,
-  //     },
-  //   });
+  // 更新の処理をする
+  const data = await prisma.user.update({
+    where: {
+      githubAccountId,
+    },
+    data: {
+      isLocalStorage,
+    },
+  });
 
   const result = {
     first: data.firstStudentNo,

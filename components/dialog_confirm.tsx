@@ -1,4 +1,4 @@
-import "../public/css/dialog_confirm.scss";
+import '../public/css/dialog_confirm.scss';
 
 type Props = {
   isVisible: boolean;
@@ -9,14 +9,14 @@ type Props = {
 const DialogConfirm = (props: Props) => {
   return (
     <div
-      className={`confirm${props.isVisible ? " enabled" : ""}`}
+      className={`confirm${props.isVisible ? ' enabled' : ''}`}
       onClick={(e) => {
         e.stopPropagation();
         props.onClose(undefined);
       }}
     >
       <div onClick={(e) => e.stopPropagation()}>
-        {typeof props.question === "string" ? (
+        {typeof props.question === 'string' ? (
           <p>{props.question}</p>
         ) : (
           props.question.map((v, index) => <p key={index}>{v}</p>)

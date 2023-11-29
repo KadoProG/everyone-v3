@@ -1,33 +1,33 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import SingleWindow from "../components/single_window";
-import "../public/css/window.scss";
-import "../public/css/home.scss";
-import Image from "next/image";
-import { signIn, signOut, useSession } from "next-auth/react";
+import Link from 'next/link';
+import SingleWindow from '../components/single_window';
+import '../public/css/window.scss';
+import '../public/css/home.scss';
+import Image from 'next/image';
+import { signIn, signOut, useSession } from 'next-auth/react';
 const Home = () => {
   const { data: session, status } = useSession();
   const menuItems = [
-    { link: "/", title: "HOMEに戻る", ex: false },
+    { link: '/', title: 'HOMEに戻る', ex: false },
     {
-      link: "https://fast5-blog.com/html-product/uni-web/",
-      title: "Kadoのサイトに戻る",
+      link: 'https://fast5-blog.com/html-product/uni-web/',
+      title: 'Kadoのサイトに戻る',
       ex: false,
     },
     {
-      link: "https://sub3.fast5-blog.com",
-      title: "NextJSの仮ポートフォリオ",
+      link: 'https://sub3.fast5-blog.com',
+      title: 'NextJSの仮ポートフォリオ',
       ex: true,
     },
     {
-      link: "https://x.com/KadoUniversity",
-      title: "X [@KadoUniversity]",
+      link: 'https://x.com/KadoUniversity',
+      title: 'X [@KadoUniversity]',
       ex: true,
     },
     {
-      link: "https://github.com/KadoProG",
-      title: "GitHub [KadoProG]",
+      link: 'https://github.com/KadoProG',
+      title: 'GitHub [KadoProG]',
       ex: true,
     },
   ];
@@ -39,28 +39,28 @@ const Home = () => {
         <div className="account">
           {/* {JSON.stringify(session)} */}
 
-          {status === "loading" ? (
-            "お待ちを"
+          {status === 'loading' ? (
+            'お待ちを'
           ) : (
             <>
               <div className="top">
-                <span>{session?.user?.name ?? "ゲスト"}</span>
+                <span>{session?.user?.name ?? 'ゲスト'}</span>
                 {session?.user?.image ? (
                   <Image
                     src={session.user.image}
                     width={30}
                     height={30}
-                    alt={"GitHubのアイコン"}
+                    alt={'GitHubのアイコン'}
                   />
                 ) : (
-                  ""
+                  ''
                 )}
               </div>
               <button
                 onClick={() => (session?.user?.name ? signOut() : signIn())}
                 className="button"
               >
-                {session?.user?.name ? "ログアウト" : "ログイン"}
+                {session?.user?.name ? 'ログアウト' : 'ログイン'}
               </button>
             </>
           )}
@@ -78,7 +78,7 @@ const Home = () => {
               alt="GitHubアイコン"
             />
             <Link
-              href={"https://github.com/KadoProG/everyone-v3"}
+              href={'https://github.com/KadoProG/everyone-v3'}
               target="_blank"
             >
               KadoProG/everyone-v3
@@ -102,7 +102,7 @@ const Home = () => {
                 一つひとつ記事を確認、デバッグするために使用するものです。レスポンシブ表示などに対応します。
               </p>
             </div>
-            <Link href={"/single"}>閲覧する！</Link>
+            <Link href={'/single'}>閲覧する！</Link>
           </div>
           <div>
             <div>
@@ -115,7 +115,7 @@ const Home = () => {
               </div>
               <p>一度にたくさんのコンテンツを閲覧できます。</p>
             </div>
-            <Link href={"/multi"}>閲覧する！</Link>
+            <Link href={'/multi'}>閲覧する！</Link>
           </div>
         </div>
         <section>
@@ -127,10 +127,10 @@ const Home = () => {
         <section>
           <div className="main__image">
             <Image
-              src={"/images/v1.png"}
+              src={'/images/v1.png'}
               width={300}
               height={200}
-              alt={"みんなの記事v1"}
+              alt={'みんなの記事v1'}
             />
           </div>
           <p>初代、みんなの記事は、2022年5月15日に制作しました。</p>
@@ -143,6 +143,7 @@ const Home = () => {
           <a
             href="https://fast5-blog.com/html-product/uni-web/blogs/everyone.html"
             target="_blank"
+            rel="noopener noreferrer"
           >
             「みんなの記事v1」を閲覧する
           </a>
@@ -174,6 +175,7 @@ const Home = () => {
           <a
             href="https://fast5-blog.com/html-product/uni-web/blogs/newEveryone.html"
             target="_blank"
+            rel="noopener noreferrer"
           >
             「みんなの記事v2」を閲覧する
           </a>
@@ -274,7 +276,7 @@ const Home = () => {
         <nav>
           <ul>
             {menuItems.map((v, index) => {
-              const strTarget = v.ex ? "_blank" : "_self";
+              const strTarget = v.ex ? '_blank' : '_self';
               return (
                 <li key={index}>
                   <Link href={v.link} target={strTarget}>

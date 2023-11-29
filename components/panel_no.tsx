@@ -1,5 +1,5 @@
-import Image from "next/image";
-import "../public/css/panel_no.scss";
+import Image from 'next/image';
+import '../public/css/panel_no.scss';
 
 type Props = {
   no: number;
@@ -8,8 +8,8 @@ type Props = {
   displayEnText?: string;
 };
 const PanelNo = (props: Props) => {
-  const className = props.className ? props.className : "no";
-  const displayEnText = props.displayEnText ? props.displayEnText : "";
+  const className = props.className ? props.className : 'no';
+  const displayEnText = props.displayEnText ? props.displayEnText : '';
 
   // 手書きでチェンジしたときの動作
   const handleNoChange = (value: string) => {
@@ -17,7 +17,7 @@ const PanelNo = (props: Props) => {
       props.onChangeNo(0);
       return;
     }
-    const num = parseInt(value.replace(displayEnText, ""));
+    const num = parseInt(value.replace(displayEnText, ''));
     if (isNaN(num)) return;
     props.onChangeNo(num);
   };

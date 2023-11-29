@@ -1,0 +1,27 @@
+trailingComma = "es5"
+tabWidth = 2
+useTabs = false
+semi = true
+singleQuote = true
+jsxSingleQuote = false
+arrowParens = "always"
+printWidth = 80
+bracketSpacing = true
+htmlWhitespaceSensitivity = "ignore"
+
+[[overrides]]
+files = [ "*.html" ]
+  [overrides.options]
+  printWidth = 360
+
+[[overrides]]
+files = [ "*.css", "*.scss" ]
+  [overrides.options]
+  singleQuote = false
+
+[[overrides]]
+files = [ "*.pug" ]
+  [overrides.options]
+  tabWidth = 4
+  printWidth = 360
+  singleQuote = false

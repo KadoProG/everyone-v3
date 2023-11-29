@@ -1,5 +1,5 @@
-import Image from "next/image";
-import "../public/css/dialog_site.scss";
+import Image from 'next/image';
+import '../public/css/dialog_site.scss';
 
 type Props = {
   onClose(): void;
@@ -12,18 +12,18 @@ type Props = {
 
 const DialogSite = (props: Props) => {
   // クラス名を反映
-  const visibleClassName = !props.isVisible ? " disabled" : "";
-  const className = "dialog" + visibleClassName;
+  const visibleClassName = !props.isVisible ? ' disabled' : '';
+  const className = 'dialog' + visibleClassName;
 
   // 再読み込み
   const handleReload = () => {
     const url = props.url;
-    props.onChangeUrl("");
+    props.onChangeUrl('');
     setTimeout(() => {
       props.onChangeUrl(url);
     }, 20);
     // メッセージを送信
-    props.onAddMessage("Success: iframeを更新しました");
+    props.onAddMessage('Success: iframeを更新しました');
   };
 
   // クリップボードへコピー（コピーの処理）
@@ -31,14 +31,14 @@ const DialogSite = (props: Props) => {
     if (navigator.clipboard) {
       navigator.clipboard.writeText(props.url).then(function () {});
     } else {
-      const textarea = document.getElementById("textarea");
+      const textarea = document.getElementById('textarea');
       if (textarea === null) return;
       textarea.focus();
-      document.execCommand("copy");
+      document.execCommand('copy');
       textarea.blur();
     }
     // メッセージを送信
-    props.onAddMessage("Success: グリップボードにコピーしました");
+    props.onAddMessage('Success: グリップボードにコピーしました');
   };
 
   // 新しいタブで開く

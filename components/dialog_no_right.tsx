@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from 'next/image';
 
 type Props = {
   isFavorite: boolean; // お気に入り
@@ -16,8 +16,8 @@ const DialogNoRight: React.FC<Props> = ({
 }) => {
   // 画像パスを格納
   const imagePath = isFavorite
-    ? "/images/star_blue_icon.svg"
-    : "/images/star_icon.svg";
+    ? '/images/star_blue_icon.svg'
+    : '/images/star_icon.svg';
 
   return (
     <div className="right">

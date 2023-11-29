@@ -1,5 +1,5 @@
-import { changeStudentNo, changeYearNo } from "../features/update";
-import PanelNo from "./panel_no";
+import { changeStudentNo, changeYearNo } from '../features/update';
+import PanelNo from './panel_no';
 
 type Props = {
   studentNo: number;

@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import "../public/css/dialog_no.scss";
-import { useEffect, useRef, useState } from "react";
-import { localStrage } from "../features/update";
-import DialogNoFavorite from "./dialog_no_favorite";
-import { useSession } from "next-auth/react";
-import DialogNoDetail from "./dialog_no_detail";
-import DialogNoRight from "./dialog_no_right";
+import '../public/css/dialog_no.scss';
+import { useEffect, useRef, useState } from 'react';
+import { localStrage } from '../features/update';
+import DialogNoFavorite from './dialog_no_favorite';
+import { useSession } from 'next-auth/react';
+import DialogNoDetail from './dialog_no_detail';
+import DialogNoRight from './dialog_no_right';
 
 type Props = {
   initData: { first: number; favorites: number[]; isLocalStorage: boolean }; // 初期データ
@@ -29,7 +29,7 @@ const fetchPOST = async (
   const json = { favorites, first, isLocalStorage };
 
   await fetch(`/api/users/${id}`, {
-    method: "POST",
+    method: 'POST',
     body: JSON.stringify(json),
   });
 };
@@ -68,17 +68,14 @@ const DialogNo: React.FC<Props> = ({
     const breakPoint = 2; // dev時は上記を使う
     if (ref.current < breakPoint) {
       ref.current += 1;
-      console.log("飛ばし");
       return;
     }
 
     if (!isLocalStorage && session?.user?.email) {
       // Git上で書き込み
-      console.log("Git更新");
       fetchPOST(session.user.email, first, favorites, isLocalStorage);
     } else {
       // ローカルストレージに書き込み
-      console.log("Local更新");
       localStrage.setFavorites(favorites);
       localStrage.setFirst(first);
     }
@@ -121,8 +118,8 @@ const DialogNo: React.FC<Props> = ({
   };
 
   // クラス名を反映
-  const visibleClassName = !isVisible ? " disabled" : "";
-  const className = "dialog" + visibleClassName;
+  const visibleClassName = !isVisible ? ' disabled' : '';
+  const className = 'dialog' + visibleClassName;
 
   // 起動時実行（DOM操作あり）
   useEffect(() => {

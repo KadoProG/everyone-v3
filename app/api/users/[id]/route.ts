@@ -1,5 +1,5 @@
-import { PrismaClient } from "@prisma/client";
-import { NextRequest } from "next/server";
+import { PrismaClient } from '@prisma/client';
+import { NextRequest } from 'next/server';
 
 const prisma = new PrismaClient();
 
@@ -51,13 +51,13 @@ export async function POST(
   if (
     firstStudentNo === undefined ||
     studentFavorites === undefined ||
-    typeof firstStudentNo !== "number" ||
-    typeof studentFavorites !== "object"
+    typeof firstStudentNo !== 'number' ||
+    typeof studentFavorites !== 'object'
   ) {
     return new Response(
       JSON.stringify({
         success: false,
-        message: "パラメータが不足してるか不正",
+        message: 'パラメータが不足してるか不正',
       })
     );
   }

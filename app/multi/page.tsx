@@ -1,8 +1,8 @@
-import "../../public/css/multi.scss";
-import "../../public/css/dialog.scss";
-import Multi from "../../components/multi";
-import { getServerSession } from "next-auth";
-import { authOptions } from "../lib/AuthOption";
+import '../../public/css/multi.scss';
+import '../../public/css/dialog.scss';
+import Multi from '../../components/multi';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '../lib/AuthOption';
 
 // GETメソッド
 const fetchOriginData = async (
