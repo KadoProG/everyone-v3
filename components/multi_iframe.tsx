@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from 'next/image';
 
 type IframeProps = {
   url: string;
@@ -22,7 +22,7 @@ const MultiIframe = (props: IframeProps) => {
       <button onClick={handleFavoriteChange}>
         <Image
           src={
-            isFavorite ? "/images/star_blue_icon.svg" : "/images/star_icon.svg"
+            isFavorite ? '/images/star_blue_icon.svg' : '/images/star_icon.svg'
           }
           width={150}
           height={150}

@@ -1,6 +1,6 @@
-"use client";
-import { useState } from "react";
-import "../public/css/dialog_message.scss";
+'use client';
+import { useState } from 'react';
+import '../public/css/dialog_message.scss';
 
 type Props = {
   arrMessage: string[];
@@ -18,7 +18,7 @@ const DialogMessage = (props: Props) => {
       {arrMessage.map((v, index) => {
         const isClick = arrClick.find((v) => v === index) !== undefined;
         return (
-          <div key={index} className={isClick ? "disabled" : ""}>
+          <div key={index} className={isClick ? 'disabled' : ''}>
             <p>{v}</p>
             <span onClick={() => handleClick(index)}>x</span>
           </div>

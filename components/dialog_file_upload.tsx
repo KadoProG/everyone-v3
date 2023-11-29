@@ -1,6 +1,6 @@
-import { useState } from "react";
-import "../public/css/dialog_file_upload.scss";
-import DialogConfirm from "./dialog_confirm";
+import { useState } from 'react';
+import '../public/css/dialog_file_upload.scss';
+import DialogConfirm from './dialog_confirm';
 
 type Props = {
   isVisible: boolean;
@@ -24,10 +24,10 @@ const DialogFileUpload = (props: Props) => {
     reader.readAsText(file);
     reader.onload = () => {
       const result = reader.result;
-      if (!result || typeof result !== "string") return;
+      if (!result || typeof result !== 'string') return;
 
       // 改行
-      const items = result.split("\n").map((v) => parseInt(v));
+      const items = result.split('\n').map((v) => parseInt(v));
 
       // 不正文字は排除
       const items2 = items.filter((v) => !isNaN(v) && String(v).length > 5);
@@ -65,9 +65,9 @@ const DialogFileUpload = (props: Props) => {
   // INPUTの中身をリセット
   const resetInput = () => {
     // eslint-disable-next-line
-    const elm: any = document.getElementById("dialog__file__upload__input");
+    const elm: any = document.getElementById('dialog__file__upload__input');
     if (!elm) return;
-    elm.value = "";
+    elm.value = '';
   };
 
   const onClose = (data: { data: number[]; type: number } | undefined) => {
@@ -77,7 +77,7 @@ const DialogFileUpload = (props: Props) => {
 
   return (
     <div
-      className={`fileUpload${props.isVisible ? " enabled" : ""}`}
+      className={`fileUpload${props.isVisible ? ' enabled' : ''}`}
       onClick={(e) => {
         e.stopPropagation();
         onClose(undefined);
@@ -85,7 +85,7 @@ const DialogFileUpload = (props: Props) => {
     >
       <DialogConfirm
         question="現在のデータに追加しますか？それともファイルのデータのみにしますか？"
-        answers={["現在のデータに追加", "ファイルのデータのみ"]}
+        answers={['現在のデータに追加', 'ファイルのデータのみ']}
         isVisible={isVisibleConfirm}
         onClose={handleConfirm}
       />

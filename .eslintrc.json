@@ -1,6 +1,24 @@
 {
   "extends": [
-    "plugin:@typescript-eslint/recommended",
-    "next/core-web-vitals"
-  ]
+    "next",
+    "prettier",
+    "next/core-web-vitals",
+    "plugin:react/recommended"
+  ],
+  "env": {
+    "browser": true,
+    "jquery": true
+  },
+  "plugins": ["react"],
+  "rules": {
+    "no-console": "warn",
+    "no-extra-semi": "warn",
+    "no-undef": "off",
+    "react/prop-types": "off",
+    "quotes": ["warn", "single"],
+    "space-before-blocks": ["warn", { "functions": "always" }],
+    "react/no-unescaped-entities": "off",
+    "@next/next/no-page-custom-font": "off",
+    "react/react-in-jsx-scope": "off"
+  }
 }

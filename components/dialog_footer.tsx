@@ -1,5 +1,5 @@
-import Link from "next/link";
-import "../public/css/dialog_menu.scss";
+import Link from 'next/link';
+import '../public/css/dialog_menu.scss';
 
 type Props = {
   onClose(): void;
@@ -9,25 +9,25 @@ type Props = {
 
 const DialogMenu = (props: Props) => {
   const menuItems = [
-    { link: "/", title: "HOMEに戻る", ex: false },
+    { link: '/', title: 'HOMEに戻る', ex: false },
     {
-      link: "https://fast5-blog.com/html-product/uni-web/",
-      title: "Kadoのサイトに戻る",
+      link: 'https://fast5-blog.com/html-product/uni-web/',
+      title: 'Kadoのサイトに戻る',
       ex: false,
     },
     {
-      link: "https://sub3.fast5-blog.com",
-      title: "NextJSの仮ポートフォリオ",
+      link: 'https://sub3.fast5-blog.com',
+      title: 'NextJSの仮ポートフォリオ',
       ex: true,
     },
     {
-      link: "https://x.com/KadoUniversity",
-      title: "X [@KadoUniversity]",
+      link: 'https://x.com/KadoUniversity',
+      title: 'X [@KadoUniversity]',
       ex: true,
     },
     {
-      link: "https://github.com/KadoProG",
-      title: "GitHub [KadoProG]",
+      link: 'https://github.com/KadoProG',
+      title: 'GitHub [KadoProG]',
       ex: true,
     },
   ];
@@ -35,7 +35,7 @@ const DialogMenu = (props: Props) => {
   return (
     <>
       <div
-        className={`dialog${props.isVisible ? "" : " disabled"}`}
+        className={`dialog${props.isVisible ? '' : ' disabled'}`}
         onClick={props.onClose}
       >
         <div
@@ -43,7 +43,7 @@ const DialogMenu = (props: Props) => {
           onClick={(e) => e.stopPropagation()}
         >
           {menuItems.map((v, index) => {
-            const strTarget = v.ex ? "_blank" : "_self";
+            const strTarget = v.ex ? '_blank' : '_self';
             return (
               <Link href={v.link} key={index} target={strTarget}>
                 {v.title}
@@ -54,7 +54,7 @@ const DialogMenu = (props: Props) => {
         </div>
       </div>
       <button className="single__footer__left" onClick={props.onSelect}>
-        <span className={props.isVisible ? "checked" : ""}></span>
+        <span className={props.isVisible ? 'checked' : ''}></span>
       </button>
     </>
   );

@@ -1,14 +1,14 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from 'react';
 import {
   changeStudentNo,
   changeYearNo,
   gitFetchDifference,
   localStrage,
-} from "../features/update";
-import DialogFileUpload from "./dialog_file_upload";
-import DialogConfirm from "./dialog_confirm";
-import Image from "next/image";
-import { signIn, useSession } from "next-auth/react";
+} from '../features/update';
+import DialogFileUpload from './dialog_file_upload';
+import DialogConfirm from './dialog_confirm';
+import Image from 'next/image';
+import { signIn, useSession } from 'next-auth/react';
 
 type Props = {
   onIframeVisible(bool: boolean): void;
@@ -31,7 +31,7 @@ const changeGitIsLocalStorage = async (
   const url = `/api/users/${id}/change`;
   const body = { isLocalStorage: bool };
   return await fetch(url, {
-    method: "POST",
+    method: 'POST',
     body: JSON.stringify(body),
   })
     .then((res) => res.json())
@@ -68,7 +68,7 @@ const DialogNoFavorite: React.FC<Props> = ({
     question: string | string[];
     onClose(num: number | undefined): void;
     answers: string[];
-  }>({ question: "", answers: [], onClose: () => {} });
+  }>({ question: '', answers: [], onClose: () => {} });
 
   const [isVisibleConfirm, setIsVisibleConfirm] = useState<boolean>(false);
 
@@ -127,7 +127,7 @@ const DialogNoFavorite: React.FC<Props> = ({
     if (result.type === 1) {
       setFavorites(result.data); // 上書き
 
-      onAddMessage("Success: お気に入りを更新しました");
+      onAddMessage('Success: お気に入りを更新しました');
     } else if (result.type === 0) {
       // 差分を追加
       const addFavorites = result.data.filter((v) => !favorites.includes(v));
@@ -136,7 +136,7 @@ const DialogNoFavorite: React.FC<Props> = ({
 
       setFavorites(newFavorites);
 
-      onAddMessage("Success: お気に入りを更新しました");
+      onAddMessage('Success: お気に入りを更新しました');
     }
   };
 
@@ -148,7 +148,7 @@ const DialogNoFavorite: React.FC<Props> = ({
       // 削除を実行
       setFavorites([]);
 
-      onAddMessage("Success: お気に入りを削除しました");
+      onAddMessage('Success: お気に入りを削除しました');
     }
   };
 
@@ -159,15 +159,15 @@ const DialogNoFavorite: React.FC<Props> = ({
     if (result === 0) {
       // txtデータをエクスポートします
       const data = localStrage.getFavorites();
-      const text = data.join("\n");
-      const blob = new Blob([text], { type: "text/plain" });
+      const text = data.join('\n');
+      const blob = new Blob([text], { type: 'text/plain' });
       const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
+      const a = document.createElement('a');
       a.href = url;
-      a.download = "my_favorite_data.txt";
+      a.download = 'my_favorite_data.txt';
       a.click();
       URL.revokeObjectURL(url);
-      onAddMessage("Success: エクスポートが完了しました");
+      onAddMessage('Success: エクスポートが完了しました');
     }
   };
 
@@ -217,14 +217,14 @@ const DialogNoFavorite: React.FC<Props> = ({
         setIsLocalStorage(newIsLocalStorage);
         if (newIsLocalStorage) {
           const result = await changeGitIsLocalStorage(
-            session?.user?.email || "",
+            session?.user?.email || '',
             newIsLocalStorage
           );
           if (!result.success) return;
         }
         setFavorites(subData.current.localData);
         setFirst(subData.current.localFirst);
-        onAddMessage("設定が完了しました");
+        onAddMessage('設定が完了しました');
         break;
       }
       // Gitデータのみにしたい
@@ -238,14 +238,14 @@ const DialogNoFavorite: React.FC<Props> = ({
         setIsLocalStorage(newIsLocalStorage);
         if (newIsLocalStorage) {
           const result = await changeGitIsLocalStorage(
-            session?.user?.email || "",
+            session?.user?.email || '',
             newIsLocalStorage
           );
           if (!result.success) return;
         }
         setFavorites(subData.current.gitData);
         setFirst(subData.current.gitFirst);
-        onAddMessage("設定が完了しました");
+        onAddMessage('設定が完了しました');
         break;
       }
       // LocalもGitも統合したい
@@ -262,7 +262,7 @@ const DialogNoFavorite: React.FC<Props> = ({
         setIsLocalStorage(newIsLocalStorage);
         if (newIsLocalStorage) {
           const result = await changeGitIsLocalStorage(
-            session?.user?.email || "",
+            session?.user?.email || '',
             newIsLocalStorage
           );
           if (!result.success) return;
@@ -270,7 +270,7 @@ const DialogNoFavorite: React.FC<Props> = ({
         setFavorites(subData.current.allData);
         if (subData.current.gitFirst !== subData.current.localFirst) {
           dialogConfirm.current.question = [
-            "最初に表示するのはどちらにしますか？",
+            '最初に表示するのはどちらにしますか？',
             `ローカルデータ：${subData.current.localFirst}`,
             `Gitデータ：${subData.current.gitFirst}`,
           ];
@@ -294,10 +294,10 @@ const DialogNoFavorite: React.FC<Props> = ({
                 return;
             }
             setIsVisibleConfirm(false);
-            onAddMessage("設定が完了しました");
+            onAddMessage('設定が完了しました');
           };
         } else {
-          onAddMessage("設定が完了しました");
+          onAddMessage('設定が完了しました');
         }
         break;
       }
@@ -317,28 +317,28 @@ const DialogNoFavorite: React.FC<Props> = ({
       <DialogConfirm
         question="本当に削除してもよろしいですか？"
         isVisible={isVisibleDelete}
-        answers={["削除する"]}
+        answers={['削除する']}
         onClose={handleFavoriteDelete}
       />
 
       <DialogConfirm
         question="お気に入りデータをエクスポートします。よろしいですか？"
         isVisible={isVisibleExport}
-        answers={["はい"]}
+        answers={['はい']}
         onClose={handleExport}
       />
 
       <DialogConfirm
         question="Git連携するにはログインが必要です。ログインしますか？"
         isVisible={isVisibleGitLogin}
-        answers={["はい"]}
+        answers={['はい']}
         onClose={handleLogin}
       />
 
       <DialogConfirm
         question={question.current}
         isVisible={isVisibleGitFetch}
-        answers={["ローカルデータのみ", "Gitデータのみ", "すべて統合"]}
+        answers={['ローカルデータのみ', 'Gitデータのみ', 'すべて統合']}
         onClose={handleGitFetch}
       />
 
@@ -364,13 +364,13 @@ const DialogNoFavorite: React.FC<Props> = ({
         )}
       </p>
       <div className="favoriteSelect">
-        <div className={"desc" + (isLocalStorage ? " selected" : "")}>
+        <div className={'desc' + (isLocalStorage ? ' selected' : '')}>
           <div>
             <p>ﾛｰｶﾙｽﾄﾚｰｼﾞ</p>
             {/* <span>この端末でのみ閲覧できます</span> */}
           </div>
           <Image
-            src={"/images/my_icon_chrome.png"}
+            src={'/images/my_icon_chrome.png'}
             width={20}
             height={20}
             alt="Chrome"
@@ -385,9 +385,9 @@ const DialogNoFavorite: React.FC<Props> = ({
           />
           <label htmlFor="favorite_select"></label>
         </div>
-        <div className={"desc" + (!isLocalStorage ? " selected" : "")}>
+        <div className={'desc' + (!isLocalStorage ? ' selected' : '')}>
           <Image
-            src={"/images/my_icon_github.png"}
+            src={'/images/my_icon_github.png'}
             width={20}
             height={20}
             alt="GitHub"

@@ -1,8 +1,8 @@
-import "../../public/css/single.scss";
-import "../../public/css/dialog.scss";
-import Single from "../../components/single";
-import { getServerSession } from "next-auth";
-import { authOptions } from "../lib/AuthOption";
+import '../../public/css/single.scss';
+import '../../public/css/dialog.scss';
+import Single from '../../components/single';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '../lib/AuthOption';
 
 export type IframeStatus = {
   width: number;

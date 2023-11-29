@@ -1,8 +1,8 @@
-"use client";
-import Image from "next/image";
-import "../public/css/dialog_no.scss";
-import { useEffect, useState } from "react";
-import { IframeStatus } from "../app/single/page";
+'use client';
+import Image from 'next/image';
+import '../public/css/dialog_no.scss';
+import { useEffect, useState } from 'react';
+import { IframeStatus } from '../app/single/page';
 
 type Props = {
   onClose(): void;
@@ -14,14 +14,14 @@ type Props = {
 };
 
 const DialogResponsive = (props: Props) => {
-  const [range, setRange] = useState<string>("");
+  const [range, setRange] = useState<string>('');
 
   const path =
     parseInt(range) < 479
-      ? "/images/smartphone_icon.svg"
+      ? '/images/smartphone_icon.svg'
       : parseInt(range) < 767
-      ? "/images/tablet_icon.svg"
-      : "/images/laptopPC_icon.svg";
+        ? '/images/tablet_icon.svg'
+        : '/images/laptopPC_icon.svg';
 
   const onRange = (value: string) => {
     setRange(value);
@@ -46,7 +46,7 @@ const DialogResponsive = (props: Props) => {
       isObstacle: false,
     });
 
-    window.addEventListener("resize", () => {
+    window.addEventListener('resize', () => {
       onRange(String(innerWidth));
     });
     setRange(String(innerWidth));
@@ -56,7 +56,7 @@ const DialogResponsive = (props: Props) => {
   return (
     <>
       <div
-        className={`dialog${!props.isVisible ? " disabled" : ""}`}
+        className={`dialog${!props.isVisible ? ' disabled' : ''}`}
         onClick={props.onClose}
       >
         <div className="dialog__content" onClick={(e) => e.stopPropagation()}>
@@ -81,7 +81,7 @@ const DialogResponsive = (props: Props) => {
             <b>メディアクエリ</b>
           </p>
           <div className="site">
-            <button onClick={() => onRange("380")}>
+            <button onClick={() => onRange('380')}>
               <Image
                 src="/images/smartphone_icon.svg"
                 width={20}
@@ -89,7 +89,7 @@ const DialogResponsive = (props: Props) => {
                 alt="スマホ"
               />
             </button>
-            <button onClick={() => onRange("600")}>
+            <button onClick={() => onRange('600')}>
               <Image
                 src="/images/tablet_icon.svg"
                 width={20}
@@ -97,7 +97,7 @@ const DialogResponsive = (props: Props) => {
                 alt="タブレット"
               />
             </button>
-            <button onClick={() => onRange("1260")}>
+            <button onClick={() => onRange('1260')}>
               <Image
                 src="/images/laptopPC_icon.svg"
                 width={20}

@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 import {
   changeStudentNo,
   changeYearNo,
   localStrage,
   pracData,
-} from "../features/update";
-import DialogMenu from "./dialog_footer";
-import PanelNo from "./panel_no";
-import MultiIframe from "./multi_iframe";
-import { useSession } from "next-auth/react";
+} from '../features/update';
+import DialogMenu from './dialog_footer';
+import PanelNo from './panel_no';
+import MultiIframe from './multi_iframe';
+import { useSession } from 'next-auth/react';
 
 type Props = {
   initData: { first: number; favorites: number[]; isLocalStorage: boolean };
@@ -27,7 +27,7 @@ const fetchPOST = async (
   const json = { favorites, first };
 
   const res = await fetch(`/api/users/${id}`, {
-    method: "POST",
+    method: 'POST',
     body: JSON.stringify(json),
   });
   return await res.json();

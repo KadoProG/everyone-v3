@@ -1,5 +1,5 @@
-import { pracData } from "../features/update";
-import "../public/css/dialog_prac.scss";
+import { pracData } from '../features/update';
+import '../public/css/dialog_prac.scss';
 
 type Props = {
   onClose(): void;
@@ -27,7 +27,7 @@ const DialogPrac = (props: Props) => {
   return (
     <>
       <div
-        className={`dialog${isVisible ? "" : " disabled"}`}
+        className={`dialog${isVisible ? '' : ' disabled'}`}
         onClick={props.onClose}
       >
         <div className="dialog__content" onClick={(e) => e.stopPropagation()}>
@@ -41,11 +41,11 @@ const DialogPrac = (props: Props) => {
                   <input
                     type="radio"
                     name="dialog__prac"
-                    id={"dialog__prac__" + index}
+                    id={'dialog__prac__' + index}
                     checked={props.pracIndex === index}
                     onChange={(e) => handlePracChange(e.target.checked, index)}
                   />
-                  <label htmlFor={"dialog__prac__" + index}>{v.title}</label>
+                  <label htmlFor={'dialog__prac__' + index}>{v.title}</label>
                 </span>
               );
             })}
@@ -60,13 +60,13 @@ const DialogPrac = (props: Props) => {
                   <input
                     type="radio"
                     name="dialog__prac__detail"
-                    id={"dialog__prac__detail__" + index}
+                    id={'dialog__prac__detail__' + index}
                     onChange={(e) =>
                       handleDetailChange(e.target.checked, index)
                     }
                     checked={props.pracDetail === index}
                   />
-                  <label htmlFor={"dialog__prac__detail__" + index}>
+                  <label htmlFor={'dialog__prac__detail__' + index}>
                     {v.name}
                   </label>
                 </span>
