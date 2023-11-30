@@ -9,10 +9,13 @@
     "browser": true,
     "jquery": true
   },
-  "plugins": ["react"],
+  "plugins": ["react", "@typescript-eslint"],
   "rules": {
     "no-console": "warn",
     "no-extra-semi": "warn",
+    // TypeScriptは@typescriptで実行する
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": ["warn"],
     "no-undef": "off",
     "react/prop-types": "off",
     "quotes": ["warn", "single"],
