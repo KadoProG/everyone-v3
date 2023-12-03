@@ -48,7 +48,7 @@
     "typescript": "^5"
   },
   "lint-staged": {
-    "./**/*.{ts,tsx}": [
+    "*.{ts,tsx}": [
       "yarn lint",
       "yarn format",
       "yarn lint:fix"
