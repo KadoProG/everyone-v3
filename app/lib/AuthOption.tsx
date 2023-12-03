@@ -1,11 +1,12 @@
 import GithubProvider from 'next-auth/providers/github';
+import { ENVIROMENT_KEY } from '../../features/environmentKey';
 
 export const authOptions = {
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: ENVIROMENT_KEY.NEXTAUTH_SECRET,
   providers: [
     GithubProvider({
-      clientId: process.env.GITHUB_CLIENT_ID ?? '',
-      clientSecret: process.env.GITHUB_CLIENT_SECRET ?? '',
+      clientId: ENVIROMENT_KEY.GITHUB_CLIENT_ID,
+      clientSecret: ENVIROMENT_KEY.GITHUB_CLIENT_SECRET,
     }),
   ],
 };

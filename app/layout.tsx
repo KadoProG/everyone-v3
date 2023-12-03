@@ -3,10 +3,11 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import NextAuthProvider from './providers/NextAuth';
 import React from 'react';
+import { ENVIROMENT_KEY } from '../features/environmentKey';
 
 const inter = Inter({ subsets: ['latin'] });
 
-const baseURL = process.env.BASE_URL;
+const baseURL = ENVIROMENT_KEY.BASE_URL;
 export const metadata: Metadata = {
   metadataBase: new URL(baseURL || 'http://localhost:3000'),
   title: 'みんなの記事v3 - 学内の記事が簡単に見られます',
