@@ -5,12 +5,15 @@
   "scripts": {
     "dev": "next dev",
     "build": "npx prisma generate && next build",
-    "lint:prettier": "prettier --check .",
-    "fix:prettier": "prettier --write .",
     "export": "npx prisma generate && next build && next export -o dist",
     "start": "next start",
-    "lint": "next lint --no-cache",
-    "format": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,json,css}' && next lint --fix"
+    "check-types": "tsc --noEmit",
+    "lint:prettier": "prettier --check .",
+    "fix:prettier": "prettier --write .",
+    "lint": "eslint --no-cache .",
+    "lint:fix": "eslint app/**/*.{ts,tsx} --fix",
+    "format": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,json,css}' && next lint --fix",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@prisma/client": "5.6.0",
@@ -37,10 +40,19 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-unused-imports": "^3.0.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.1.0",
     "postcss": "^8",
     "prettier": "^3.1.0",
     "sass": "^1.69.4",
     "tailwindcss": "^3",
     "typescript": "^5"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "yarn lint",
+      "yarn format",
+      "yarn lint:fix"
+    ]
   }
 }
