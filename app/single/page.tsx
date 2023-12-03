@@ -3,6 +3,7 @@ import '../../public/css/dialog.scss';
 import Single from '../../components/single';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../lib/AuthOption';
+import { ENVIROMENT_KEY } from '../../features/environmentKey';
 
 export type IframeStatus = {
   width: number;
@@ -18,7 +19,7 @@ const fetchOriginData = async (
   success: boolean;
   data: { first: number; favorites: number[]; isLocalStorage: boolean };
 }> => {
-  const res = await fetch(`${process.env.BASE_URL}/api/users/${id}`);
+  const res = await fetch(`${ENVIROMENT_KEY.BASE_URL}/api/users/${id}`);
   return await res.json();
 };
 
