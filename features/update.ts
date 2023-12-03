@@ -21,8 +21,6 @@ export const changeYearNo = (
   return { year: year, no: no };
 };
 
-console.log('あああ');
-
 type PracData = {
   title: string;
   mini: string;
