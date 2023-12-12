@@ -12,9 +12,8 @@ import {
   setFirst,
   setIframeVisible,
   setIsLocalStorage,
-  setStudentNo,
 } from '../app/single/singleSlice';
-import { changeStudentNo, changeYearNo } from '../features/pracData';
+import ShowFavorites from './single/show_favorites';
 
 const changeGitIsLocalStorage = async (
   id: string,
@@ -76,60 +75,6 @@ const DialogNoFavorite: React.FC = () => {
   const [isVisibleDelete, setIsVisibleDelete] = useState<boolean>(false);
   const [isVisibleGitLogin, setIsVisibleGitLogin] = useState<boolean>(false);
   const [isVisibleGitFetch, setIsVisibleGitFetch] = useState<boolean>(false);
-
-  const [groupFavorites, setGroupFavorites] = useState<
-    { year: number; no: number[] }[]
-  >([]);
-
-  // お気に入りを学年順に表示されるように変更
-  useEffect(() => {
-    const newFavorites: { year: number; no: number[] }[] = [];
-    const groupData: { [key: number]: { year: number; no: number[] } } = {};
-
-    if (favorites.length === 0) {
-      setGroupFavorites([]);
-      return;
-    }
-    favorites.forEach((v) => {
-      const res = changeYearNo(v);
-
-      if (!groupData[res.year]) {
-        groupData[res.year] = { year: res.year, no: [] };
-      }
-
-      groupData[res.year].no.push(res.no);
-    });
-
-    for (const year in groupData) {
-      newFavorites.push(groupData[year]);
-    }
-
-    setGroupFavorites(newFavorites);
-  }, [favorites]);
-
-  // インポートの処理
-  const handleImport = (
-    result: { data: number[]; type: number } | undefined
-  ) => {
-    setIsVisibleFileUpload(false);
-    if (result === undefined) return;
-    // 0: 現在のデータに追加
-    // 1: ファイルのデータのみ
-    if (result.type === 1) {
-      dispatch(setFavorites(result.data)); // 上書き
-
-      dispatch(pushArrMessage('Success: お気に入りを更新しました'));
-    } else if (result.type === 0) {
-      // 差分を追加
-      const addFavorites = result.data.filter((v) => !favorites.includes(v));
-
-      const newFavorites = [...favorites, ...addFavorites];
-
-      dispatch(setFavorites(newFavorites));
-
-      dispatch(pushArrMessage('Success: お気に入りを更新しました'));
-    }
-  };
 
   // 削除の処理
   const handleFavoriteDelete = (result: number | undefined) => {
@@ -340,9 +285,8 @@ const DialogNoFavorite: React.FC = () => {
       />
 
       <DialogFileUpload
-        favorites={favorites}
         isVisible={isVisibleFileUpload}
-        onClose={handleImport}
+        onClose={() => setIsVisibleFileUpload(false)}
       />
 
       <p className="favoriteP">
@@ -387,28 +331,7 @@ const DialogNoFavorite: React.FC = () => {
           </div>
         </div>
       </div>
-      <section className="favorite">
-        {groupFavorites.length === 0 && <p>お気に入りが表示されます</p>}
-        {groupFavorites.map((v, index) => {
-          return (
-            <div key={index}>
-              <p>{v.year}年度</p>
-              {v.no.map((w, index) => {
-                return (
-                  <button
-                    key={index}
-                    onClick={() =>
-                      dispatch(setStudentNo(changeStudentNo(v.year, w)))
-                    }
-                  >
-                    {w}
-                  </button>
-                );
-              })}
-            </div>
-          );
-        })}
-      </section>
+      <ShowFavorites />
     </>
   );
 };

@@ -85,7 +85,6 @@ const SingleHooks: React.FC = () => {
   useEffect(() => {
     // console.log('起動時実行のサブ', isLocalStorage);
     if (isLocalStorage) {
-      // 起動しないーーーーーーーーーーーーーーーーーーーーーーー
       // 「最初に表示」の学生番号を反映
       const currentFirst = localStrage.getFirst() || 20216050;
       // console.log(currentFirst);
@@ -95,10 +94,7 @@ const SingleHooks: React.FC = () => {
       const newFavorites = localStrage.getFavorites();
       dispatch(setFavorites(newFavorites));
     } else {
-      // const setLocalFirst = () => {
       dispatch(setStudentNo(first));
-      // };
-      // setLocalFirst();
     }
     // eslint-disable-next-line
   }, [isLocalStorage, dispatch]);
