@@ -1,16 +1,9 @@
 import '../../public/css/single.scss';
 import '../../public/css/dialog.scss';
-import Single from '../../components/single';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../lib/AuthOption';
 import { ENVIROMENT_KEY } from '../../features/environmentKey';
-
-export type IframeStatus = {
-  width: number;
-  height: number;
-  isObstacle: boolean; // 背面に隠れる
-  scale?: number;
-};
+import SingleProvider from './singleProvider';
 
 // GETメソッド
 const fetchOriginData = async (
@@ -32,7 +25,8 @@ const Home = async () => {
   const initData = session?.user?.email
     ? (await fetchOriginData(session?.user?.email)).data
     : { first: 20216050, favorites: [], isLocalStorage: true };
+  // const initData = { first: 20216050, favorites: [], isLocalStorage: true };
 
-  return <Single initData={initData} />;
+  return <SingleProvider initData={initData} />;
 };
 export default Home;

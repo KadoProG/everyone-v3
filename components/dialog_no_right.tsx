@@ -1,19 +1,19 @@
 import Image from 'next/image';
-
-type Props = {
-  isFavorite: boolean; // お気に入り
-  onIsFavorite(bool: boolean): void; // お気に入りを切り替え
-  isFirst: boolean; // 最初に表示
-  onIsFirst(bool: boolean): void; // 最初に表示を切り替え
-};
+import {
+  RootState,
+  setCurrentFavorite,
+  setCurrentFirst,
+} from '../app/single/singleSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 // 学生番号ダイアログ>>学生番号操作>>右側の「お気に入り」「最初に表示」ボタンのコンポーネント
-const DialogNoRight: React.FC<Props> = ({
-  isFavorite,
-  isFirst,
-  onIsFavorite,
-  onIsFirst,
-}) => {
+const DialogNoRight: React.FC = () => {
+  //
+  const dispatch = useDispatch();
+  const data = useSelector((state: RootState) => state.data);
+  const isFavorite = data.favorites.includes(data.studentNo);
+  const isFirst = data.first === data.studentNo;
+
   // 画像パスを格納
   const imagePath = isFavorite
     ? '/images/star_blue_icon.svg'
@@ -25,7 +25,7 @@ const DialogNoRight: React.FC<Props> = ({
         type="checkbox"
         id="dialog__content__no__favorite"
         checked={isFavorite}
-        onChange={(e) => onIsFavorite(e.target.checked)}
+        onChange={(e) => dispatch(setCurrentFavorite(e.target.checked))}
       />
       <label htmlFor="dialog__content__no__favorite">
         <Image src={imagePath} width={24} height={24} alt="星" />
@@ -35,7 +35,7 @@ const DialogNoRight: React.FC<Props> = ({
         type="checkbox"
         id="dialog__no__checkbox"
         checked={isFirst}
-        onChange={(e) => onIsFirst(e.target.checked)}
+        onChange={(e) => dispatch(setCurrentFirst(e.target.checked))}
       />
       <label htmlFor="dialog__no__checkbox">次回最初に表示</label>
     </div>

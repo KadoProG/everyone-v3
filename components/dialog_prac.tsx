@@ -1,27 +1,32 @@
-import { pracData } from '../features/update';
+import { useDispatch, useSelector } from 'react-redux';
 import '../public/css/dialog_prac.scss';
+import {
+  RootState,
+  setPracDetail,
+  setPracIndex,
+} from '../app/single/singleSlice';
+import pracData from '../features/pracData';
 
 type Props = {
   onClose(): void;
   onSelect(): void;
   isVisible: boolean;
-  onPracIndex(num: number): void;
-  onPracDetail(num: number): void;
-  pracIndex: number;
-  pracDetail: number;
 };
 
 const DialogPrac = (props: Props) => {
+  const dispatch = useDispatch();
+  const data = useSelector((state: RootState) => state.data);
+  const pracIndex = data.pracIndex;
+  const pracDetail = data.pracDetail;
   const isVisible = props.isVisible;
 
   const handlePracChange = (bool: boolean, index: number) => {
     if (!bool) return;
-    props.onPracIndex(index);
-    props.onPracDetail(0);
+    dispatch(setPracIndex(index));
   };
   const handleDetailChange = (bool: boolean, index: number) => {
     if (!bool) return;
-    props.onPracDetail(index);
+    dispatch(setPracDetail(index));
   };
 
   return (
@@ -42,7 +47,7 @@ const DialogPrac = (props: Props) => {
                     type="radio"
                     name="dialog__prac"
                     id={'dialog__prac__' + index}
-                    checked={props.pracIndex === index}
+                    checked={pracIndex === index}
                     onChange={(e) => handlePracChange(e.target.checked, index)}
                   />
                   <label htmlFor={'dialog__prac__' + index}>{v.title}</label>
@@ -54,7 +59,7 @@ const DialogPrac = (props: Props) => {
             <b>課題を選ぶ</b>
           </p>
           <div className="prac detail">
-            {pracData[props.pracIndex].pracs.map((v, index) => {
+            {pracData[pracIndex].pracs.map((v, index) => {
               return (
                 <span key={index}>
                   <input
@@ -64,7 +69,7 @@ const DialogPrac = (props: Props) => {
                     onChange={(e) =>
                       handleDetailChange(e.target.checked, index)
                     }
-                    checked={props.pracDetail === index}
+                    checked={pracDetail === index}
                   />
                   <label htmlFor={'dialog__prac__detail__' + index}>
                     {v.name}
@@ -77,8 +82,8 @@ const DialogPrac = (props: Props) => {
       </div>
       <div className="single__footer__right__button">
         <button onClick={props.onSelect}>
-          <span>{pracData[props.pracIndex].mini}</span>
-          <span>{pracData[props.pracIndex].pracs[props.pracDetail].name}</span>
+          <span>{pracData[pracIndex].mini}</span>
+          <span>{pracData[pracIndex].pracs[pracDetail].name}</span>
         </button>
         <span>講義・課題</span>
       </div>
