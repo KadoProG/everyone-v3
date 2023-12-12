@@ -47,7 +47,7 @@ const DialogFileUpload = (props: Props) => {
 
       // 既存の要素が0個の場合ダイアログなしで実行
       if (favorites.length === 0) {
-        setJoinFavorites(0);
+        setJoinFavorites(1);
         onClose();
         return;
       }

@@ -3,7 +3,7 @@ import {
   RootState,
   setCurrentFavorite,
   setCurrentFirst,
-} from '../app/single/singleSlice';
+} from '../../../app/single/singleSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 // 学生番号ダイアログ>>学生番号操作>>右側の「お気に入り」「最初に表示」ボタンのコンポーネント

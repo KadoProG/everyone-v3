@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux';
-import '../public/css/dialog_prac.scss';
+import '../../public/css/dialog_prac.scss';
 import {
   RootState,
   setPracDetail,
   setPracIndex,
-} from '../app/single/singleSlice';
-import pracData from '../features/pracData';
+} from '../../app/single/singleSlice';
+import pracData from '../../features/pracData';
 
 type Props = {
   onClose(): void;

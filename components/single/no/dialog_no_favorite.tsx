@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
-import { gitFetchDifference } from '../features/update';
-import DialogFileUpload from './dialog_file_upload';
-import DialogConfirm from './dialog_confirm';
+import { gitFetchDifference } from '../../../features/update';
+import DialogFileUpload from '../../dialog_file_upload';
+import DialogConfirm from '../../dialog_confirm';
 import Image from 'next/image';
 import { signIn, useSession } from 'next-auth/react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,8 +12,8 @@ import {
   setFirst,
   setIframeVisible,
   setIsLocalStorage,
-} from '../app/single/singleSlice';
-import ShowFavorites from './single/show_favorites';
+} from '../../../app/single/singleSlice';
+import ShowFavorites from './show_favorites';
 
 const changeGitIsLocalStorage = async (
   id: string,

@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState, setStudentNo } from '../../app/single/singleSlice';
+import { RootState, setStudentNo } from '../../../app/single/singleSlice';
 import { useEffect, useState } from 'react';
-import { changeStudentNo, changeYearNo } from '../../features/pracData';
+import { changeStudentNo, changeYearNo } from '../../../features/pracData';
 
 const ShowFavorites: React.FC = () => {
   const dispatch = useDispatch();

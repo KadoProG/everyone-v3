@@ -2,10 +2,10 @@
 
 import { useState } from 'react';
 import DialogMenu from './dialog_footer';
-import DialogNo from './dialog_no';
-import DialogPrac from './dialog_prac';
-import DialogSite from './dialog_site';
-import DialogResponsive from './dialog_responsive';
+import DialogNo from './single/no/dialog_no';
+import DialogPrac from './single/dialog_prac';
+import DialogSite from './single/dialog_site';
+import DialogResponsive from './single/dialog_responsive';
 import DialogMessage from './dialog_message';
 import { useSelector } from 'react-redux';
 import { RootState } from '../app/single/singleSlice';

@@ -1,13 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
-import PanelNo from './panel_no';
-import { RootState, setStudentNo } from '../app/single/singleSlice';
-import { changeStudentNo, changeYearNo } from '../features/pracData';
+import PanelNo from '../../panel_no';
+import { RootState, setStudentNo } from '../../../app/single/singleSlice';
+import { changeStudentNo, changeYearNo } from '../../../features/pracData';
 
 const DialogNoDetail = () => {
   // 学生番号を取得
   const studentNo = useSelector((state: RootState) => state.data.studentNo);
   const dispatch = useDispatch();
-  // const studentNo = props.studentNo;
   const { year, no } = changeYearNo(studentNo);
 
   // 学生番号が変更されたときの処理「年度」

@@ -1,9 +1,9 @@
 'use client';
 import Image from 'next/image';
-import '../public/css/dialog_no.scss';
+import '../../public/css/dialog_no.scss';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState, setIframeStatus } from '../app/single/singleSlice';
+import { RootState, setIframeStatus } from '../../app/single/singleSlice';
 
 type Props = {
   onClose(): void;
