@@ -1,35 +1,43 @@
 import Image from 'next/image';
-import '../public/css/dialog_site.scss';
+import '../../public/css/dialog_site.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  RootState,
+  pushArrMessage,
+  setUrl,
+} from '../../app/single/singleSlice';
 
 type Props = {
   onClose(): void;
   onSelect(): void;
   isVisible: boolean;
-  onAddMessage(message: string): void;
-  onChangeUrl(url: string): void;
-  url: string;
 };
 
 const DialogSite = (props: Props) => {
   // クラス名を反映
+  const dispatch = useDispatch();
+
+  const data = useSelector((state: RootState) => state.data);
+  const url = data.url;
+
   const visibleClassName = !props.isVisible ? ' disabled' : '';
   const className = 'dialog' + visibleClassName;
 
   // 再読み込み
   const handleReload = () => {
-    const url = props.url;
-    props.onChangeUrl('');
+    const tempUrl = url;
+    dispatch(setUrl(''));
     setTimeout(() => {
-      props.onChangeUrl(url);
+      dispatch(setUrl(tempUrl));
+      // メッセージを送信
+      dispatch(pushArrMessage('Success: iframeを更新しました'));
     }, 20);
-    // メッセージを送信
-    props.onAddMessage('Success: iframeを更新しました');
   };
 
   // クリップボードへコピー（コピーの処理）
   const copyToClipboard = () => {
     if (navigator.clipboard) {
-      navigator.clipboard.writeText(props.url).then(function () {});
+      navigator.clipboard.writeText(url).then(function () {});
     } else {
       const textarea = document.getElementById('textarea');
       if (textarea === null) return;
@@ -38,13 +46,14 @@ const DialogSite = (props: Props) => {
       textarea.blur();
     }
     // メッセージを送信
-    props.onAddMessage('Success: グリップボードにコピーしました');
+    dispatch(pushArrMessage('Success: グリップボードにコピーしました'));
   };
 
   // 新しいタブで開く
   const handleExternalClick = () => {
-    window.open(props.url);
+    window.open(url);
   };
+
   return (
     <>
       <div className={className} onClick={props.onClose}>
@@ -57,42 +66,33 @@ const DialogSite = (props: Props) => {
               id="textarea"
               cols={100}
               rows={4}
-              value={props.url}
-              onChange={(e) => props.onChangeUrl(e.target.value)}
+              value={url}
+              onChange={(e) => dispatch(setUrl(e.target.value))}
             ></textarea>
           </section>
           <p>
             <b>機能</b>
           </p>
           <section className="site">
-            <button>
+            <button disabled={true}>
               <span>URL</span>
               <span>リセット</span>
             </button>
-            <button onClick={handleReload}>
-              <Image
-                src="/images/reload.svg"
-                width={20}
-                height={20}
-                alt="更新"
-              />
-            </button>
-            <button onClick={copyToClipboard}>
-              <Image
-                src="/images/copy_icon.svg"
-                width={20}
-                height={20}
-                alt="コピー"
-              />
-            </button>
-            <button onClick={handleExternalClick}>
-              <Image
-                src="/images/externalLink_icon.svg"
-                width={20}
-                height={20}
-                alt="新しいタブ"
-              />
-            </button>
+            <OriginImageButton
+              event={handleReload}
+              imageUrl="/images/reload.svg"
+              alt="更新"
+            />
+            <OriginImageButton
+              event={copyToClipboard}
+              imageUrl="/images/copy_icon.svg"
+              alt="コピー"
+            />
+            <OriginImageButton
+              event={handleExternalClick}
+              imageUrl="/images/externalLink_icon.svg"
+              alt="新しいタブ"
+            />
           </section>
         </div>
       </div>
@@ -104,3 +104,17 @@ const DialogSite = (props: Props) => {
   );
 };
 export default DialogSite;
+
+type ImageButtonProps = {
+  imageUrl: string;
+  alt: string;
+  event: () => void;
+};
+
+const OriginImageButton = (props: ImageButtonProps) => {
+  return (
+    <button onClick={props.event}>
+      <Image src={props.imageUrl} width={20} height={20} alt={props.alt} />
+    </button>
+  );
+};

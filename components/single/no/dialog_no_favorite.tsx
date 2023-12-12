@@ -1,25 +1,19 @@
 import { useEffect, useRef, useState } from 'react';
-import {
-  changeStudentNo,
-  changeYearNo,
-  gitFetchDifference,
-  localStrage,
-} from '../features/update';
-import DialogFileUpload from './dialog_file_upload';
-import DialogConfirm from './dialog_confirm';
+import { gitFetchDifference } from '../../../features/update';
+import DialogFileUpload from '../../dialog_file_upload';
+import DialogConfirm from '../../dialog_confirm';
 import Image from 'next/image';
 import { signIn, useSession } from 'next-auth/react';
-
-type Props = {
-  onIframeVisible(bool: boolean): void;
-  onStudentNo(num: number): void;
-  onAddMessage(message: string): void;
-  favorites: number[];
-  setFavorites(favorites: number[]): void;
-  setFirst(first: number): void;
-  isLocalStorage: boolean;
-  setIsLocalStorage(bool: boolean): void;
-};
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  RootState,
+  pushArrMessage,
+  setFavorites,
+  setFirst,
+  setIframeVisible,
+  setIsLocalStorage,
+} from '../../../app/single/singleSlice';
+import ShowFavorites from './show_favorites';
 
 const changeGitIsLocalStorage = async (
   id: string,
@@ -38,16 +32,7 @@ const changeGitIsLocalStorage = async (
     .then((res) => res);
 };
 
-const DialogNoFavorite: React.FC<Props> = ({
-  onIframeVisible,
-  onStudentNo,
-  onAddMessage,
-  favorites,
-  setFavorites,
-  setFirst,
-  isLocalStorage,
-  setIsLocalStorage,
-}) => {
+const DialogNoFavorite: React.FC = () => {
   const question = useRef<string[]>([]);
   const subData = useRef<{
     allData: number[];
@@ -62,6 +47,11 @@ const DialogNoFavorite: React.FC<Props> = ({
     localFirst: 20216050,
     gitFirst: 20216050,
   });
+  // ステートメントの取得・定義
+  const dispatch = useDispatch();
+  const data = useSelector((state: RootState) => state.data);
+  const favorites = data.favorites;
+  const isLocalStorage = data.isLocalStorage;
 
   // 確認ダイアログのプロパティ
   const dialogConfirm = useRef<{
@@ -86,69 +76,15 @@ const DialogNoFavorite: React.FC<Props> = ({
   const [isVisibleGitLogin, setIsVisibleGitLogin] = useState<boolean>(false);
   const [isVisibleGitFetch, setIsVisibleGitFetch] = useState<boolean>(false);
 
-  const [groupFavorites, setGroupFavorites] = useState<
-    { year: number; no: number[] }[]
-  >([]);
-
-  // お気に入りを学年順に表示されるように変更
-  useEffect(() => {
-    const newFavorites: { year: number; no: number[] }[] = [];
-    const groupData: { [key: number]: { year: number; no: number[] } } = {};
-
-    if (favorites.length === 0) {
-      setGroupFavorites([]);
-      return;
-    }
-    favorites.forEach((v) => {
-      const res = changeYearNo(v);
-
-      if (!groupData[res.year]) {
-        groupData[res.year] = { year: res.year, no: [] };
-      }
-
-      groupData[res.year].no.push(res.no);
-    });
-
-    for (const year in groupData) {
-      newFavorites.push(groupData[year]);
-    }
-
-    setGroupFavorites(newFavorites);
-  }, [favorites]);
-
-  // インポートの処理
-  const handleImport = (
-    result: { data: number[]; type: number } | undefined
-  ) => {
-    setIsVisibleFileUpload(false);
-    if (result === undefined) return;
-    // 0: 現在のデータに追加
-    // 1: ファイルのデータのみ
-    if (result.type === 1) {
-      setFavorites(result.data); // 上書き
-
-      onAddMessage('Success: お気に入りを更新しました');
-    } else if (result.type === 0) {
-      // 差分を追加
-      const addFavorites = result.data.filter((v) => !favorites.includes(v));
-
-      const newFavorites = [...favorites, ...addFavorites];
-
-      setFavorites(newFavorites);
-
-      onAddMessage('Success: お気に入りを更新しました');
-    }
-  };
-
   // 削除の処理
   const handleFavoriteDelete = (result: number | undefined) => {
     setIsVisibleDelete(false);
     if (result === undefined) return;
     if (result === 0) {
       // 削除を実行
-      setFavorites([]);
+      dispatch(setFavorites([]));
 
-      onAddMessage('Success: お気に入りを削除しました');
+      dispatch(pushArrMessage('Success: お気に入りを削除しました'));
     }
   };
 
@@ -158,8 +94,8 @@ const DialogNoFavorite: React.FC<Props> = ({
     if (result === undefined) return;
     if (result === 0) {
       // txtデータをエクスポートします
-      const data = localStrage.getFavorites();
-      const text = data.join('\n');
+      const textData = favorites;
+      const text = textData.join('\n');
       const blob = new Blob([text], { type: 'text/plain' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -167,7 +103,7 @@ const DialogNoFavorite: React.FC<Props> = ({
       a.download = 'my_favorite_data.txt';
       a.click();
       URL.revokeObjectURL(url);
-      onAddMessage('Success: エクスポートが完了しました');
+      dispatch(pushArrMessage('Success: エクスポートが完了しました'));
     }
   };
 
@@ -188,7 +124,7 @@ const DialogNoFavorite: React.FC<Props> = ({
         subData.current = questionData;
         setIsVisibleGitFetch(true);
       } else {
-        setIsLocalStorage(bool);
+        dispatch(setIsLocalStorage(bool));
       }
     } else {
       // Git管理にします
@@ -214,7 +150,7 @@ const DialogNoFavorite: React.FC<Props> = ({
         // 1: Local→Git Gitにデータを転送→完了 GitデータのisLocalStorageをfalse
         // 2: Git→Local Gitデータを破棄 GitデータのisLocalStorageをtrue
         const newIsLocalStorage = !isLocalStorage;
-        setIsLocalStorage(newIsLocalStorage);
+        dispatch(setIsLocalStorage(newIsLocalStorage));
         if (newIsLocalStorage) {
           const result = await changeGitIsLocalStorage(
             session?.user?.email || '',
@@ -222,9 +158,9 @@ const DialogNoFavorite: React.FC<Props> = ({
           );
           if (!result.success) return;
         }
-        setFavorites(subData.current.localData);
-        setFirst(subData.current.localFirst);
-        onAddMessage('設定が完了しました');
+        dispatch(setFavorites(subData.current.localData));
+        dispatch(setFirst(subData.current.localFirst));
+        dispatch(pushArrMessage('設定が完了しました'));
         break;
       }
       // Gitデータのみにしたい
@@ -235,7 +171,7 @@ const DialogNoFavorite: React.FC<Props> = ({
         // 勝手に更新してくれる説あるから、isLocalStorageをHooksに
         // おけば解決するかも
         const newIsLocalStorage = !isLocalStorage;
-        setIsLocalStorage(newIsLocalStorage);
+        dispatch(setIsLocalStorage(newIsLocalStorage));
         if (newIsLocalStorage) {
           const result = await changeGitIsLocalStorage(
             session?.user?.email || '',
@@ -243,9 +179,9 @@ const DialogNoFavorite: React.FC<Props> = ({
           );
           if (!result.success) return;
         }
-        setFavorites(subData.current.gitData);
-        setFirst(subData.current.gitFirst);
-        onAddMessage('設定が完了しました');
+        dispatch(setFavorites(subData.current.gitData));
+        dispatch(setFirst(subData.current.gitFirst));
+        dispatch(pushArrMessage('設定が完了しました'));
         break;
       }
       // LocalもGitも統合したい
@@ -259,7 +195,7 @@ const DialogNoFavorite: React.FC<Props> = ({
         /// Gitデータ管理の初期isLocalStorageをTrueにする
         /// NextAuthの再読み込みを禁止？別のダイアログ形式にできたらやってみる
         const newIsLocalStorage = !isLocalStorage;
-        setIsLocalStorage(newIsLocalStorage);
+        dispatch(setIsLocalStorage(newIsLocalStorage));
         if (newIsLocalStorage) {
           const result = await changeGitIsLocalStorage(
             session?.user?.email || '',
@@ -267,7 +203,7 @@ const DialogNoFavorite: React.FC<Props> = ({
           );
           if (!result.success) return;
         }
-        setFavorites(subData.current.allData);
+        dispatch(setFavorites(subData.current.allData));
         if (subData.current.gitFirst !== subData.current.localFirst) {
           dialogConfirm.current.question = [
             '最初に表示するのはどちらにしますか？',
@@ -285,19 +221,19 @@ const DialogNoFavorite: React.FC<Props> = ({
             if (result === undefined) return;
             switch (result) {
               case 0: // ローカルデータ
-                setFirst(subData.current.localFirst);
+                dispatch(setFirst(subData.current.localFirst));
                 break;
               case 1: // Gitデータ
-                setFirst(subData.current.gitFirst);
+                dispatch(setFirst(subData.current.gitFirst));
                 break;
               default:
                 return;
             }
             setIsVisibleConfirm(false);
-            onAddMessage('設定が完了しました');
+            dispatch(pushArrMessage('設定が完了しました'));
           };
         } else {
-          onAddMessage('設定が完了しました');
+          dispatch(pushArrMessage('設定が完了しました'));
         }
         break;
       }
@@ -308,9 +244,8 @@ const DialogNoFavorite: React.FC<Props> = ({
 
   // iframeの表示・非表示
   useEffect(() => {
-    onIframeVisible(isVisibleFileUpload || isVisibleDelete);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isVisibleFileUpload, isVisibleDelete]);
+    dispatch(setIframeVisible(isVisibleFileUpload || isVisibleDelete));
+  }, [isVisibleFileUpload, isVisibleDelete, dispatch]);
 
   return (
     <>
@@ -350,9 +285,8 @@ const DialogNoFavorite: React.FC<Props> = ({
       />
 
       <DialogFileUpload
-        favorites={favorites}
         isVisible={isVisibleFileUpload}
-        onClose={handleImport}
+        onClose={() => setIsVisibleFileUpload(false)}
       />
 
       <p className="favoriteP">
@@ -394,30 +328,10 @@ const DialogNoFavorite: React.FC<Props> = ({
           />
           <div>
             <p>Git連携</p>
-            {/* <span>Gitで紐づけ、別端末でも閲覧できます</span> */}
           </div>
         </div>
       </div>
-      <section className="favorite">
-        {groupFavorites.length === 0 && <p>お気に入りが表示されます</p>}
-        {groupFavorites.map((v, index) => {
-          return (
-            <div key={index}>
-              <p>{v.year}年度</p>
-              {v.no.map((w, index) => {
-                return (
-                  <button
-                    key={index}
-                    onClick={() => onStudentNo(changeStudentNo(v.year, w))}
-                  >
-                    {w}
-                  </button>
-                );
-              })}
-            </div>
-          );
-        })}
-      </section>
+      <ShowFavorites />
     </>
   );
 };

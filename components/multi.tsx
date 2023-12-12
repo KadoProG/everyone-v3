@@ -1,16 +1,12 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import {
-  changeStudentNo,
-  changeYearNo,
-  localStrage,
-  pracData,
-} from '../features/update';
+import pracData, { changeStudentNo, changeYearNo } from '../features/pracData';
 import DialogMenu from './dialog_footer';
 import PanelNo from './panel_no';
 import MultiIframe from './multi_iframe';
 import { useSession } from 'next-auth/react';
+import { localStrage } from '../features/update';
 
 type Props = {
   initData: { first: number; favorites: number[]; isLocalStorage: boolean };

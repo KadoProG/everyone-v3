@@ -1,18 +1,17 @@
 'use client';
 import { useState } from 'react';
 import '../public/css/dialog_message.scss';
+import { useSelector } from 'react-redux';
+import { RootState } from '../app/single/singleSlice';
 
-type Props = {
-  arrMessage: string[];
-};
-
-const DialogMessage = (props: Props) => {
-  const arrMessage = props.arrMessage;
+const DialogMessage = () => {
+  const arrMessage = useSelector((state: RootState) => state.data.arrMessage);
   const [arrClick, setArrClick] = useState<number[]>([]);
 
   const handleClick = (num: number) => {
     setArrClick([...arrClick, num]);
   };
+
   return (
     <div className="dialog__message">
       {arrMessage.map((v, index) => {

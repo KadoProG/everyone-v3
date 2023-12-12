@@ -1,20 +1,21 @@
 'use client';
 import Image from 'next/image';
-import '../public/css/dialog_no.scss';
+import '../../public/css/dialog_no.scss';
 import { useEffect, useState } from 'react';
-import { IframeStatus } from '../app/single/page';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState, setIframeStatus } from '../../app/single/singleSlice';
 
 type Props = {
   onClose(): void;
   onSelect(): void;
   isVisible: boolean;
-  onAddMessage(message: string): void;
-  iframeStatus: IframeStatus;
-  setIframeStatus(status: IframeStatus): void;
 };
 
 const DialogResponsive = (props: Props) => {
   const [range, setRange] = useState<string>('');
+  const dispatch = useDispatch();
+  const data = useSelector((state: RootState) => state.data);
+  const iframeStatus = data.iframeStatus;
 
   const path =
     parseInt(range) < 479
@@ -30,28 +31,25 @@ const DialogResponsive = (props: Props) => {
     const scale = isScaled ? innerWidth / parseInt(value) : 1;
 
     const height = isScaled ? (innerHeight - 60) / scale : innerHeight - 60;
-    props.setIframeStatus({
-      ...props.iframeStatus,
-      width: parseInt(value),
-      scale: scale,
-      height: height,
-    });
+
+    dispatch(
+      setIframeStatus({
+        ...iframeStatus,
+        width: parseInt(value),
+        scale: scale,
+        height: height,
+      })
+    );
   };
 
   // 起動時実行（DOM操作あり）
   useEffect(() => {
-    props.setIframeStatus({
-      width: innerWidth,
-      height: innerHeight - 60,
-      isObstacle: false,
-    });
-
+    onRange(String(innerWidth));
     window.addEventListener('resize', () => {
       onRange(String(innerWidth));
     });
-    setRange(String(innerWidth));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [dispatch]);
 
   return (
     <>

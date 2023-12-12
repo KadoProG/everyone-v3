@@ -1,13 +1,23 @@
 import { useState } from 'react';
 import '../public/css/dialog_file_upload.scss';
 import DialogConfirm from './dialog_confirm';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  RootState,
+  pushArrMessage,
+  setFavorites,
+} from '../app/single/singleSlice';
 
 type Props = {
   isVisible: boolean;
-  onClose(result: { data: number[]; type: number } | undefined): void;
-  favorites: number[];
+  onClose(): void;
 };
+
 const DialogFileUpload = (props: Props) => {
+  const dispatch = useDispatch();
+  const data = useSelector((state: RootState) => state.data);
+  const favorites = data.favorites;
+
   // 確認画面の表示・非表示
   const [isVisibleConfirm, setIsVisibleConfirm] = useState<boolean>(false);
   // ファイルデータ「お気に入り」の格納場所（ファイルは格納したらすぐ破棄する）
@@ -26,53 +36,56 @@ const DialogFileUpload = (props: Props) => {
       const result = reader.result;
       if (!result || typeof result !== 'string') return;
 
-      // 改行
+      // 改行で分割
       const items = result.split('\n').map((v) => parseInt(v));
-
       // 不正文字は排除
       const items2 = items.filter((v) => !isNaN(v) && String(v).length > 5);
 
       if (items2.length === 0) return;
-
       // 一度格納
       setFileText(items2);
 
-      const itemIncludes = props.favorites;
-
-      // 既存の要素が0個の場合ダイアログなし
-      if (itemIncludes.length === 0) {
-        onClose({ data: items2, type: 0 });
+      // 既存の要素が0個の場合ダイアログなしで実行
+      if (favorites.length === 0) {
+        setJoinFavorites(1);
+        onClose();
         return;
       }
-
       // 一度ダイアログを表示
       setIsVisibleConfirm(true);
     };
   };
 
-  // 確認画面後の処理
-  const handleConfirm = (num: number | undefined) => {
-    if (num === undefined) {
-      resetInput();
-      setIsVisibleConfirm(false);
-      return;
+  // インポートされたテキストデータと既存のお気に入りデータを結合
+  const setJoinFavorites = (type: 0 | 1) => {
+    if (type === 0) {
+      // 0: 現在のデータに追加
+      const addFavorites = fileText.filter((v) => !favorites.includes(v));
+      const newFavorites = [...favorites, ...addFavorites];
+      const newFavorites2 = newFavorites.sort((a, b) => a - b);
+      dispatch(setFavorites(newFavorites2));
+    } else {
+      // 1: ファイルのデータのみ
+      dispatch(setFavorites(fileText)); // 上書き
     }
-
-    // あとはNoに任せた！
-    onClose({ data: fileText, type: num });
+    dispatch(pushArrMessage('Success: お気に入りを更新しました'));
   };
 
-  // INPUTの中身をリセット
-  const resetInput = () => {
-    // eslint-disable-next-line
+  // 確認画面後の処理
+  const handleConfirm = (num: number | undefined) => {
+    setIsVisibleConfirm(false);
+    if (num !== undefined && (num === 1 || num === 0)) {
+      setJoinFavorites(num);
+    }
+    onClose();
+  };
+
+  // ファイルアップロードのダイアログを閉じる
+  const onClose = () => {
     const elm: any = document.getElementById('dialog__file__upload__input');
     if (!elm) return;
     elm.value = '';
-  };
-
-  const onClose = (data: { data: number[]; type: number } | undefined) => {
-    resetInput();
-    props.onClose(data);
+    props.onClose();
   };
 
   return (
@@ -80,7 +93,7 @@ const DialogFileUpload = (props: Props) => {
       className={`fileUpload${props.isVisible ? ' enabled' : ''}`}
       onClick={(e) => {
         e.stopPropagation();
-        onClose(undefined);
+        onClose();
       }}
     >
       <DialogConfirm
