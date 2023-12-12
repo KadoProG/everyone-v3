@@ -1,10 +1,5 @@
 {
-  "extends": [
-    "next",
-    "prettier",
-    "next/core-web-vitals",
-    "plugin:react/recommended"
-  ],
+  "extends": ["prettier", "next/core-web-vitals", "plugin:import/typescript"],
   "env": {
     "browser": true,
     "jquery": true

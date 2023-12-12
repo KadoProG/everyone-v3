@@ -1,9 +1,9 @@
 const path = require('path');
 
 const buildEslintCommand = (filenames) =>
-  `next lint --fix --file ${filenames
+  `eslint --no-cache --ignore-pattern '!./.eslintignore' --no-ignore --ext ts,tsx ${filenames
     .map((f) => path.relative(process.cwd(), f))
-    .join(' --file ')}`;
+    .join(' ')} --max-warnings 0`;
 
 module.exports = {
   '*.{js,jsx,ts,tsx}': [buildEslintCommand],
