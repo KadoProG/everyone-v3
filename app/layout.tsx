@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google';
 import NextAuthProvider from './providers/NextAuth';
 import React from 'react';
 import { ENVIROMENT_KEY } from '../features/environmentKey';
+import { GoogleAnalytics } from '@next/third-parties/google';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -37,6 +38,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ja">
+      <head>
+        <GoogleAnalytics gaId={ENVIROMENT_KEY.GA_TRACKING_ID} />
+      </head>
       <body className={inter.className}>
         <NextAuthProvider>{children}</NextAuthProvider>
       </body>
