@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import '../public/css/dialog_file_upload.scss';
-import DialogConfirm from './dialog_confirm';
+import DialogConfirm from './single/DialogConfirm';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   RootState,
