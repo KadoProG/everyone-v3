@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import PanelNo from '../../panel_no';
 import { RootState, setStudentNo } from '../../../app/single/singleSlice';
 import { changeStudentNo, changeYearNo } from '../../../features/pracData';
+import styles from './DialogNoDetail.module.scss';
 
 const DialogNoDetail = () => {
   // 学生番号を取得
@@ -22,19 +23,15 @@ const DialogNoDetail = () => {
   };
 
   return (
-    <div className="left">
-      <section className="year">
-        <PanelNo
-          no={year}
-          onChangeNo={onYear}
-          className="year"
-          displayEnText="年度"
-        />
-      </section>
+    <div className={styles.left}>
+      <PanelNo
+        no={year}
+        onChangeNo={onYear}
+        className="year"
+        displayEnText="年度"
+      />
 
-      <section className="num">
-        <PanelNo no={no} onChangeNo={onNo} className="num" />
-      </section>
+      <PanelNo no={no} onChangeNo={onNo} className="num" />
     </div>
   );
 };

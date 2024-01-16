@@ -1,0 +1,16 @@
+.no {
+  display: flex;
+
+  & .right {
+    flex: 1;
+    max-width: 150px;
+    & label {
+      font-size: 12px;
+      padding: 10px 10px;
+      white-space: nowrap;
+      border-radius: 4px;
+    }
+    // .dialog__content .no .right
+  }
+  // .dialog__content .no
+}

@@ -5,6 +5,7 @@ import {
   setCurrentFirst,
 } from '../../../app/single/singleSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import styles from './DialogNoRight.module.scss';
 
 // 学生番号ダイアログ>>学生番号操作>>右側の「お気に入り」「最初に表示」ボタンのコンポーネント
 const DialogNoRight: React.FC = () => {
@@ -20,7 +21,7 @@ const DialogNoRight: React.FC = () => {
     : '/images/star_icon.svg';
 
   return (
-    <div className="right">
+    <div className={styles.right}>
       <input
         type="checkbox"
         id="dialog__content__no__favorite"

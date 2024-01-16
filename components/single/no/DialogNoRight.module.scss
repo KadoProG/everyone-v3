@@ -1,0 +1,35 @@
+.right {
+  flex: 1;
+  max-width: 150px;
+  & input {
+    /* 透明度0 */
+    filter: alpha(opacity=0);
+    -moz-opacity: 0;
+    opacity: 0;
+    /* ブラウザのデフォルトのスタイルを削除 */
+    -webkit-appearance: none;
+    appearance: none;
+    /* レイアウトから無視 */
+    position: fixed;
+    &:focus-visible {
+      & + label {
+        background: var(--color-button);
+      }
+    }
+    &:checked {
+      & + label {
+        background: var(--color-button);
+      }
+    }
+  }
+  & label {
+    font-size: 12px;
+    padding: 10px 10px;
+    white-space: nowrap;
+    border-radius: 4px;
+    margin-bottom: 4px;
+    display: inline-flex;
+    align-items: center;
+    background: var(--color-back1);
+  }
+}

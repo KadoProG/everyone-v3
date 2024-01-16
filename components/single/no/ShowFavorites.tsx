@@ -2,6 +2,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState, setStudentNo } from '../../../app/single/singleSlice';
 import { useEffect, useState } from 'react';
 import { changeStudentNo, changeYearNo } from '../../../features/pracData';
+import { Button } from '../../../stories/Button';
+import styles from './ShowFavorites.module.scss';
 
 const ShowFavorites: React.FC = () => {
   const dispatch = useDispatch();
@@ -39,7 +41,7 @@ const ShowFavorites: React.FC = () => {
   }, [favorites]);
 
   return (
-    <section className="favorite">
+    <section className={styles.favorite}>
       {groupFavorites.length === 0 && <p>お気に入りが表示されます</p>}
       {groupFavorites.map((v, index) => {
         return (
@@ -47,14 +49,13 @@ const ShowFavorites: React.FC = () => {
             <p>{v.year}年度</p>
             {v.no.map((w, index) => {
               return (
-                <button
+                <Button
                   key={index}
                   onClick={() =>
                     dispatch(setStudentNo(changeStudentNo(v.year, w)))
                   }
-                >
-                  {w}
-                </button>
+                  label={String(w)}
+                />
               );
             })}
           </div>

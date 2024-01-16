@@ -1,9 +1,11 @@
 import '../../../public/css/dialog_no.scss';
-import DialogNoFavorite from './dialog_no_favorite';
-import DialogNoDetail from './dialog_no_detail';
-import DialogNoRight from './dialog_no_right';
+import DialogNoFavorite from './DialogNoFavorite';
+import DialogNoDetail from './DialogNoDetail';
+import DialogNoRight from './DialogNoRight';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../app/single/singleSlice';
+import DialogContainer from '../../commons/DialogContainer';
+import styles from './DialogNo.module.scss';
 
 type Props = {
   onClose(): void; // ウィンドウを閉じる
@@ -17,23 +19,19 @@ const DialogNo: React.FC<Props> = ({ isVisible, onClose, onSelect }) => {
 
   const studentNo = data.studentNo;
 
-  // クラス名を反映
-  const className = 'dialog' + (!isVisible ? ' disabled' : '');
-
   return (
     <>
-      <div className={className} onClick={onClose}>
-        <div className="dialog__content" onClick={(e) => e.stopPropagation()}>
-          <DialogNoFavorite />
-          <p>
-            <b>学生番号</b>
-          </p>
-          <div className="no">
-            <DialogNoDetail />
-            <DialogNoRight />
-          </div>
+      <DialogContainer isVisible={isVisible} onClose={onClose}>
+        <DialogNoFavorite />
+        <p>
+          <b>学生番号</b>
+        </p>
+        <div className={styles.no}>
+          <DialogNoDetail />
+          <DialogNoRight />
         </div>
-      </div>
+      </DialogContainer>
+
       <div className="single__footer__right__button">
         <button onClick={onSelect}>
           <span>{studentNo}</span>

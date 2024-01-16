@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import DialogMenu from './dialog_footer';
-import DialogNo from './single/no/dialog_no';
+import DialogNo from './single/no/DialogNo';
 import DialogPrac from './single/dialog_prac';
 import DialogSite from './single/dialog_site';
 import DialogResponsive from './single/dialog_responsive';
