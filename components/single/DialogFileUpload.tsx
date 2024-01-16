@@ -1,12 +1,13 @@
 import { useState } from 'react';
-import '../public/css/dialog_file_upload.scss';
-import DialogConfirm from './single/DialogConfirm';
+import DialogConfirm from './DialogConfirm';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   RootState,
   pushArrMessage,
   setFavorites,
-} from '../app/single/singleSlice';
+} from '../../app/single/singleSlice';
+import { Button } from '../../stories/Button';
+import styles from './DialogFileUpload.module.scss';
 
 type Props = {
   isVisible: boolean;
@@ -90,7 +91,7 @@ const DialogFileUpload = (props: Props) => {
 
   return (
     <div
-      className={`fileUpload${props.isVisible ? ' enabled' : ''}`}
+      className={`${styles.fileUpload} ${props.isVisible && styles.enabled}`}
       onClick={(e) => {
         e.stopPropagation();
         onClose();
@@ -102,7 +103,7 @@ const DialogFileUpload = (props: Props) => {
         isVisible={isVisibleConfirm}
         onClose={handleConfirm}
       />
-      <div className="item" onClick={(e) => e.stopPropagation()}>
+      <div className={styles.item} onClick={(e) => e.stopPropagation()}>
         <input
           type="file"
           id="dialog__file__upload__input"
@@ -110,7 +111,7 @@ const DialogFileUpload = (props: Props) => {
         />
         <p>ここにドラッグアンドドロップ or クリックで挿入</p>
       </div>
-      <button>前の画面に戻る</button>
+      <Button label="前の画面に戻る" />
     </div>
   );
 };

@@ -1,8 +1,8 @@
+import styles from './DialogNoFavorite.module.scss';
 import { useEffect, useRef, useState } from 'react';
 import { gitFetchDifference } from '../../../features/update';
-import DialogFileUpload from '../../dialog_file_upload';
+import DialogFileUpload from '../DialogFileUpload';
 import DialogConfirm from '../DialogConfirm';
-import Image from 'next/image';
 import { signIn, useSession } from 'next-auth/react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -13,7 +13,9 @@ import {
   setIframeVisible,
   setIsLocalStorage,
 } from '../../../app/single/singleSlice';
-import ShowFavorites from './show_favorites';
+import ShowFavorites from './ShowFavorites';
+import { Button } from '../../../stories/Button';
+import DialogNoFavoriteToggle from './DialogNoFavoriteToggle';
 
 const changeGitIsLocalStorage = async (
   id: string,
@@ -289,48 +291,21 @@ const DialogNoFavorite: React.FC = () => {
         onClose={() => setIsVisibleFileUpload(false)}
       />
 
-      <p className="favoriteP">
+      <p className={styles.favoriteP}>
         <b>お気に入り</b>
-        <button onClick={() => setIsVisibleFileUpload(true)}>インポート</button>
-        <button onClick={() => setIsVisibleExport(true)}>エクスポート</button>
+        <Button
+          onClick={() => setIsVisibleFileUpload(true)}
+          label="インポート"
+        />
+        <Button onClick={() => setIsVisibleExport(true)} label="エクスポート" />
         {favorites.length !== 0 && (
-          <button onClick={() => setIsVisibleDelete(true)}>削除</button>
+          <Button onClick={() => setIsVisibleDelete(true)} label="削除" />
         )}
       </p>
-      <div className="favoriteSelect">
-        <div className={'desc' + (isLocalStorage ? ' selected' : '')}>
-          <div>
-            <p>ﾛｰｶﾙｽﾄﾚｰｼﾞ</p>
-            {/* <span>この端末でのみ閲覧できます</span> */}
-          </div>
-          <Image
-            src={'/images/my_icon_chrome.png'}
-            width={20}
-            height={20}
-            alt="Chrome"
-          />
-        </div>
-        <div className="toggle">
-          <input
-            type="checkbox"
-            id="favorite_select"
-            checked={!isLocalStorage}
-            onChange={(e) => handleIsLocalChange(!e.target.checked)}
-          />
-          <label htmlFor="favorite_select"></label>
-        </div>
-        <div className={'desc' + (!isLocalStorage ? ' selected' : '')}>
-          <Image
-            src={'/images/my_icon_github.png'}
-            width={20}
-            height={20}
-            alt="GitHub"
-          />
-          <div>
-            <p>Git連携</p>
-          </div>
-        </div>
-      </div>
+      <DialogNoFavoriteToggle
+        isChecked={isLocalStorage}
+        onClick={handleIsLocalChange}
+      />
       <ShowFavorites />
     </>
   );

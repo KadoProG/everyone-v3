@@ -1,0 +1,35 @@
+.favoriteP {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  width: 100%;
+  white-space: nowrap;
+  // レスポンシブMENUで使用
+  & input[type='number'] {
+    text-align: center;
+    border: none;
+    background: var(--color-back1);
+    color: var(--color-text);
+    width: 50px;
+  }
+
+  & span {
+    font-size: 12px;
+    @media screen and (max-width: 467px) {
+      display: none;
+    }
+  }
+}
+
+.favorite {
+  width: 100%;
+  max-height: 200px;
+  overflow: scroll;
+  & p {
+    font-size: 14px;
+  }
+  & button {
+    padding: 8px;
+    height: 30px;
+  }
+}
