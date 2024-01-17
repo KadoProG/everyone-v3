@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import '../public/css/panel_no.scss';
+import '../../public/css/panel_no.scss';
 
 type Props = {
   no: number;

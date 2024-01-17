@@ -2,13 +2,13 @@
 
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { DialogNo } from '@/components/single/no/DialogNo';
 import { RootState } from '../app/single/singleSlice';
 import DialogMenu from './dialog_footer';
 import DialogMessage from './dialog_message';
 import DialogPrac from './single/dialog_prac';
 import DialogResponsive from './single/dialog_responsive';
 import DialogSite from './single/dialog_site';
-import DialogNo from './single/no/DialogNo';
 
 const Single: React.FC = () => {
   // 現在の情報ステータス

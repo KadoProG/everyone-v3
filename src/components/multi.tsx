@@ -2,8 +2,8 @@
 
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
-import pracData, { changeStudentNo, changeYearNo } from '../features/pracData';
-import { localStrage } from '../features/update';
+import pracData, { changeStudentNo, changeYearNo } from '../utils/pracData';
+import { localStrage } from '../utils/update';
 import DialogMenu from './dialog_footer';
 import MultiIframe from './multi_iframe';
 import PanelNo from './panel_no';

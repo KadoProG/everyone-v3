@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import '../public/css/dialog_message.scss';
+import '../../public/css/dialog_message.scss';
 import { useSelector } from 'react-redux';
 import { RootState } from '../app/single/singleSlice';
 

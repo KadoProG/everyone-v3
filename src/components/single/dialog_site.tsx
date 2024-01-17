@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import '../../public/css/dialog_site.scss';
+import '../../../public/css/dialog_site.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   RootState,

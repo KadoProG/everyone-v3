@@ -11,7 +11,7 @@
     "lint:prettier": "prettier --check .",
     "fix:prettier": "prettier --write .",
     "lint": "eslint --no-cache . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "lint:fix": "eslint --no-cache --fix . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "fix": "eslint --no-cache --fix . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "prettier": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,json,css}'",
     "format": "yarn prettier && yarn lint",
     "prepare": "husky install",

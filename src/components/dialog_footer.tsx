@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import '../public/css/dialog_menu.scss';
+import '../../public/css/dialog_menu.scss';
 
 type Props = {
   onClose(): void;

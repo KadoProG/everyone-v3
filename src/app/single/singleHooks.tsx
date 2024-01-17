@@ -1,8 +1,8 @@
 import { useSession } from 'next-auth/react';
 import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import pracData, { changeYearNo } from '../../features/pracData';
-import { localStrage } from '../../features/update';
+import pracData, { changeYearNo } from '../../utils/pracData';
+import { localStrage } from '../../utils/update';
 import {
   RootState,
   setFavorites,

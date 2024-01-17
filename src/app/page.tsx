@@ -2,8 +2,8 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import '../public/css/home.scss';
-import '../public/css/window.scss';
+import '../../public/css/home.scss';
+import '../../public/css/window.scss';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import SingleWindow from '../components/single_window';
 
@@ -83,6 +83,17 @@ const Home = () => {
               target="_blank"
             >
               KadoProG/everyone-v3
+            </Link>
+          </div>
+          <div className="main__title__git">
+            <Image
+              src="/images/my_icon_youtube.png"
+              width={16}
+              height={16}
+              alt="YouTubeアイコン"
+            />
+            <Link href={'https://youtu.be/Lw88J6RVvgk'} target="_blank">
+              紹介動画（3分）
             </Link>
           </div>
         </div>

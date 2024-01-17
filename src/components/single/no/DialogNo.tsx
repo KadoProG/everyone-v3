@@ -1,11 +1,10 @@
-import '../../../public/css/dialog_no.scss';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../../app/single/singleSlice';
-import DialogContainer from '../../commons/DialogContainer';
+import { RootState } from '@/app/single/singleSlice';
+import DialogContainer from '@/components/commons/DialogContainer';
+import DialogNoDetail from '@/components/single/no/DialogNoDetail';
+import DialogNoFavorite from '@/components/single/no/DialogNoFavorite';
+import DialogNoRight from '@/components/single/no/DialogNoRight';
 import styles from './DialogNo.module.scss';
-import DialogNoDetail from './DialogNoDetail';
-import DialogNoFavorite from './DialogNoFavorite';
-import DialogNoRight from './DialogNoRight';
 
 type Props = {
   onClose(): void; // ウィンドウを閉じる
@@ -14,7 +13,7 @@ type Props = {
 };
 
 // 学生番号のダイアログ
-const DialogNo: React.FC<Props> = ({ isVisible, onClose, onSelect }) => {
+export const DialogNo: React.FC<Props> = ({ isVisible, onClose, onSelect }) => {
   const data = useSelector((state: RootState) => state.data);
 
   const studentNo = data.studentNo;
@@ -41,4 +40,3 @@ const DialogNo: React.FC<Props> = ({ isVisible, onClose, onSelect }) => {
     </>
   );
 };
-export default DialogNo;

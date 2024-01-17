@@ -1,8 +1,8 @@
-import '../../public/css/multi.scss';
-import '../../public/css/dialog.scss';
+import '../../../public/css/multi.scss';
+import '../../../public/css/dialog.scss';
 import { getServerSession } from 'next-auth';
 import Multi from '../../components/multi';
-import { ENVIROMENT_KEY } from '../../features/environmentKey';
+import { ENVIROMENT_KEY } from '../../utils/environmentKey';
 import { authOptions } from '../lib/AuthOption';
 
 // GETメソッド

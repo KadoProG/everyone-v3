@@ -9,8 +9,8 @@ import {
   setIframeVisible,
   setIsLocalStorage,
 } from '../../../app/single/singleSlice';
-import { gitFetchDifference } from '../../../features/update';
 import { Button } from '../../../stories/Button';
+import { gitFetchDifference } from '../../../utils/update';
 import DialogConfirm from '../DialogConfirm';
 import DialogFileUpload from '../DialogFileUpload';
 import styles from './DialogNoFavorite.module.scss';
