@@ -1,11 +1,12 @@
 'use client';
 
-import Link from 'next/link';
-import SingleWindow from '../components/single_window';
-import '../public/css/window.scss';
-import '../public/css/home.scss';
 import Image from 'next/image';
+import Link from 'next/link';
+import '../public/css/home.scss';
+import '../public/css/window.scss';
 import { signIn, signOut, useSession } from 'next-auth/react';
+import SingleWindow from '../components/single_window';
+
 const Home = () => {
   const { data: session, status } = useSession();
   const menuItems = [

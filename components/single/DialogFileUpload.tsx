@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import DialogConfirm from './DialogConfirm';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   RootState,
@@ -7,6 +6,7 @@ import {
   setFavorites,
 } from '../../app/single/singleSlice';
 import { Button } from '../../stories/Button';
+import DialogConfirm from './DialogConfirm';
 import styles from './DialogFileUpload.module.scss';
 
 type Props = {

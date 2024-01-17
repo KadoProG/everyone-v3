@@ -1,6 +1,8 @@
 import { useSession } from 'next-auth/react';
 import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import pracData, { changeYearNo } from '../../features/pracData';
+import { localStrage } from '../../features/update';
 import {
   RootState,
   setFavorites,
@@ -8,8 +10,6 @@ import {
   setStudentNo,
   setUrl,
 } from './singleSlice';
-import { localStrage } from '../../features/update';
-import pracData, { changeYearNo } from '../../features/pracData';
 
 // POSTの処理
 const fetchPOST = async (

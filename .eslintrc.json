@@ -17,6 +17,20 @@
     "space-before-blocks": ["warn", { "functions": "always" }],
     "react/no-unescaped-entities": "off",
     "@next/next/no-page-custom-font": "off",
-    "react/react-in-jsx-scope": "off"
+    "react/react-in-jsx-scope": "off",
+    "import/order": [
+      "warn",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling",
+          "index"
+        ],
+        "alphabetize": { "order": "asc", "caseInsensitive": true }
+      }
+    ]
   }
 }

@@ -1,11 +1,11 @@
 import '../../../public/css/dialog_no.scss';
-import DialogNoFavorite from './DialogNoFavorite';
-import DialogNoDetail from './DialogNoDetail';
-import DialogNoRight from './DialogNoRight';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../app/single/singleSlice';
 import DialogContainer from '../../commons/DialogContainer';
 import styles from './DialogNo.module.scss';
+import DialogNoDetail from './DialogNoDetail';
+import DialogNoFavorite from './DialogNoFavorite';
+import DialogNoRight from './DialogNoRight';
 
 type Props = {
   onClose(): void; // ウィンドウを閉じる

@@ -1,14 +1,14 @@
 'use client';
 
 import { useState } from 'react';
-import DialogMenu from './dialog_footer';
-import DialogNo from './single/no/DialogNo';
-import DialogPrac from './single/dialog_prac';
-import DialogSite from './single/dialog_site';
-import DialogResponsive from './single/dialog_responsive';
-import DialogMessage from './dialog_message';
 import { useSelector } from 'react-redux';
 import { RootState } from '../app/single/singleSlice';
+import DialogMenu from './dialog_footer';
+import DialogMessage from './dialog_message';
+import DialogPrac from './single/dialog_prac';
+import DialogResponsive from './single/dialog_responsive';
+import DialogSite from './single/dialog_site';
+import DialogNo from './single/no/DialogNo';
 
 const Single: React.FC = () => {
   // 現在の情報ステータス

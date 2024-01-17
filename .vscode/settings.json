@@ -1,0 +1,6 @@
+{
+  "editor.codeActionsOnSave": {
+    // セーブ時にlint:fixを実行
+    "source.fixAll.eslint": "explicit"
+  }
+}

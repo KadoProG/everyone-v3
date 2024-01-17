@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
-import PanelNo from '../../panel_no';
 import { RootState, setStudentNo } from '../../../app/single/singleSlice';
 import { changeStudentNo, changeYearNo } from '../../../features/pracData';
+import PanelNo from '../../panel_no';
 import styles from './DialogNoDetail.module.scss';
 
 const DialogNoDetail = () => {

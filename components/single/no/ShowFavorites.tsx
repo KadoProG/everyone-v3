@@ -1,6 +1,6 @@
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, setStudentNo } from '../../../app/single/singleSlice';
-import { useEffect, useState } from 'react';
 import { changeStudentNo, changeYearNo } from '../../../features/pracData';
 import { Button } from '../../../stories/Button';
 import styles from './ShowFavorites.module.scss';

@@ -1,8 +1,8 @@
 import '../../public/css/single.scss';
 import '../../public/css/dialog.scss';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '../lib/AuthOption';
 import { ENVIROMENT_KEY } from '../../features/environmentKey';
+import { authOptions } from '../lib/AuthOption';
 import SingleProvider from './singleProvider';
 
 // GETメソッド

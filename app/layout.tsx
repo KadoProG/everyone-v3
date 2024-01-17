@@ -1,10 +1,10 @@
 import '../public/css/globals.scss';
+import { GoogleAnalytics } from '@next/third-parties/google';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import NextAuthProvider from './providers/NextAuth';
 import React from 'react';
 import { ENVIROMENT_KEY } from '../features/environmentKey';
-import { GoogleAnalytics } from '@next/third-parties/google';
+import NextAuthProvider from './providers/NextAuth';
 
 const inter = Inter({ subsets: ['latin'] });
 

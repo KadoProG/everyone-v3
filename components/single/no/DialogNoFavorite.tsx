@@ -1,9 +1,5 @@
-import styles from './DialogNoFavorite.module.scss';
-import { useEffect, useRef, useState } from 'react';
-import { gitFetchDifference } from '../../../features/update';
-import DialogFileUpload from '../DialogFileUpload';
-import DialogConfirm from '../DialogConfirm';
 import { signIn, useSession } from 'next-auth/react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   RootState,
@@ -13,9 +9,13 @@ import {
   setIframeVisible,
   setIsLocalStorage,
 } from '../../../app/single/singleSlice';
-import ShowFavorites from './ShowFavorites';
+import { gitFetchDifference } from '../../../features/update';
 import { Button } from '../../../stories/Button';
+import DialogConfirm from '../DialogConfirm';
+import DialogFileUpload from '../DialogFileUpload';
+import styles from './DialogNoFavorite.module.scss';
 import DialogNoFavoriteToggle from './DialogNoFavoriteToggle';
+import ShowFavorites from './ShowFavorites';
 
 const changeGitIsLocalStorage = async (
   id: string,
