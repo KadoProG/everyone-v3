@@ -11,7 +11,7 @@ import { DialogSite } from '@/components/single/DialogSite';
 import { DialogNo } from '@/components/single/no/DialogNo';
 import styles from '@/components/Single.module.scss';
 
-export const Single: React.FC = () => {
+export const SinglePage: React.FC = () => {
   // 現在の情報ステータス
   const data = useSelector((state: RootState) => state.data);
   const url = data.url;
