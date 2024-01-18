@@ -1,4 +1,5 @@
-import '@/app/globals.scss';
+import '@/styles/globals.scss';
+
 import { GoogleAnalytics } from '@next/third-parties/google';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
