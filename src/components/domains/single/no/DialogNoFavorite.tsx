@@ -15,6 +15,7 @@ import DialogFileUpload from '@/components/domains/single/no/DialogFileUpload';
 import styles from '@/components/domains/single/no/DialogNoFavorite.module.scss';
 import { DialogNoFavoriteToggle } from '@/components/domains/single/no/DialogNoFavoriteToggle';
 import { ShowFavorites } from '@/components/domains/single/no/ShowFavorites';
+import { initStudentNo } from '@/const';
 import { gitFetchDifference } from '@/utils/update';
 
 const changeGitIsLocalStorage = async (
@@ -46,8 +47,8 @@ export const DialogNoFavorite: React.FC = () => {
     gitData: [],
     allData: [],
     localData: [],
-    localFirst: 20216050,
-    gitFirst: 20216050,
+    localFirst: initStudentNo,
+    gitFirst: initStudentNo,
   });
   // ステートメントの取得・定義
   const dispatch = useDispatch();

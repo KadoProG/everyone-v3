@@ -7,11 +7,14 @@ import { store } from '@/app/single/store';
 import { SinglePage } from '@/components/pages/single/SinglePage';
 
 type Props = {
-  initData: { first: number; favorites: number[]; isLocalStorage: boolean };
+  /**
+   * Git連携の場合initDataを設定
+   */
+  initData?: { first: number; favorites: number[] };
 };
 const SingleProvider = (props: Props) => {
-  const initData = props.initData;
-  store.dispatch(fetchData(initData));
+  // Git連携の場合はここでステートメントを更新
+  if (props.initData) store.dispatch(fetchData(props.initData));
 
   return (
     <Provider store={store}>

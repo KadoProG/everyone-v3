@@ -1,34 +1,28 @@
-// 学生番号を返す
-export const changeStudentNo = (year: number, no: number): number => {
-  const strNo = no < 0 ? ('000' + 1).slice(-3) : ('000' + no).slice(-3);
-  const numYear = year < 2020 ? ('00' + (year - 1988)).slice(-2) : year;
-
-  return parseInt(numYear + '6' + strNo);
-};
-
-// 年度と番号を返す
-export const changeYearNo = (
-  studentNo: number
-): { year: number; no: number } => {
-  const strNo = String(studentNo).slice(-3); // 下3桁
-  const no = isNaN(parseInt(strNo)) ? 0 : parseInt(strNo);
-
-  const strYear = String(studentNo).slice(0, -4); // 上2~4桁(下4桁を除く数)
-
-  const numYear = isNaN(parseInt(strYear)) ? 0 : parseInt(strYear);
-  const year = strYear.length <= 2 ? numYear + 1988 : numYear;
-
-  return { year: year, no: no };
-};
+import { changeStudentNo } from '@/utils/change';
 
 type PracData = {
+  /**
+   * 課題タイトル
+   */
   title: string;
+  /**
+   * 課題タイトル（省略版）
+   */
   mini: string;
+  /**
+   * 課題の詳細
+   */
   pracs: { name: string; path: string }[];
+  /**
+   * URLを作成する関数
+   */
   makeUrl(year: number, no: number, index: number): string;
 };
 
-const pracData: PracData[] = [
+/**
+ * 課題データ 追記をする際はこちらに
+ */
+export const pracData: PracData[] = [
   {
     title: 'Webコンテンツ及び演習',
     mini: 'Webｺﾝ',
@@ -114,6 +108,4 @@ const pracData: PracData[] = [
       return url_2;
     },
   },
-];
-
-export default pracData;
+] as const;

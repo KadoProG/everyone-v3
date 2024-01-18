@@ -8,7 +8,9 @@ import {
   setStudentNo,
   setUrl,
 } from '@/app/single/singleSlice';
-import pracData, { changeYearNo } from '@/utils/pracData';
+import { initStudentNo } from '@/const';
+import { changeYearNo } from '@/utils/change';
+import { pracData } from '@/utils/pracData';
 import { localStrage } from '@/utils/update';
 
 // POSTの処理
@@ -86,7 +88,7 @@ const SingleHooks: React.FC = () => {
     // console.log('起動時実行のサブ', isLocalStorage);
     if (isLocalStorage) {
       // 「最初に表示」の学生番号を反映
-      const currentFirst = localStrage.getFirst() || 20216050;
+      const currentFirst = localStrage.getFirst() || initStudentNo;
       // console.log(currentFirst);
       dispatch(setStudentNo(currentFirst));
       dispatch(setFirst(currentFirst));

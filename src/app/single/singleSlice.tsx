@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { initStudentNo } from '@/const';
 
 export type IframeStatus = {
   width: number;
@@ -25,9 +26,9 @@ export interface RootState {
 }
 
 const initialState: DataState = {
-  studentNo: 20216050,
+  studentNo: initStudentNo,
   favorites: [],
-  first: 20216050,
+  first: initStudentNo,
   arrMessage: [],
   isLocalStorage: true,
   url: '',
@@ -77,8 +78,8 @@ export const DataSlice = createSlice({
 
     // 現在の学生番号の「最初に表示」変更
     setCurrentFirst: (state, action: { type: any; payload: boolean }) => {
-      const newData = action.payload ? state.studentNo : 20216050;
-      state.first = newData;
+      if (!action.payload) return;
+      state.first = state.studentNo;
     },
 
     // ローカルストレージか否か
@@ -104,7 +105,9 @@ export const DataSlice = createSlice({
       state.iframeStatus.isObstacle = action.payload;
     },
 
-    //
+    /**
+     * ロード時実行（Git連携のみ） ここでstateデータを更新
+     */
     fetchData: (
       store,
       action: {
@@ -112,16 +115,13 @@ export const DataSlice = createSlice({
         payload: {
           first: number;
           favorites: number[];
-          isLocalStorage: boolean;
         };
       }
     ) => {
-      store.isLocalStorage = action.payload.isLocalStorage;
-      if (!action.payload.isLocalStorage) {
-        store.first = action.payload.first;
-        store.studentNo = action.payload.first;
-        store.favorites = action.payload.favorites;
-      }
+      store.isLocalStorage = false;
+      store.first = action.payload.first;
+      store.studentNo = action.payload.first;
+      store.favorites = action.payload.favorites;
     },
   },
 });
