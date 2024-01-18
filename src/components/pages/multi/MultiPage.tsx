@@ -7,7 +7,8 @@ import { PanelNo } from '@/components/commons/PanelNo';
 import { DialogMenu } from '@/components/domains/(single)(multi)/DialogMenu';
 import { MultiIframe } from '@/components/domains/multi/MultiIframe';
 import styles from '@/components/pages/multi/MultiPage.module.scss';
-import pracData, { changeStudentNo, changeYearNo } from '@/utils/pracData';
+import { changeStudentNo, changeYearNo } from '@/utils/change';
+import { pracData } from '@/utils/pracData';
 import { localStrage } from '@/utils/update';
 
 type Props = {

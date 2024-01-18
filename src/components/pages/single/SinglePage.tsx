@@ -9,7 +9,7 @@ import { DialogPrac } from '@/components/domains/single/DialogPrac';
 import { DialogResponsive } from '@/components/domains/single/DialogResponsive';
 import { DialogSite } from '@/components/domains/single/DialogSite';
 import { DialogNo } from '@/components/domains/single/no/DialogNo';
-import styles from '@/components/pages/single/Single.module.scss';
+import styles from '@/components/pages/single/SinglePage.module.scss';
 
 export const SinglePage: React.FC = () => {
   // 現在の情報ステータス
@@ -43,7 +43,7 @@ export const SinglePage: React.FC = () => {
           height={iframeStatus.height}
           id="iframe__single"
           style={{ scale: iframeStatus.scale ? iframeStatus.scale : 1 }}
-          className={iframeStatus.isObstacle ? 'obstacle' : ''}
+          className={iframeStatus.isObstacle ? styles.obstacle : ''}
         ></iframe>
       </div>
 

@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState, setStudentNo } from '@/app/single/singleSlice';
 import { PanelNo } from '@/components/commons/PanelNo';
 import styles from '@/components/domains/single/no/DialogNoDetail.module.scss';
-import { changeStudentNo, changeYearNo } from '@/utils/pracData';
+import { changeStudentNo, changeYearNo } from '@/utils/change';
 
 export const DialogNoDetail = () => {
   // 学生番号を取得

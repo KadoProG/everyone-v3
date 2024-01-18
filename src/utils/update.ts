@@ -1,3 +1,5 @@
+import { initStudentNo } from '@/const';
+
 type LocalStrage = {
   favorites: number[];
   first: number | null;
@@ -106,7 +108,7 @@ export const gitFetchDifference = async (
     allData,
     localData: localFavorites,
     gitData: result.favorites,
-    localFirst: localStrage.getFirst() || 20216050,
+    localFirst: localStrage.getFirst() || initStudentNo,
     gitFirst: result.first,
   };
 };

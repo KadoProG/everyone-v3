@@ -1,6 +1,7 @@
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/lib/AuthOption';
 import { MultiPage } from '@/components/pages/multi/MultiPage';
+import { initStudentNo } from '@/const';
 import { ENVIROMENT_KEY } from '@/utils/environmentKey';
 
 // GETメソッド
@@ -22,7 +23,7 @@ const Home = async () => {
   // 初期情報[最初に表示する番号、お気に入りリスト]を格納
   const initData = session?.user?.email
     ? (await fetchOriginData(session?.user?.email)).data
-    : { first: 20216050, favorites: [], isLocalStorage: true };
+    : { first: initStudentNo, favorites: [], isLocalStorage: true };
 
   return <MultiPage initData={initData} />;
 };

@@ -19,11 +19,11 @@ const Home = async () => {
   // ログイン情報を取得
   const session = await getServerSession(authOptions);
 
-  // 初期情報[最初に表示する番号、お気に入りリスト]を格納
-  const initData = session?.user?.email
-    ? (await fetchOriginData(session?.user?.email)).data
-    : { first: 20216050, favorites: [], isLocalStorage: true };
-  // const initData = { first: 20216050, favorites: [], isLocalStorage: true };
+  if (!session?.user?.email) return <SingleProvider />;
+
+  // 初期情報[最初に表示する番号、お気に入りリスト]を格納 Git連携出ない場合はundefined
+  const fetchData = (await fetchOriginData(session?.user?.email)).data;
+  const initData = !fetchData.isLocalStorage ? fetchData : undefined;
 
   return <SingleProvider initData={initData} />;
 };

@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import { NextRequest } from 'next/server';
+import { initStudentNo } from '@/const';
 
 const prisma = new PrismaClient();
 
@@ -19,7 +20,7 @@ export async function GET(
     return new Response(
       JSON.stringify({
         success: true,
-        data: { first: 20216050, favorites: [], isLocalStorage: true },
+        data: { first: initStudentNo, favorites: [], isLocalStorage: true },
       })
     );
   }

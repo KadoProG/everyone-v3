@@ -6,6 +6,7 @@ import styles from '@/components/domains/single/no/DialogNo.module.scss';
 import { DialogNoDetail } from '@/components/domains/single/no/DialogNoDetail';
 import { DialogNoFavorite } from '@/components/domains/single/no/DialogNoFavorite';
 import DialogNoRight from '@/components/domains/single/no/DialogNoRight';
+import { changeYearNo } from '@/utils/change';
 
 type Props = {
   onClose(): void; // ウィンドウを閉じる
@@ -15,9 +16,7 @@ type Props = {
 
 // 学生番号のダイアログ
 export const DialogNo: React.FC<Props> = ({ isVisible, onClose, onSelect }) => {
-  const data = useSelector((state: RootState) => state.data);
-
-  const studentNo = data.studentNo;
+  const { studentNo } = useSelector((state: RootState) => state.data);
 
   return (
     <>
@@ -34,7 +33,12 @@ export const DialogNo: React.FC<Props> = ({ isVisible, onClose, onSelect }) => {
 
       <DialogBottomButton
         bottomLabel="学年・学生番号"
-        mainText={String(studentNo)}
+        mainText={
+          <>
+            <span>{changeYearNo(studentNo).yearJPN}</span>
+            <span>{studentNo.toString().slice(-4)}</span>
+          </>
+        }
         onClick={onSelect}
       />
     </>
