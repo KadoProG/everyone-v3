@@ -1,0 +1,65 @@
+.singleWindow {
+  height: 200px;
+  margin: 20px;
+  border: 10px solid var(--color-gray);
+  border-radius: 20px;
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+  background: var(--color-back1);
+  & > div {
+    &:first-child {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 30px;
+      background: var(--color-gray);
+
+      display: flex;
+      justify-content: right;
+
+      & span {
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        margin: 2px 4px;
+        background: var(--color-title);
+      }
+    }
+    &:last-child {
+      position: absolute;
+      top: 30px;
+      width: 100%;
+      height: 150px;
+      overflow: scroll;
+      z-index: -1;
+    }
+  }
+
+  &Animation {
+    animation: singleWindowAnimation 10s ease infinite;
+  }
+
+  @keyframes singleWindowAnimation {
+    0% {
+      width: calc(100% - 40px);
+    }
+    20% {
+      width: calc(100% - 40px);
+    }
+    40% {
+      width: calc(80% - 40px);
+    }
+    60% {
+      width: calc(50% - 40px);
+    }
+    80% {
+      width: calc(50% - 40px);
+    }
+    100% {
+      width: calc(100% - 40px);
+    }
+  }
+}

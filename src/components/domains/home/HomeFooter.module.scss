@@ -1,0 +1,30 @@
+.footer {
+  padding: 20px;
+  background: var(--color-button);
+  & ul {
+    list-style: none;
+    width: 300px;
+    & li {
+      & a {
+        display: block;
+        padding: 10px;
+        color: var(--color-text);
+        &:hover {
+          background: var(--color-button-hover);
+        }
+      }
+    }
+  }
+  & .copyright {
+    padding: 20px;
+    margin: 3px;
+    color: gray;
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 467px) {
+  .main {
+    padding: 30px 10px;
+  }
+}
