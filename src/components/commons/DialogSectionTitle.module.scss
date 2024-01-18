@@ -1,0 +1,16 @@
+.p {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  width: 100%;
+  white-space: nowrap;
+
+  // レスポンシブMENUで使用
+  & input[type='number'] {
+    text-align: center;
+    border: none;
+    background: var(--color-back1);
+    color: var(--color-text);
+    width: 50px;
+  }
+}

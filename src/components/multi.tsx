@@ -2,11 +2,13 @@
 
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
-import pracData, { changeStudentNo, changeYearNo } from '../utils/pracData';
-import { localStrage } from '../utils/update';
-import DialogMenu from './dialog_footer';
-import MultiIframe from './multi_iframe';
-import PanelNo from './panel_no';
+
+import { DialogMenu } from '@/components/DialogMenu';
+import styles from '@/components/multi.module.scss';
+import MultiIframe from '@/components/multi_iframe';
+import { PanelNo } from '@/components/PanelNo';
+import pracData, { changeStudentNo, changeYearNo } from '@/utils/pracData';
+import { localStrage } from '@/utils/update';
 
 type Props = {
   initData: { first: number; favorites: number[]; isLocalStorage: boolean };
@@ -29,7 +31,7 @@ const fetchPOST = async (
   return await res.json();
 };
 
-const Multi = (props: Props) => {
+export const Multi = (props: Props) => {
   // ステータス情報を取得
   const { data: session } = useSession();
 
@@ -106,7 +108,7 @@ const Multi = (props: Props) => {
 
   return (
     <div>
-      <div className="iframe">
+      <div className={styles.iframe}>
         <div>
           {students.map((v, index) => {
             const yearNo = changeYearNo(v);
@@ -123,23 +125,23 @@ const Multi = (props: Props) => {
           })}
         </div>
       </div>
-      <div className="single__footer">
+      <div className={styles.single__footer}>
         <DialogMenu
           onClose={buttonClose}
           onSelect={() => handleSelect(0)}
           isVisible={selectDialog === 0}
         />
-        <div className="single__footer__right">
-          <div className="single__footer__right__buttonContainer">
-            <div className="panel">
+        <div className={styles.single__footer__right}>
+          <div className={styles.single__footer__right__buttonContainer}>
+            <div className={styles.panel}>
               <p>初め</p>
               <PanelNo no={range.st} onChangeNo={onStNo} />
             </div>
-            <div className="panel">
+            <div className={styles.panel}>
               <p>終り</p>
               <PanelNo no={range.en} onChangeNo={onEnNo} />
             </div>
-            <div className="panel">
+            <div className={styles.panel}>
               <p>年度</p>
               <PanelNo no={range.year} onChangeNo={onYear} />
             </div>
@@ -149,5 +151,3 @@ const Multi = (props: Props) => {
     </div>
   );
 };
-
-export default Multi;

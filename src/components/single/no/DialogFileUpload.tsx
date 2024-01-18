@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
 import {
   RootState,
   pushArrMessage,
   setFavorites,
-} from '../../app/single/singleSlice';
-import { Button } from '../../stories/Button';
-import DialogConfirm from './DialogConfirm';
-import styles from './DialogFileUpload.module.scss';
+} from '@/app/single/singleSlice';
+import { Button } from '@/components/commons/Button';
+import { DialogConfirm } from '@/components/single/DialogConfirm';
+import styles from '@/components/single/no/DialogFileUpload.module.scss';
 
 type Props = {
   isVisible: boolean;

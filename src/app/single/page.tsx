@@ -1,9 +1,7 @@
-import '../../../public/css/single.scss';
-import '../../../public/css/dialog.scss';
 import { getServerSession } from 'next-auth';
-import { ENVIROMENT_KEY } from '../../utils/environmentKey';
-import { authOptions } from '../lib/AuthOption';
-import SingleProvider from './singleProvider';
+import { authOptions } from '@/app/lib/AuthOption';
+import SingleProvider from '@/app/single/singleProvider';
+import { ENVIROMENT_KEY } from '@/utils/environmentKey';
 
 // GETメソッド
 const fetchOriginData = async (

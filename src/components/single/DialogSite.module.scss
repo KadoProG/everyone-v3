@@ -1,0 +1,17 @@
+.site {
+  display: flex;
+  justify-content: center;
+
+  & button {
+    height: 40px;
+  }
+
+  & textarea {
+    background: var(--color-back1);
+    color: var(--color-text);
+  }
+
+  & input[type='range'] {
+    width: 100%;
+  }
+}

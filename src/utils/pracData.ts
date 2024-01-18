@@ -31,7 +31,7 @@ type PracData = {
 const pracData: PracData[] = [
   {
     title: 'Webコンテンツ及び演習',
-    mini: 'Webｺﾝﾃﾝﾂ',
+    mini: 'Webｺﾝ',
     pracs: [
       { name: 'INDEX', path: '' },
       { name: '課題01', path: 'EX01.html' },

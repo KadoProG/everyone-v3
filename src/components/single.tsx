@@ -2,15 +2,16 @@
 
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { RootState } from '@/app/single/singleSlice';
+import { DialogMenu } from '@/components/DialogMenu';
+import { DialogMessage } from '@/components/DialogMessage';
+import { DialogPrac } from '@/components/single/DialogPrac';
+import { DialogResponsive } from '@/components/single/DialogResponsive';
+import { DialogSite } from '@/components/single/DialogSite';
 import { DialogNo } from '@/components/single/no/DialogNo';
-import { RootState } from '../app/single/singleSlice';
-import DialogMenu from './dialog_footer';
-import DialogMessage from './dialog_message';
-import DialogPrac from './single/dialog_prac';
-import DialogResponsive from './single/dialog_responsive';
-import DialogSite from './single/dialog_site';
+import styles from '@/components/Single.module.scss';
 
-const Single: React.FC = () => {
+export const Single: React.FC = () => {
   // 現在の情報ステータス
   const data = useSelector((state: RootState) => state.data);
   const url = data.url;
@@ -35,7 +36,7 @@ const Single: React.FC = () => {
 
   return (
     <div>
-      <div className="iframe">
+      <div className={styles.iframe}>
         <iframe
           src={url}
           width={iframeStatus.width}
@@ -46,14 +47,14 @@ const Single: React.FC = () => {
         ></iframe>
       </div>
 
-      <div className="single__footer">
+      <div className={styles.single__footer}>
         <DialogMenu
           onClose={buttonClose}
           onSelect={() => handleSelect(0)}
           isVisible={selectDialog === 0}
         />
-        <div className="single__footer__right">
-          <div className="single__footer__right__buttonContainer">
+        <div className={styles.single__footer__right}>
+          <div className={styles.single__footer__right__buttonContainer}>
             <DialogNo
               onClose={buttonClose}
               onSelect={() => handleSelect(1)}
@@ -84,5 +85,3 @@ const Single: React.FC = () => {
     </div>
   );
 };
-
-export default Single;

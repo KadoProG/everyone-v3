@@ -1,12 +1,12 @@
 import Image from 'next/image';
-import styles from './DialogNoFavoriteToggle.module.scss';
+import styles from '@/components/single/no/DialogNoFavoriteToggle.module.scss';
 
 interface DialogNoFavoriteToggleProps {
   isChecked: boolean;
   onClick: (bool: boolean) => void;
 }
 
-const DialogNoFavoriteToggle: React.FC<DialogNoFavoriteToggleProps> = ({
+export const DialogNoFavoriteToggle: React.FC<DialogNoFavoriteToggleProps> = ({
   isChecked,
   onClick,
 }) => {
@@ -46,5 +46,3 @@ const DialogNoFavoriteToggle: React.FC<DialogNoFavoriteToggleProps> = ({
     </div>
   );
 };
-
-export default DialogNoFavoriteToggle;

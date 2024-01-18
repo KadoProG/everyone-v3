@@ -1,14 +1,33 @@
 import Image from 'next/image';
-import '../../public/css/panel_no.scss';
+import styles from '@/components/PanelNo.module.scss';
 
-type Props = {
+/**
+ * ClassNameの設定だが、高さや大きさが変更される
+ */
+const classes = {
+  /**
+   * 学年専用
+   */
+  year: styles.year,
+  /**
+   * 学生番号（下3桁）専用
+   */
+  num: styles.num,
+  /**
+   * マルチ専用
+   */
+  no: styles.no,
+};
+
+type PanelNoProps = {
   no: number;
   onChangeNo(no: number): void;
-  className?: string;
+  classType?: keyof typeof classes;
   displayEnText?: string;
 };
-const PanelNo = (props: Props) => {
-  const className = props.className ? props.className : 'no';
+
+export const PanelNo = (props: PanelNoProps) => {
+  const className = props.classType ? classes[props.classType] : classes.no;
   const displayEnText = props.displayEnText ? props.displayEnText : '';
 
   // 手書きでチェンジしたときの動作
@@ -23,7 +42,7 @@ const PanelNo = (props: Props) => {
   };
 
   return (
-    <section className={`panel_no ${className}`}>
+    <section className={`${styles.panel_no} ${className}`}>
       <ButtonArrow onClick={() => props.onChangeNo(props.no - 1)} />
       <input
         type="text"
@@ -34,7 +53,6 @@ const PanelNo = (props: Props) => {
     </section>
   );
 };
-export default PanelNo;
 
 type ButtonArrowProps = {
   onClick(): void;

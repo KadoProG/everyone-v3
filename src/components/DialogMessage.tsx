@@ -1,10 +1,11 @@
 'use client';
-import { useState } from 'react';
-import '../../public/css/dialog_message.scss';
-import { useSelector } from 'react-redux';
-import { RootState } from '../app/single/singleSlice';
 
-const DialogMessage = () => {
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/app/single/singleSlice';
+import styles from '@/components/DialogMessage.module.scss';
+
+export const DialogMessage = () => {
   const arrMessage = useSelector((state: RootState) => state.data.arrMessage);
   const [arrClick, setArrClick] = useState<number[]>([]);
 
@@ -13,11 +14,11 @@ const DialogMessage = () => {
   };
 
   return (
-    <div className="dialog__message">
+    <div className={styles.dialog__message}>
       {arrMessage.map((v, index) => {
         const isClick = arrClick.find((v) => v === index) !== undefined;
         return (
-          <div key={index} className={isClick ? 'disabled' : ''}>
+          <div key={index} className={isClick ? styles.disabled : ''}>
             <p>{v}</p>
             <span onClick={() => handleClick(index)}>x</span>
           </div>
@@ -26,5 +27,3 @@ const DialogMessage = () => {
     </div>
   );
 };
-
-export default DialogMessage;

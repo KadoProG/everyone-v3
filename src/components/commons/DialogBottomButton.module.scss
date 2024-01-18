@@ -1,0 +1,39 @@
+.button {
+  &Container {
+    height: 54px;
+    display: flex;
+    align-items: center;
+  }
+  padding: 0 3px;
+  text-align: center;
+  display: flex;
+  flex-flow: column;
+  & button {
+    min-width: 42px;
+    width: 100%;
+    background: var(--color-back1);
+    border: none;
+    font-size: 16px;
+    height: 42px;
+    border-radius: 10px;
+    padding: 0 5px;
+    color: var(--color-text);
+    cursor: pointer;
+    & > span {
+      display: block;
+      max-width: 60px;
+      & span {
+        display: inline-block;
+      }
+    }
+    & img {
+      filter: var(--opac-invert);
+    }
+  }
+  & > span {
+    display: inline-block;
+    font-size: 10px;
+    line-height: 12px;
+    white-space: nowrap;
+  }
+}

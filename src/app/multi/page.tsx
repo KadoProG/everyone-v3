@@ -1,9 +1,9 @@
-import '../../../public/css/multi.scss';
-import '../../../public/css/dialog.scss';
+import '@/components/Multi.module.scss';
+// import '../../../public/css/dialog.scss';
 import { getServerSession } from 'next-auth';
-import Multi from '../../components/multi';
-import { ENVIROMENT_KEY } from '../../utils/environmentKey';
-import { authOptions } from '../lib/AuthOption';
+import { authOptions } from '@/app/lib/AuthOption';
+import { Multi } from '@/components/Multi';
+import { ENVIROMENT_KEY } from '@/utils/environmentKey';
 
 // GETメソッド
 const fetchOriginData = async (
