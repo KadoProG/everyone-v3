@@ -1,10 +1,10 @@
 'use client';
 
 import { Provider } from 'react-redux';
-import Single from '../../components/single';
-import SingleHooks from './singleHooks';
-import { fetchData } from './singleSlice';
-import { store } from './store';
+import SingleHooks from '@/app/single/singleHooks';
+import { fetchData } from '@/app/single/singleSlice';
+import { store } from '@/app/single/store';
+import { SinglePage } from '@/components/SinglePage';
 
 type Props = {
   initData: { first: number; favorites: number[]; isLocalStorage: boolean };
@@ -15,7 +15,7 @@ const SingleProvider = (props: Props) => {
 
   return (
     <Provider store={store}>
-      <Single />
+      <SinglePage />
       <SingleHooks />
     </Provider>
   );

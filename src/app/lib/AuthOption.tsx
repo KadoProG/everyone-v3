@@ -1,5 +1,5 @@
 import GithubProvider from 'next-auth/providers/github';
-import { ENVIROMENT_KEY } from '../../utils/environmentKey';
+import { ENVIROMENT_KEY } from '@/utils/environmentKey';
 
 export const authOptions = {
   secret: ENVIROMENT_KEY.NEXTAUTH_SECRET,

@@ -1,5 +1,5 @@
-import { Button } from '../../stories/Button';
-import styles from './DialogConfirm.module.scss';
+import { Button } from '@/components/commons/Button';
+import styles from '@/components/single/DialogConfirm.module.scss';
 
 interface DialogConfirmProps {
   /**
@@ -25,7 +25,7 @@ interface DialogConfirmProps {
 /**
  * 確認ダイアログ 閉じる際答えのインデックス値を返す
  */
-const DialogConfirm = (props: DialogConfirmProps) => {
+export const DialogConfirm = (props: DialogConfirmProps) => {
   return (
     <div
       className={styles.confirm + (props.isVisible ? ' ' + styles.enabled : '')}
@@ -48,9 +48,6 @@ const DialogConfirm = (props: DialogConfirmProps) => {
                 label={v}
                 onClick={() => props.onClose(index)}
               />
-              // <button key={index} onClick={() => props.onClose(index)}>
-              //   {v}
-              // </button>
             );
           })}
           <Button onClick={() => props.onClose(undefined)} label="戻る" />
@@ -59,5 +56,3 @@ const DialogConfirm = (props: DialogConfirmProps) => {
     </div>
   );
 };
-
-export default DialogConfirm;

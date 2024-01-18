@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState, setStudentNo } from '../../../app/single/singleSlice';
-import { Button } from '../../../stories/Button';
-import { changeStudentNo, changeYearNo } from '../../../utils/pracData';
-import styles from './ShowFavorites.module.scss';
+import { RootState, setStudentNo } from '@/app/single/singleSlice';
+import { Button } from '@/components/commons/Button';
+import styles from '@/components/single/no/ShowFavorites.module.scss';
+import { changeStudentNo, changeYearNo } from '@/utils/pracData';
 
-const ShowFavorites: React.FC = () => {
+export const ShowFavorites: React.FC = () => {
   const dispatch = useDispatch();
   const data = useSelector((state: RootState) => state.data);
   const favorites = data.favorites;
@@ -64,5 +64,3 @@ const ShowFavorites: React.FC = () => {
     </section>
   );
 };
-
-export default ShowFavorites;

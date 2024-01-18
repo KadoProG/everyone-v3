@@ -1,4 +1,4 @@
-const SmallContents = () => {
+export const SmallContents = () => {
   return (
     <div className="smallContents">
       <ul>
@@ -56,5 +56,3 @@ const SmallContents = () => {
     </div>
   );
 };
-
-export default SmallContents;

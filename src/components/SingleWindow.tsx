@@ -1,10 +1,11 @@
-import SmallContents from './small_contents';
+import { SmallContents } from '@/components/SmallContents';
 
 type Props = {
   className?: string;
   animation?: boolean;
 };
-const SingleWindow = (props: Props) => {
+
+export const SingleWindow = (props: Props) => {
   const className = props.className ? ' ' + props.className : '';
   const isAnimation = props.animation ? props.animation : false;
 
@@ -24,5 +25,3 @@ const SingleWindow = (props: Props) => {
     </div>
   );
 };
-
-export default SingleWindow;

@@ -4,10 +4,12 @@ import {
   RootState,
   setCurrentFavorite,
   setCurrentFirst,
-} from '../../../app/single/singleSlice';
-import styles from './DialogNoRight.module.scss';
+} from '@/app/single/singleSlice';
+import styles from '@/components/single/no/DialogNoRight.module.scss';
 
-// 学生番号ダイアログ>>学生番号操作>>右側の「お気に入り」「最初に表示」ボタンのコンポーネント
+/**
+ * 学生番号ダイアログ>>学生番号操作>>右側の「お気に入り」「最初に表示」ボタンのコンポーネント
+ */
 const DialogNoRight: React.FC = () => {
   //
   const dispatch = useDispatch();

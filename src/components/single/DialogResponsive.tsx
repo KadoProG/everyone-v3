@@ -1,9 +1,12 @@
 'use client';
 import Image from 'next/image';
-import '../../../public/css/dialog_no.scss';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState, setIframeStatus } from '../../app/single/singleSlice';
+import { RootState, setIframeStatus } from '@/app/single/singleSlice';
+import { Button } from '@/components/commons/Button';
+import { DialogBottomButton } from '@/components/commons/DialogBottomButton';
+import { DialogContainer } from '@/components/commons/DialogContainer';
+import { DialogSectionTitle } from '@/components/commons/DialogSectionTitle';
 
 type Props = {
   onClose(): void;
@@ -11,7 +14,7 @@ type Props = {
   isVisible: boolean;
 };
 
-const DialogResponsive = (props: Props) => {
+export const DialogResponsive: React.FC<Props> = (props) => {
   const [range, setRange] = useState<string>('');
   const dispatch = useDispatch();
   const data = useSelector((state: RootState) => state.data);
@@ -53,69 +56,74 @@ const DialogResponsive = (props: Props) => {
 
   return (
     <>
-      <div
-        className={`dialog${!props.isVisible ? ' disabled' : ''}`}
-        onClick={props.onClose}
-      >
-        <div className="dialog__content" onClick={(e) => e.stopPropagation()}>
-          <p className="favoriteP">
-            カスタム
+      <DialogContainer isVisible={props.isVisible} onClose={props.onClose}>
+        <DialogSectionTitle
+          label="カスタム"
+          rightContent={
             <input
               type="number"
               value={range}
               onChange={(e) => onRange(e.target.value)}
             />
-          </p>
-          <div className="site">
-            <input
-              type="range"
-              value={range}
-              min={200}
-              max={5000}
-              onChange={(e) => onRange(e.target.value)}
-            />
-          </div>
-          <p>
-            <b>メディアクエリ</b>
-          </p>
-          <div className="site">
-            <button onClick={() => onRange('380')}>
+          }
+        />
+        <section>
+          <input
+            type="range"
+            value={range}
+            min={200}
+            max={5000}
+            onChange={(e) => onRange(e.target.value)}
+            style={{ width: '100%' }}
+          />
+        </section>
+
+        <DialogSectionTitle label="メディアクエリ" />
+        <div>
+          <Button
+            onClick={() => onRange('380')}
+            label={
               <Image
                 src="/images/smartphone_icon.svg"
                 width={20}
                 height={20}
                 alt="スマホ"
               />
-            </button>
-            <button onClick={() => onRange('600')}>
+            }
+          />
+          <Button
+            onClick={() => onRange('600')}
+            label={
               <Image
                 src="/images/tablet_icon.svg"
                 width={20}
                 height={20}
                 alt="タブレット"
               />
-            </button>
-            <button onClick={() => onRange('1260')}>
+            }
+          />
+          <Button
+            onClick={() => onRange('1260')}
+            label={
               <Image
                 src="/images/laptopPC_icon.svg"
                 width={20}
                 height={20}
                 alt="ノートPC"
               />
-            </button>
-            <button onClick={() => onRange(String(innerWidth))}>
-              <span>リセット</span>
-            </button>
-          </div>
+            }
+          />
+          <Button
+            onClick={() => onRange(String(innerWidth))}
+            label={<span>リセット</span>}
+          />
         </div>
-      </div>
-      <div className="single__footer__right__button">
-        <button onClick={props.onSelect}>
-          <Image src={path} width={26} height={26} alt="画像" />
-        </button>
-        <span>ﾚｽﾎﾟﾝｼﾌﾞ</span>
-      </div>
+      </DialogContainer>
+      <DialogBottomButton
+        bottomLabel="ﾚｽﾎﾟﾝｼﾌﾞ"
+        imagePath={path}
+        onClick={props.onSelect}
+      />
     </>
   );
 };
-export default DialogResponsive;

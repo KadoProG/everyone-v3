@@ -6,7 +6,8 @@ type IframeProps = {
   isFavorite: boolean;
   onIsFavorite(bool: boolean): void;
 };
-const MultiIframe = (props: IframeProps) => {
+
+export const MultiIframe: React.FC<IframeProps> = (props) => {
   // 現在のやつがお気に入りか
   const isFavorite = props.isFavorite;
 
@@ -35,5 +36,3 @@ const MultiIframe = (props: IframeProps) => {
     </div>
   );
 };
-
-export default MultiIframe;

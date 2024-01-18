@@ -2,10 +2,10 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import '../../public/css/home.scss';
-import '../../public/css/window.scss';
+import '@/app/home.scss';
+import '@/app/window.scss';
 import { signIn, signOut, useSession } from 'next-auth/react';
-import SingleWindow from '../components/single_window';
+import { SingleWindow } from '@/components/SingleWindow';
 
 const Home = () => {
   const { data: session, status } = useSession();

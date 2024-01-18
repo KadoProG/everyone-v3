@@ -1,5 +1,5 @@
 import React from 'react';
-import './button.css';
+import styles from '@/components/commons/Button.module.scss';
 
 interface ButtonProps {
   /**
@@ -17,11 +17,13 @@ interface ButtonProps {
   /**
    * Button contents
    */
-  label: string;
+  label: React.ReactNode;
   /**
    * Optional click handler
    */
   onClick?: () => void;
+  disabled?: boolean;
+  checked?: boolean;
 }
 
 /**
@@ -35,14 +37,17 @@ export const Button = ({
   ...props
 }: ButtonProps) => {
   const mode = primary
-    ? 'storybook-button--primary'
-    : 'storybook-button--secondary';
+    ? styles.storybook_button__primary
+    : styles.storybook_button__secondary;
   return (
     <button
       type="button"
-      className={['storybook-button', `storybook-button--${size}`, mode].join(
-        ' '
-      )}
+      className={[
+        styles.storybook_button,
+        `${styles.storybook_button__}${size}`,
+        mode,
+        props.checked && styles.checked,
+      ].join(' ')}
       {...props}
     >
       {label}

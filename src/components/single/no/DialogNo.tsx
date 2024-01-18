@@ -1,10 +1,11 @@
 import { useSelector } from 'react-redux';
 import { RootState } from '@/app/single/singleSlice';
-import DialogContainer from '@/components/commons/DialogContainer';
-import DialogNoDetail from '@/components/single/no/DialogNoDetail';
-import DialogNoFavorite from '@/components/single/no/DialogNoFavorite';
+import { DialogBottomButton } from '@/components/commons/DialogBottomButton';
+import { DialogContainer } from '@/components/commons/DialogContainer';
+import styles from '@/components/single/no/DialogNo.module.scss';
+import { DialogNoDetail } from '@/components/single/no/DialogNoDetail';
+import { DialogNoFavorite } from '@/components/single/no/DialogNoFavorite';
 import DialogNoRight from '@/components/single/no/DialogNoRight';
-import styles from './DialogNo.module.scss';
 
 type Props = {
   onClose(): void; // ウィンドウを閉じる
@@ -31,12 +32,11 @@ export const DialogNo: React.FC<Props> = ({ isVisible, onClose, onSelect }) => {
         </div>
       </DialogContainer>
 
-      <div className="single__footer__right__button">
-        <button onClick={onSelect}>
-          <span>{studentNo}</span>
-        </button>
-        <span>学年・学生番号</span>
-      </div>
+      <DialogBottomButton
+        bottomLabel="学年・学生番号"
+        mainText={String(studentNo)}
+        onClick={onSelect}
+      />
     </>
   );
 };

@@ -8,14 +8,14 @@ import {
   setFirst,
   setIframeVisible,
   setIsLocalStorage,
-} from '../../../app/single/singleSlice';
-import { Button } from '../../../stories/Button';
-import { gitFetchDifference } from '../../../utils/update';
-import DialogConfirm from '../DialogConfirm';
-import DialogFileUpload from '../DialogFileUpload';
-import styles from './DialogNoFavorite.module.scss';
-import DialogNoFavoriteToggle from './DialogNoFavoriteToggle';
-import ShowFavorites from './ShowFavorites';
+} from '@/app/single/singleSlice';
+import { Button } from '@/components/commons/Button';
+import { DialogConfirm } from '@/components/single/DialogConfirm';
+import DialogFileUpload from '@/components/single/no/DialogFileUpload';
+import styles from '@/components/single/no/DialogNoFavorite.module.scss';
+import { DialogNoFavoriteToggle } from '@/components/single/no/DialogNoFavoriteToggle';
+import { ShowFavorites } from '@/components/single/no/ShowFavorites';
+import { gitFetchDifference } from '@/utils/update';
 
 const changeGitIsLocalStorage = async (
   id: string,
@@ -34,7 +34,7 @@ const changeGitIsLocalStorage = async (
     .then((res) => res);
 };
 
-const DialogNoFavorite: React.FC = () => {
+export const DialogNoFavorite: React.FC = () => {
   const question = useRef<string[]>([]);
   const subData = useRef<{
     allData: number[];
@@ -310,5 +310,3 @@ const DialogNoFavorite: React.FC = () => {
     </>
   );
 };
-
-export default DialogNoFavorite;
