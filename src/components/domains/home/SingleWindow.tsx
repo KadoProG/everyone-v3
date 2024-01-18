@@ -1,4 +1,4 @@
-import { SmallContents } from '@/components/SmallContents';
+import { SmallContents } from '@/components/domains/home/SmallContents';
 
 type Props = {
   className?: string;

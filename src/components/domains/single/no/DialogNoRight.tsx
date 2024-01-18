@@ -5,7 +5,7 @@ import {
   setCurrentFavorite,
   setCurrentFirst,
 } from '@/app/single/singleSlice';
-import styles from '@/components/single/no/DialogNoRight.module.scss';
+import styles from '@/components/domains/single/no/DialogNoRight.module.scss';
 
 /**
  * 学生番号ダイアログ>>学生番号操作>>右側の「お気に入り」「最初に表示」ボタンのコンポーネント

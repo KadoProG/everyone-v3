@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/app/single/singleSlice';
-import styles from '@/components/DialogMessage.module.scss';
+import styles from '@/components/domains/single/DialogMessage.module.scss';
 
 export const DialogMessage = () => {
   const arrMessage = useSelector((state: RootState) => state.data.arrMessage);

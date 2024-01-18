@@ -1,7 +1,6 @@
-import '@/components/Multi.module.scss';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/lib/AuthOption';
-import { MultiPage } from '@/components/MultiPage';
+import { MultiPage } from '@/components/pages/multi/MultiPage';
 import { ENVIROMENT_KEY } from '@/utils/environmentKey';
 
 // GETメソッド

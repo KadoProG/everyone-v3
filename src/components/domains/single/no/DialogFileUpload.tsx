@@ -7,8 +7,8 @@ import {
   setFavorites,
 } from '@/app/single/singleSlice';
 import { Button } from '@/components/commons/Button';
-import { DialogConfirm } from '@/components/single/DialogConfirm';
-import styles from '@/components/single/no/DialogFileUpload.module.scss';
+import { DialogConfirm } from '@/components/domains/single/DialogConfirm';
+import styles from '@/components/domains/single/no/DialogFileUpload.module.scss';
 
 type Props = {
   isVisible: boolean;

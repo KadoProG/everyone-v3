@@ -3,10 +3,10 @@
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 
-import { DialogMenu } from '@/components/DialogMenu';
-import styles from '@/components/Multi.module.scss';
-import { MultiIframe } from '@/components/MultiIframe';
-import { PanelNo } from '@/components/PanelNo';
+import { PanelNo } from '@/components/commons/PanelNo';
+import { DialogMenu } from '@/components/domains/(single)(multi)/DialogMenu';
+import { MultiIframe } from '@/components/domains/multi/MultiIframe';
+import styles from '@/components/pages/multi/MultiPage.module.scss';
 import pracData, { changeStudentNo, changeYearNo } from '@/utils/pracData';
 import { localStrage } from '@/utils/update';
 

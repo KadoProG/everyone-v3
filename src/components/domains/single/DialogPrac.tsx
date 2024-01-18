@@ -8,7 +8,7 @@ import { Button } from '@/components/commons/Button';
 import { DialogBottomButton } from '@/components/commons/DialogBottomButton';
 import { DialogContainer } from '@/components/commons/DialogContainer';
 import { DialogSectionTitle } from '@/components/commons/DialogSectionTitle';
-import styles from '@/components/single/DialogPrac.module.scss';
+import styles from '@/components/domains/single/DialogPrac.module.scss';
 import pracData from '@/utils/pracData';
 
 type Props = {

@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import SingleHooks from '@/app/single/singleHooks';
 import { fetchData } from '@/app/single/singleSlice';
 import { store } from '@/app/single/store';
-import { SinglePage } from '@/components/SinglePage';
+import { SinglePage } from '@/components/pages/single/SinglePage';
 
 type Props = {
   initData: { first: number; favorites: number[]; isLocalStorage: boolean };
