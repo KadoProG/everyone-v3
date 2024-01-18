@@ -1,8 +1,7 @@
 import '@/components/Multi.module.scss';
-// import '../../../public/css/dialog.scss';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/lib/AuthOption';
-import { Multi } from '@/components/Multi';
+import { MultiPage } from '@/components/MultiPage';
 import { ENVIROMENT_KEY } from '@/utils/environmentKey';
 
 // GETメソッド
@@ -26,7 +25,7 @@ const Home = async () => {
     ? (await fetchOriginData(session?.user?.email)).data
     : { first: 20216050, favorites: [], isLocalStorage: true };
 
-  return <Multi initData={initData} />;
+  return <MultiPage initData={initData} />;
 };
 
 export default Home;

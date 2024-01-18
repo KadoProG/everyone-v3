@@ -4,8 +4,8 @@ import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 
 import { DialogMenu } from '@/components/DialogMenu';
-import styles from '@/components/multi.module.scss';
-import MultiIframe from '@/components/multi_iframe';
+import styles from '@/components/Multi.module.scss';
+import { MultiIframe } from '@/components/MultiIframe';
 import { PanelNo } from '@/components/PanelNo';
 import pracData, { changeStudentNo, changeYearNo } from '@/utils/pracData';
 import { localStrage } from '@/utils/update';
@@ -31,7 +31,7 @@ const fetchPOST = async (
   return await res.json();
 };
 
-export const Multi = (props: Props) => {
+export const MultiPage = (props: Props) => {
   // ステータス情報を取得
   const { data: session } = useSession();
 
