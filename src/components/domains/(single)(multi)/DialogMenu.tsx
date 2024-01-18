@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { DialogContainer } from '@/components/commons/DialogContainer';
-import styles from '@/components/DialogMenu.module.scss';
+import styles from '@/components/domains/(single)(multi)/DialogMenu.module.scss';
 
 type Props = {
   onClose(): void;

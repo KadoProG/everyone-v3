@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, setStudentNo } from '@/app/single/singleSlice';
 import { Button } from '@/components/commons/Button';
-import styles from '@/components/single/no/ShowFavorites.module.scss';
+import styles from '@/components/domains/single/no/ShowFavorites.module.scss';
 import { changeStudentNo, changeYearNo } from '@/utils/pracData';
 
 export const ShowFavorites: React.FC = () => {

@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import styles from '@/components/single/no/DialogNoFavoriteToggle.module.scss';
+import styles from '@/components/domains/single/no/DialogNoFavoriteToggle.module.scss';
 
 interface DialogNoFavoriteToggleProps {
   isChecked: boolean;

@@ -2,10 +2,10 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@/app/single/singleSlice';
 import { DialogBottomButton } from '@/components/commons/DialogBottomButton';
 import { DialogContainer } from '@/components/commons/DialogContainer';
-import styles from '@/components/single/no/DialogNo.module.scss';
-import { DialogNoDetail } from '@/components/single/no/DialogNoDetail';
-import { DialogNoFavorite } from '@/components/single/no/DialogNoFavorite';
-import DialogNoRight from '@/components/single/no/DialogNoRight';
+import styles from '@/components/domains/single/no/DialogNo.module.scss';
+import { DialogNoDetail } from '@/components/domains/single/no/DialogNoDetail';
+import { DialogNoFavorite } from '@/components/domains/single/no/DialogNoFavorite';
+import DialogNoRight from '@/components/domains/single/no/DialogNoRight';
 
 type Props = {
   onClose(): void; // ウィンドウを閉じる

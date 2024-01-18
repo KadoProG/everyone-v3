@@ -3,13 +3,13 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/app/single/singleSlice';
-import { DialogMenu } from '@/components/DialogMenu';
-import { DialogMessage } from '@/components/DialogMessage';
-import { DialogPrac } from '@/components/single/DialogPrac';
-import { DialogResponsive } from '@/components/single/DialogResponsive';
-import { DialogSite } from '@/components/single/DialogSite';
-import { DialogNo } from '@/components/single/no/DialogNo';
-import styles from '@/components/Single.module.scss';
+import { DialogMenu } from '@/components/domains/(single)(multi)/DialogMenu';
+import { DialogMessage } from '@/components/domains/single/DialogMessage';
+import { DialogPrac } from '@/components/domains/single/DialogPrac';
+import { DialogResponsive } from '@/components/domains/single/DialogResponsive';
+import { DialogSite } from '@/components/domains/single/DialogSite';
+import { DialogNo } from '@/components/domains/single/no/DialogNo';
+import styles from '@/components/pages/single/Single.module.scss';
 
 export const SinglePage: React.FC = () => {
   // 現在の情報ステータス

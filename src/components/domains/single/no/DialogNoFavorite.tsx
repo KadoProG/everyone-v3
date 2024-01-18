@@ -10,11 +10,11 @@ import {
   setIsLocalStorage,
 } from '@/app/single/singleSlice';
 import { Button } from '@/components/commons/Button';
-import { DialogConfirm } from '@/components/single/DialogConfirm';
-import DialogFileUpload from '@/components/single/no/DialogFileUpload';
-import styles from '@/components/single/no/DialogNoFavorite.module.scss';
-import { DialogNoFavoriteToggle } from '@/components/single/no/DialogNoFavoriteToggle';
-import { ShowFavorites } from '@/components/single/no/ShowFavorites';
+import { DialogConfirm } from '@/components/domains/single/DialogConfirm';
+import DialogFileUpload from '@/components/domains/single/no/DialogFileUpload';
+import styles from '@/components/domains/single/no/DialogNoFavorite.module.scss';
+import { DialogNoFavoriteToggle } from '@/components/domains/single/no/DialogNoFavoriteToggle';
+import { ShowFavorites } from '@/components/domains/single/no/ShowFavorites';
 import { gitFetchDifference } from '@/utils/update';
 
 const changeGitIsLocalStorage = async (

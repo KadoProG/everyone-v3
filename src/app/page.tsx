@@ -5,7 +5,7 @@ import Link from 'next/link';
 import '@/app/home.scss';
 import '@/app/window.scss';
 import { signIn, signOut, useSession } from 'next-auth/react';
-import { SingleWindow } from '@/components/SingleWindow';
+import { SingleWindow } from '@/components/domains/home/SingleWindow';
 
 const Home = () => {
   const { data: session, status } = useSession();

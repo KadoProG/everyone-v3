@@ -1,5 +1,5 @@
 import { Button } from '@/components/commons/Button';
-import styles from '@/components/single/DialogConfirm.module.scss';
+import styles from '@/components/domains/single/DialogConfirm.module.scss';
 
 interface DialogConfirmProps {
   /**

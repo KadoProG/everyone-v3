@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { DialogNoFavoriteToggle } from '@/components/single/no/DialogNoFavoriteToggle';
+import { DialogNoFavoriteToggle } from '@/components/domains/single/no/DialogNoFavoriteToggle';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {

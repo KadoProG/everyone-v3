@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import styles from '@/components/PanelNo.module.scss';
+import styles from '@/components/commons/PanelNo.module.scss';
 
 /**
  * ClassNameの設定だが、高さや大きさが変更される
