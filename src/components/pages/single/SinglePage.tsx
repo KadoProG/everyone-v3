@@ -13,9 +13,9 @@ import styles from '@/components/pages/single/SinglePage.module.scss';
 
 export const SinglePage: React.FC = () => {
   // 現在の情報ステータス
-  const data = useSelector((state: RootState) => state.data);
-  const url = data.url;
-  const iframeStatus = data.iframeStatus;
+  const { url, iframeStatus, studentNo } = useSelector(
+    (state: RootState) => state.data
+  );
 
   // ダイアログのINDEX
   const [selectDialog, setSelectDialog] = useState<number>(-1);
@@ -38,6 +38,7 @@ export const SinglePage: React.FC = () => {
     <div>
       <div className={styles.iframe}>
         <iframe
+          title={`${studentNo}番のページ`}
           src={url}
           width={iframeStatus.width}
           height={iframeStatus.height}
