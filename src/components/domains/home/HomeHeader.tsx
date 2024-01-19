@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import styles from '@/components/domains/home/HomeHeader.module.scss';
