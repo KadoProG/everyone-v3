@@ -50,7 +50,11 @@ export const DialogMenu = (props: Props) => {
         })}
         <p className={styles.copyright}>&copy; KadoBloG 2023</p>
       </DialogContainer>
-      <button className={styles.single__footer__left} onClick={props.onSelect}>
+      <button
+        className={styles.single__footer__left}
+        onClick={props.onSelect}
+        aria-label="MENUボタン"
+      >
         <span className={props.isVisible ? styles.checked : ''}></span>
       </button>
     </>
