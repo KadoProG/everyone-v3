@@ -20,6 +20,8 @@
     "react/react-in-jsx-scope": "off",
     // 相対importの禁止
     "no-restricted-imports": ["warn", { "patterns": ["./", "../"] }],
+    // 余計な<></>が入っていないか確認する
+    "react/jsx-no-useless-fragment": ["warn"],
     "import/order": [
       "warn",
       {

@@ -101,7 +101,7 @@ const SingleHooks: React.FC = () => {
     // eslint-disable-next-line
   }, [isLocalStorage, dispatch]);
 
-  return <></>;
+  return <input type="hidden" name="" />;
 };
 
 export default SingleHooks;
