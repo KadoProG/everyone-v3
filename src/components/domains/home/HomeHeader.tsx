@@ -22,7 +22,7 @@ export const HomeHeader = () => {
                   src={session.user.image}
                   width={30}
                   height={30}
-                  alt={'GitHubのアイコン'}
+                  alt="GitHubのアイコン"
                 />
               )}
             </div>

@@ -16,7 +16,7 @@ export const DialogNoFavoriteToggle: React.FC<DialogNoFavoriteToggleProps> = ({
         <p>ﾛｰｶﾙｽﾄﾚｰｼﾞ</p>
       </div>
       <Image
-        src={'/images/my_icon_chrome.png'}
+        src="/images/my_icon_chrome.png"
         width={20}
         height={20}
         alt="Chrome"
@@ -33,7 +33,7 @@ export const DialogNoFavoriteToggle: React.FC<DialogNoFavoriteToggleProps> = ({
     </div>
     <div className={`${styles.desc} ${!isChecked && styles.selected}`}>
       <Image
-        src={'/images/my_icon_github.png'}
+        src="/images/my_icon_github.png"
         width={20}
         height={20}
         alt="GitHub"

@@ -23,7 +23,7 @@ export const HomeMain = async () => {
             alt="GitHubアイコン"
           />
           <Link
-            href={'https://github.com/KadoProG/everyone-v3'}
+            href="https://github.com/KadoProG/everyone-v3"
             target="_blank"
           >
             KadoProG/everyone-v3
@@ -36,7 +36,7 @@ export const HomeMain = async () => {
             height={16}
             alt="YouTubeアイコン"
           />
-          <Link href={'https://youtu.be/Lw88J6RVvgk'} target="_blank">
+          <Link href="https://youtu.be/Lw88J6RVvgk" target="_blank">
             紹介動画（3分）
           </Link>
         </div>
@@ -59,7 +59,7 @@ export const HomeMain = async () => {
               一つひとつ記事を確認、デバッグするために使用するものです。レスポンシブ表示などに対応します。
             </p>
           </div>
-          <Link href={'/single'}>閲覧する！</Link>
+          <Link href="/single">閲覧する！</Link>
         </div>
         <div>
           <div>
@@ -72,7 +72,7 @@ export const HomeMain = async () => {
             </div>
             <p>一度にたくさんのコンテンツを閲覧できます。</p>
           </div>
-          <Link href={'/multi'}>閲覧する！</Link>
+          <Link href="/multi">閲覧する！</Link>
         </div>
       </div>
 

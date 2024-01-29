@@ -28,6 +28,12 @@
     "arrow-body-style": ["error"],
     // importは一番最初に書くように
     "import/first": "error",
+    // 比較演算子の"=="を”＝＝＝”に修正する
+    "eqeqeq": 2,
+    // switch文のbreakチェック
+    "no-fallthrough": "error",
+    // 変数に{""}ではなく""で入力させる
+    "react/jsx-curly-brace-presence": ["error"],
     "import/order": [
       "warn",
       {
