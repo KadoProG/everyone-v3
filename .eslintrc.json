@@ -18,12 +18,16 @@
     "react/no-unescaped-entities": "off",
     "@next/next/no-page-custom-font": "off",
     "react/react-in-jsx-scope": "off",
+    // if文でreturn書くならelseいらない
+    "no-else-return": ["error"],
     // 相対importの禁止
     "no-restricted-imports": ["warn", { "patterns": ["./", "../"] }],
     // 余計な<></>が入っていないか確認する
     "react/jsx-no-useless-fragment": ["warn"],
     // () => {return <></>}ではなく、()=> <></>と表記するように
     "arrow-body-style": ["error"],
+    // importは一番最初に書くように
+    "import/first": "error",
     "import/order": [
       "warn",
       {

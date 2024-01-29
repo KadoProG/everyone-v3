@@ -10,8 +10,7 @@ export const getCurrentFiscalYear = (): number => {
   if (today.getMonth() + 1 < fiscalYearStartMonth) {
     // 今年度が始まっていない場合、前年が今の年度となります
     return currentYear - 1;
-  } else {
-    // 今年度が始まっている場合、今年が今の年度となります
-    return currentYear;
   }
+  // 今年度が始まっている場合、今年が今の年度となります
+  return currentYear;
 };
