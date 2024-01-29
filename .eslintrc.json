@@ -22,6 +22,8 @@
     "no-restricted-imports": ["warn", { "patterns": ["./", "../"] }],
     // 余計な<></>が入っていないか確認する
     "react/jsx-no-useless-fragment": ["warn"],
+    // () => {return <></>}ではなく、()=> <></>と表記するように
+    "arrow-body-style": ["error"],
     "import/order": [
       "warn",
       {

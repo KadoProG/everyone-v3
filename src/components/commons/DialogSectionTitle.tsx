@@ -7,11 +7,9 @@ interface DialogSectionTitleProps {
 
 export const DialogSectionTitle: React.FC<DialogSectionTitleProps> = (
   props
-) => {
-  return (
-    <p className={styles.p}>
-      <b>{props.label}</b>
-      {props.rightContent}
-    </p>
-  );
-};
+) => (
+  <p className={styles.p}>
+    <b>{props.label}</b>
+    {props.rightContent}
+  </p>
+);

@@ -12,18 +12,16 @@ export const DialogContainer: React.FC<DialogContainerProps> = ({
   onClose,
   isVisible,
   className,
-}) => {
-  return (
+}) => (
+  <div
+    className={`${styles.dialog} ${!isVisible ? styles.disabled : ''}`}
+    onClick={onClose}
+  >
     <div
-      className={`${styles.dialog} ${!isVisible ? styles.disabled : ''}`}
-      onClick={onClose}
+      className={`${styles.dialog__content} ${className ?? ''}`}
+      onClick={(e) => e.stopPropagation()}
     >
-      <div
-        className={`${styles.dialog__content} ${className ?? ''}`}
-        onClick={(e) => e.stopPropagation()}
-      >
-        {children}
-      </div>
+      {children}
     </div>
-  );
-};
+  </div>
+);

@@ -43,24 +43,18 @@ export const ShowFavorites: React.FC = () => {
   return (
     <section className={styles.favorite}>
       {groupFavorites.length === 0 && <p>お気に入りが表示されます</p>}
-      {groupFavorites.map((v, index) => {
-        return (
-          <div key={index}>
-            <p>{v.year}年度</p>
-            {v.no.map((w, index) => {
-              return (
-                <Button
-                  key={index}
-                  onClick={() =>
-                    dispatch(setStudentNo(changeStudentNo(v.year, w)))
-                  }
-                  label={String(w)}
-                />
-              );
-            })}
-          </div>
-        );
-      })}
+      {groupFavorites.map((v, index) => (
+        <div key={index}>
+          <p>{v.year}年度</p>
+          {v.no.map((w, index) => (
+            <Button
+              key={index}
+              onClick={() => dispatch(setStudentNo(changeStudentNo(v.year, w)))}
+              label={String(w)}
+            />
+          ))}
+        </div>
+      ))}
     </section>
   );
 };

@@ -110,13 +110,11 @@ type ImageButtonProps = {
   event: () => void;
 };
 
-const OriginImageButton = (props: ImageButtonProps) => {
-  return (
-    <Button
-      onClick={props.event}
-      label={
-        <Image src={props.imageUrl} width={20} height={20} alt={props.alt} />
-      }
-    ></Button>
-  );
-};
+const OriginImageButton = (props: ImageButtonProps) => (
+  <Button
+    onClick={props.event}
+    label={
+      <Image src={props.imageUrl} width={20} height={20} alt={props.alt} />
+    }
+  ></Button>
+);

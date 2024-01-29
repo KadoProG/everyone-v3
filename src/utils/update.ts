@@ -72,26 +72,22 @@ export const gitFetchDifference = async (
   const allData = allData_0.sort((a, b) => a - b);
 
   // 共通データ
-  const sameData = result.favorites.filter((v) => {
-    return localFavorites.includes(v);
-  });
+  const sameData = result.favorites.filter((v) => localFavorites.includes(v));
   if (sameData.length > 10) {
     sameData.length = 10;
     sameData.push(NaN);
   }
   // Gitにしかないデータ
-  const gitOnlyData = result.favorites.filter((v) => {
-    return !localFavorites.includes(v);
-  });
+  const gitOnlyData = result.favorites.filter(
+    (v) => !localFavorites.includes(v)
+  );
   if (gitOnlyData.length > 10) {
     gitOnlyData.length = 10;
     gitOnlyData.push(NaN);
   }
 
   // ローカルにしかないデータ
-  const localData = localFavorites.filter((v) => {
-    return !result.favorites.includes(v);
-  });
+  const localData = localFavorites.filter((v) => !result.favorites.includes(v));
   if (localData.length > 10) {
     localData.length = 10;
     localData.push(NaN);

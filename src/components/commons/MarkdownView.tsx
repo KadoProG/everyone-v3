@@ -22,9 +22,7 @@ export const MarkdownView: React.FC<MarkdownViewProps> = (props) => {
     renderer: renderer,
   };
 
-  const renderMarkdown = (text: string) => {
-    return marked(text, options);
-  };
+  const renderMarkdown = (text: string) => marked(text, options);
 
   return (
     <div

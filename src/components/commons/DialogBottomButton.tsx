@@ -11,16 +11,14 @@ interface DialogBottomButtonProps {
 
 export const DialogBottomButton: React.FC<DialogBottomButtonProps> = (
   props
-) => {
-  return (
-    <div className={styles.button}>
-      <button onClick={props.onClick}>
-        {props.imagePath && (
-          <Image src={props.imagePath} width={26} height={26} alt="画像" />
-        )}
-        {props.mainText && <span>{props.mainText}</span>}
-      </button>
-      <span>{props.bottomLabel}</span>
-    </div>
-  );
-};
+) => (
+  <div className={styles.button}>
+    <button onClick={props.onClick}>
+      {props.imagePath && (
+        <Image src={props.imagePath} width={26} height={26} alt="画像" />
+      )}
+      {props.mainText && <span>{props.mainText}</span>}
+    </button>
+    <span>{props.bottomLabel}</span>
+  </div>
+);
