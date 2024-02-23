@@ -1,19 +1,10 @@
 # みんなの記事v3
 
-2023/10/21 作成開始
-2023/10/22 これから作成します（デザイン起こし）
+https://youtu.be/Lw88J6RVvgk
 
-進化した「みんなの記事v3」いわゆるWebクローラーは、学内メンバーの課題を簡単に見ることができます。お気に入り登録、デバッグ等の確認がこれ一つで実行できます。
+「みんなの記事v3」いわゆるWebクローラーは、学内メンバーの課題を簡単に見ることができます。
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
-## 単体表示
-
-一つひとつ記事を確認、デバッグするために使用するものです。レスポンシブ表示などに対応します。
-
-## マルチ表示
-
-一度にたくさんのコンテンツを閲覧できます。
+<p style="color:red">※原則、学内の人のみの閲覧になります。パスワードを要求されたらご容赦ください。</p>
 
 ## 旧型の「みんなの記事」
 
@@ -22,6 +13,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 学校で、「Webコンテンツ及び演習」という講義があり、そこで学生が一人ひとり、HTML,CSS,JavaScript等を用いてWebサイトを作る、という課題が出されました。
 
 作った課題は全員が見られるのですが、その名前、あるいは学生番号を一つひとつクリックして、いちいち確認するのがあまりにも屈辱的すぎて、これをもっと簡単にできるシステムを作ろう、ということで作りました。
+
+[「みんなの記事v1」を閲覧する](https://fast5-blog.com/html-product/uni-web/blogs/everyone.html)
 
 ### URLを書き換えて、iframeに表示するだけ
 
@@ -35,39 +28,34 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - お気に入り機能の追加、textデータの発行・取り込み
 - 再読み込み（リロード）ボタン等の追加
 
-お気に入り機能は、ローカルストレージという機能を用いています。v1,v2いずれもHTML,CSS,JavaScriptで、かつライブラリやフレームワーク等も使用していなかったと思います。
+[「みんなの記事v2」を閲覧する](https://fast5-blog.com/html-product/uni-web/blogs/newEveryone.html)
 
-## Getting Started
+お気に入り機能は、ローカルストレージという機能を用いています。v1,v2いずれも**HTML, CSS, JavaScript**で、かつライブラリやフレームワーク等も使用していなかったと思います。
 
-First, run the development server:
+## 更に進化した「みんなの記事v3」
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+前回作成したのが2022年6月ということで、作成してからだいぶ時間が経ちました。
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+その際「Webコンテンツ」にしか対応していなかったことから、カスタマイズ性に疑問がありました。また、当時のコードは非常に見づらいコードとなっており、これはイカン！ということで再度作り直しました。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+関数の動きや処理の流れをもう一度見直し、メンテナンス性の高いコードにしました。また、**Next.js**を使用し、React Hooksを使用した変数宣言、レスポンスのいい動作を実現しました。
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### 操作性の大幅変更
 
-## Learn More
+UIも大幅に変更し、従来のブログ型から、１ページ完結型に変更し、上いっぱいにiframeが表示されるように変更しました。
 
-To learn more about Next.js, take a look at the following resources:
+操作ボタンをダイアログ方式にし、アクセシビリティや多機能ボタンを使いやすくしました。
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+また、スマホでの操作を考慮し、ボタンを下部に表示したり、レスポンシブ表示の`transform: scale()`を併用して、スマホでもPC・タブレット表示を可能としました。
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+前回と同様お気に入り機能を備えていることや、ロード時の「最初に表示」機能も追加しました。素早く自分の課題を確認することができます。
 
-## Deploy on Vercel
+### お気に入りテキストファイルの「ドラッグアンドドロップ」に対応
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+また、従来ではできなかった、**お気に入りデータのドラッグアンドドロップ**にも対応しました。というのも、iframeの上ではドラッグアンドドロップができないらしく、みんなの記事v2では大きな課題でした。
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+さらに、インポート時のオプションも追加し、圧倒的な使いやすさを実現しました。
+
+## 閲覧の超越「マルチ表示」に対応しました
+
+これに加えて「マルチ表示」機能にも対応させました。これは、今まで単体表示のみだったものを、複数表示に対応させ、一度に大量のコンテンツを見られるようにしたものです。こちらも同様にお気に入り登録が可能です。
