@@ -1,12 +1,15 @@
 # みんなの記事v3
-
-https://youtu.be/Lw88J6RVvgk
+![v3](https://github.com/KadoProG/everyone-v3/assets/65702927/a900ec45-8c0b-42be-8f48-bdbd30f81bc7)
 
 「みんなの記事v3」いわゆるWebクローラーは、学内メンバーの課題を簡単に見ることができます。
 
 <p style="color:red">※原則、学内の人のみの閲覧になります。パスワードを要求されたらご容赦ください。</p>
 
+学外向け：YouTubeは[こちら](https://youtu.be/Lw88J6RVvgk)
+
 ## 旧型の「みんなの記事」
+
+<img width="676" alt="v1" src="https://github.com/KadoProG/everyone-v3/assets/65702927/e1179607-a24f-4dd5-a57e-6723d8ba85cb">
 
 初代、みんなの記事は、2022年5月15日に制作しました。
 
@@ -21,6 +24,8 @@ https://youtu.be/Lw88J6RVvgk
 今回の「みんなの記事」別名Webクローラーは、いずれもiframeにURLを書き換えているだけです。しかし、同じWebクローラー形式のサイトを、同級生が私より早く作ってしまい、かつ機能も豊富だったことから、再度作り直したのが次に紹介するv2です。
 
 ## 機能を圧倒的に増やしたv2
+
+<img width="449" alt="v2" src="https://github.com/KadoProG/everyone-v3/assets/65702927/b0b3c287-8c7d-4399-b372-57994d6df9a9">
 
 次に紹介するのはv2です。2022年6月11日に完成したらしいです。v2では、以下の機能を追加しました。
 
@@ -42,6 +47,10 @@ https://youtu.be/Lw88J6RVvgk
 
 ### 操作性の大幅変更
 
+|ダイアログ方式の操作パネル|スマホUIでのレスポンシブ確認|
+|--|--|
+|<img width="390" alt="v3_1" src="https://github.com/KadoProG/everyone-v3/assets/65702927/35bcb7cb-b6b6-466a-a6ee-d1de4aaaf466">|https://github.com/KadoProG/everyone-v3/assets/65702927/37a8d001-e3a0-440b-9775-c10eb881f9af|
+
 UIも大幅に変更し、従来のブログ型から、１ページ完結型に変更し、上いっぱいにiframeが表示されるように変更しました。
 
 操作ボタンをダイアログ方式にし、アクセシビリティや多機能ボタンを使いやすくしました。
@@ -51,6 +60,10 @@ UIも大幅に変更し、従来のブログ型から、１ページ完結型に
 前回と同様お気に入り機能を備えていることや、ロード時の「最初に表示」機能も追加しました。素早く自分の課題を確認することができます。
 
 ### お気に入りテキストファイルの「ドラッグアンドドロップ」に対応
+
+|お気に入りデータの|ドラッグアンドドロップ|
+|--|--|
+|![v3_2](https://github.com/KadoProG/everyone-v3/assets/65702927/d447f206-9c1f-4bde-b2b6-61cba3f05edb)|![v3_3](https://github.com/KadoProG/everyone-v3/assets/65702927/e3b44d01-999b-48da-93df-ad121ba1307d)|
 
 また、従来ではできなかった、**お気に入りデータのドラッグアンドドロップ**にも対応しました。というのも、iframeの上ではドラッグアンドドロップができないらしく、みんなの記事v2では大きな課題でした。
 
