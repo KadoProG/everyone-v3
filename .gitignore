@@ -24,8 +24,6 @@
 
 # debug
 npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
 
 # local env files
 .env*.local
@@ -36,3 +34,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# prisma generate の出力
+/src/generated/
+
+# storybook
+/storybook-static/
+*storybook.log

@@ -7,6 +7,32 @@
 
 学外向け：YouTubeは[こちら](https://youtu.be/Lw88J6RVvgk)
 
+## 開発環境
+
+Node.js のバージョンは [mise](https://mise.jdx.dev/) で管理しています（`mise.toml`）。パッケージマネージャーは npm です。
+
+```bash
+# Node.js（mise.toml のバージョン）をインストール
+mise install
+
+# 依存パッケージをインストール（postinstall で Prisma Client も生成されます）
+npm install
+
+# 環境変数を用意して値を埋める
+cp .env.sample .env
+
+# 開発サーバーを起動（http://localhost:3000）
+npm run dev
+```
+
+| コマンド | 内容 |
+| --- | --- |
+| `npm run build` | Prisma Client を生成して本番ビルド |
+| `npm run lint` / `npm run fix` | ESLint のチェック / 自動修正 |
+| `npm run check-types` | 型チェック |
+| `npm run storybook` | Storybook を起動（http://localhost:6006） |
+| `npx prisma migrate dev` | マイグレーションの作成・適用（`POSTGRES_URL_NON_POOLING` を使用） |
+
 ## 旧型の「みんなの記事」
 
 <img width="676" alt="v1" src="https://github.com/KadoProG/everyone-v3/assets/65702927/e1179607-a24f-4dd5-a57e-6723d8ba85cb">
