@@ -1,4 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/nextjs';
+import { fn } from 'storybook/test';
 import { DialogContainer } from '@/components/commons/DialogContainer';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
@@ -11,6 +12,7 @@ const meta = {
   },
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ['autodocs'],
+  args: { onClose: fn() },
 } satisfies Meta<typeof DialogContainer>;
 
 export default meta;

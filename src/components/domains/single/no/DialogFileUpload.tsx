@@ -84,7 +84,9 @@ const DialogFileUpload = (props: Props) => {
 
   // ファイルアップロードのダイアログを閉じる
   const onClose = () => {
-    const elm: any = document.getElementById('dialog__file__upload__input');
+    const elm = document.getElementById(
+      'dialog__file__upload__input'
+    ) as HTMLInputElement | null;
     if (!elm) return;
     elm.value = '';
     props.onClose();

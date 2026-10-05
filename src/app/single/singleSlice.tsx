@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { initStudentNo } from '@/const';
 
 export type IframeStatus = {
@@ -42,33 +42,33 @@ export const DataSlice = createSlice({
   initialState,
   reducers: {
     // 現在の学生番号変更
-    setStudentNo: (state, action: { type: any; payload: number }) => {
+    setStudentNo: (state, action: PayloadAction<number>) => {
       state.studentNo = action.payload;
     },
 
     // お気に入り変更
-    setFavorites: (state, action: { type: any; payload: number[] }) => {
+    setFavorites: (state, action: PayloadAction<number[]>) => {
       state.favorites = action.payload;
     },
 
     // 「最初に表示」変更
-    setFirst: (state, action: { type: any; payload: number }) => {
+    setFirst: (state, action: PayloadAction<number>) => {
       state.first = action.payload;
     },
 
     // メッセージを追加
-    pushArrMessage: (state, action: { type: any; payload: string }) => {
+    pushArrMessage: (state, action: PayloadAction<string>) => {
       const newArrMessage = [...state.arrMessage, action.payload];
       state.arrMessage = newArrMessage;
     },
 
     // URLを変更
-    setUrl: (state, action: { type: any; payload: string }) => {
+    setUrl: (state, action: PayloadAction<string>) => {
       state.url = action.payload;
     },
 
     // 現在の学生番号のお気に入り変更
-    setCurrentFavorite: (state, action: { type: any; payload: boolean }) => {
+    setCurrentFavorite: (state, action: PayloadAction<boolean>) => {
       const newFavorites = action.payload
         ? [...state.favorites, state.studentNo]
         : state.favorites.filter((v) => v !== state.studentNo);
@@ -77,31 +77,31 @@ export const DataSlice = createSlice({
     },
 
     // 現在の学生番号の「最初に表示」変更
-    setCurrentFirst: (state, action: { type: any; payload: boolean }) => {
+    setCurrentFirst: (state, action: PayloadAction<boolean>) => {
       if (!action.payload) return;
       state.first = state.studentNo;
     },
 
     // ローカルストレージか否か
-    setIsLocalStorage: (state, action: { type: any; payload: boolean }) => {
+    setIsLocalStorage: (state, action: PayloadAction<boolean>) => {
       state.isLocalStorage = action.payload;
     },
 
     // 課題項目[Web,Java,ﾏﾙｳｪｱ]
-    setPracIndex: (state, action: { type: any; payload: number }) => {
+    setPracIndex: (state, action: PayloadAction<number>) => {
       state.pracDetail = 0;
       state.pracIndex = action.payload;
     },
     // 課題項目[EX01, EX02]
-    setPracDetail: (state, action: { type: any; payload: number }) => {
+    setPracDetail: (state, action: PayloadAction<number>) => {
       state.pracDetail = action.payload;
     },
 
-    setIframeStatus: (state, action: { type: any; payload: IframeStatus }) => {
+    setIframeStatus: (state, action: PayloadAction<IframeStatus>) => {
       state.iframeStatus = action.payload;
     },
 
-    setIframeVisible: (state, action: { type: any; payload: boolean }) => {
+    setIframeVisible: (state, action: PayloadAction<boolean>) => {
       state.iframeStatus.isObstacle = action.payload;
     },
 
@@ -110,13 +110,10 @@ export const DataSlice = createSlice({
      */
     fetchData: (
       store,
-      action: {
-        type: any;
-        payload: {
-          first: number;
-          favorites: number[];
-        };
-      }
+      action: PayloadAction<{
+        first: number;
+        favorites: number[];
+      }>
     ) => {
       store.isLocalStorage = false;
       store.first = action.payload.first;

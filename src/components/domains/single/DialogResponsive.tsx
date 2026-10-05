@@ -47,6 +47,8 @@ export const DialogResponsive: React.FC<Props> = (props) => {
 
   // 起動時実行（DOM操作あり）
   useEffect(() => {
+    // ウィンドウ幅は描画時に取れないため、マウント後に反映する
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     onRange(String(innerWidth));
     window.addEventListener('resize', () => {
       onRange(String(innerWidth));
