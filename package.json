@@ -25,7 +25,7 @@
     "marked": "^11.1.1",
     "next": "^14.0.4",
     "next-auth": "^4.24.5",
-    "prisma": "^5.8.1",
+    "prisma": "^7.10.0",
     "react": "^18",
     "react-dom": "^18",
     "react-redux": "^9.1.0"
