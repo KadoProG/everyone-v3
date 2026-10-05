@@ -1,15 +1,13 @@
-import { PrismaClient } from '@prisma/client';
 import { NextRequest } from 'next/server';
-
-const prisma = new PrismaClient();
+import { prisma } from '@/app/lib/prisma';
 
 // ここからはPOST
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   // GitHubのIDを格納
-  const githubAccountId = params.id;
+  const { id: githubAccountId } = await params;
 
   const body = await request.json();
 
