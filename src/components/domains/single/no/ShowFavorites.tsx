@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, setStudentNo } from '@/app/single/singleSlice';
 import { Button } from '@/components/commons/Button';
@@ -10,19 +10,10 @@ export const ShowFavorites: React.FC = () => {
   const data = useSelector((state: RootState) => state.data);
   const favorites = data.favorites;
 
-  const [groupFavorites, setGroupFavorites] = useState<
-    { year: number; no: number[] }[]
-  >([]);
-
   // 学年[]→学生番号[]の形にする
-  useEffect(() => {
-    const newFavorites: { year: number; no: number[] }[] = [];
+  const groupFavorites = useMemo(() => {
     const groupData: { [key: number]: { year: number; no: number[] } } = {};
 
-    if (favorites.length === 0) {
-      setGroupFavorites([]);
-      return;
-    }
     favorites.forEach((v) => {
       const res = changeYearNo(v);
 
@@ -33,11 +24,7 @@ export const ShowFavorites: React.FC = () => {
       groupData[res.year].no.push(res.no);
     });
 
-    for (const year in groupData) {
-      newFavorites.push(groupData[year]);
-    }
-
-    setGroupFavorites(newFavorites);
+    return Object.values(groupData);
   }, [favorites]);
 
   return (

@@ -1,15 +1,13 @@
-import { PrismaClient } from '@prisma/client';
 import { NextRequest } from 'next/server';
+import { prisma } from '@/app/lib/prisma';
 import { initStudentNo } from '@/const';
-
-const prisma = new PrismaClient();
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   // GitHubのIDを格納
-  const githubAccountId = params.id;
+  const { id: githubAccountId } = await params;
 
   // データの有無を調べる
   const data = await prisma.user.findUnique({
@@ -37,10 +35,10 @@ export async function GET(
 // ここからはPOST
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   // GitHubのIDを格納
-  const githubAccountId = params.id;
+  const { id: githubAccountId } = await params;
 
   const body = await request.json();
 

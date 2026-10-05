@@ -6,4 +6,5 @@ dist/
 out/
 public/
 package-lock.json
-yarn.lock
+src/generated/
+storybook-static/

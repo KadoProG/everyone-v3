@@ -36,7 +36,7 @@ const changeGitIsLocalStorage = async (
 };
 
 export const DialogNoFavorite: React.FC = () => {
-  const question = useRef<string[]>([]);
+  const [gitFetchQuestion, setGitFetchQuestion] = useState<string[]>([]);
   const subData = useRef<{
     allData: number[];
     gitData: number[];
@@ -57,7 +57,7 @@ export const DialogNoFavorite: React.FC = () => {
   const isLocalStorage = data.isLocalStorage;
 
   // 確認ダイアログのプロパティ
-  const dialogConfirm = useRef<{
+  const [dialogConfirm, setDialogConfirm] = useState<{
     question: string | string[];
     onClose(num: number | undefined): void;
     answers: string[];
@@ -123,7 +123,7 @@ export const DialogNoFavorite: React.FC = () => {
       // LocalStorage管理にします
       if (session?.user?.email) {
         const questionData = await gitFetchDifference(session?.user?.email);
-        question.current = questionData.arrMessage;
+        setGitFetchQuestion(questionData.arrMessage);
         subData.current = questionData;
         setIsVisibleGitFetch(true);
       } else {
@@ -137,7 +137,7 @@ export const DialogNoFavorite: React.FC = () => {
       } else {
         // ローカルストレージとGitデータの競合問題を解決する
         const questionData = await gitFetchDifference(session.user.email);
-        question.current = questionData.arrMessage;
+        setGitFetchQuestion(questionData.arrMessage);
         subData.current = questionData;
         setIsVisibleGitFetch(true);
       }
@@ -208,33 +208,34 @@ export const DialogNoFavorite: React.FC = () => {
         }
         dispatch(setFavorites(subData.current.allData));
         if (subData.current.gitFirst !== subData.current.localFirst) {
-          dialogConfirm.current.question = [
-            '最初に表示するのはどちらにしますか？',
-            `ローカルデータ：${subData.current.localFirst}`,
-            `Gitデータ：${subData.current.gitFirst}`,
-          ];
-          dialogConfirm.current.answers = [
-            String(subData.current.localFirst),
-            String(subData.current.gitFirst),
-          ];
+          setDialogConfirm({
+            question: [
+              '最初に表示するのはどちらにしますか？',
+              `ローカルデータ：${subData.current.localFirst}`,
+              `Gitデータ：${subData.current.gitFirst}`,
+            ],
+            answers: [
+              String(subData.current.localFirst),
+              String(subData.current.gitFirst),
+            ],
+            onClose: (result) => {
+              if (result === undefined) return;
+              switch (result) {
+                case 0: // ローカルデータ
+                  dispatch(setFirst(subData.current.localFirst));
+                  break;
+                case 1: // Gitデータ
+                  dispatch(setFirst(subData.current.gitFirst));
+                  break;
+                default:
+                  return;
+              }
+              setIsVisibleConfirm(false);
+              dispatch(pushArrMessage('設定が完了しました'));
+            },
+          });
 
           setIsVisibleConfirm(true);
-
-          dialogConfirm.current.onClose = (result) => {
-            if (result === undefined) return;
-            switch (result) {
-              case 0: // ローカルデータ
-                dispatch(setFirst(subData.current.localFirst));
-                break;
-              case 1: // Gitデータ
-                dispatch(setFirst(subData.current.gitFirst));
-                break;
-              default:
-                return;
-            }
-            setIsVisibleConfirm(false);
-            dispatch(pushArrMessage('設定が完了しました'));
-          };
         } else {
           dispatch(pushArrMessage('設定が完了しました'));
         }
@@ -274,17 +275,17 @@ export const DialogNoFavorite: React.FC = () => {
       />
 
       <DialogConfirm
-        question={question.current}
+        question={gitFetchQuestion}
         isVisible={isVisibleGitFetch}
         answers={['ローカルデータのみ', 'Gitデータのみ', 'すべて統合']}
         onClose={handleGitFetch}
       />
 
       <DialogConfirm
-        question={dialogConfirm.current.question}
+        question={dialogConfirm.question}
         isVisible={isVisibleConfirm}
-        answers={dialogConfirm.current.answers}
-        onClose={dialogConfirm.current.onClose}
+        answers={dialogConfirm.answers}
+        onClose={dialogConfirm.onClose}
       />
 
       <DialogFileUpload
