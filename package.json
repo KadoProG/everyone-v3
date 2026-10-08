@@ -55,6 +55,11 @@
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.71.0"
   },
+  "overrides": {
+    "deepmerge-ts": "^8.0.2",
+    "mysql2": "^3.24.5",
+    "webpack-dev-middleware": "^7.4.6"
+  },
   "allowScripts": {
     "@prisma/engines": true,
     "prisma": true,
