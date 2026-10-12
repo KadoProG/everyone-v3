@@ -21,12 +21,12 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@next/third-parties": "^16.3.8",
+    "@next/third-parties": "^16.4.0",
     "@prisma/adapter-pg": "^7.10.0",
     "@prisma/client": "^7.10.0",
     "@reduxjs/toolkit": "^2.13.0",
-    "marked": "^18.0.14",
-    "next": "^16.3.8",
+    "marked": "^18.1.0",
+    "next": "^16.4.0",
     "next-auth": "^4.24.15",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
@@ -41,9 +41,9 @@
     "@types/node": "^24.19.1",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
-    "dotenv": "^18.0.5",
+    "dotenv": "^18.0.7",
     "eslint": "^10.12.0",
-    "eslint-config-next": "^16.3.8",
+    "eslint-config-next": "^16.4.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-storybook": "^10.6.1",
     "husky": "^9.1.7",
@@ -53,7 +53,7 @@
     "sass": "^1.105.1",
     "storybook": "^10.6.1",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.71.0"
+    "typescript-eslint": "^8.71.1"
   },
   "overrides": {
     "deepmerge-ts": "^8.0.2",
