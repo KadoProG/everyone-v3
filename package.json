@@ -38,7 +38,7 @@
     "@storybook/addon-links": "^10.6.1",
     "@storybook/addon-onboarding": "^10.6.1",
     "@storybook/nextjs": "^10.6.1",
-    "@types/node": "^24.19.1",
+    "@types/node": "^26.6.5",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "dotenv": "^18.0.7",
